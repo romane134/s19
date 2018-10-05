@@ -16,7 +16,7 @@ void	*ft_memalloc(size_t size)
 {
 	void	*area;
 
-	if (!(area = (void *)malloc(sizeof(area) * (size + 1))))
+	if (!(area = (void *)malloc(sizeof(area) * (size))))
 		return (NULL);
 	if (area == NULL)
 		return (NULL);
