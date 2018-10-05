@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 08:55:19 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/03 09:25:34 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/04 23:09:45 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/05 03:33:08 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int n)
+int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	long lnb;
-
-	lnb = n;
-	if (lnb < 0)
+	if (!s1 || !s2)
+		return (0);
+	if (!s1 && !s2)
+		return (1);
+	while (*s1 && *s2 && n > 0)
 	{
-		lnb = -lnb;
-		ft_putchar('-');
+		if (*s1 != *s2)
+			return (0);
+		else
+		{
+			s1++;
+			s2++;
+			n--;
+		}
 	}
-	if (lnb > 9)
-	{
-		ft_putnbr(lnb / 10);
-	}
-	ft_putchar((lnb % 10) + 48);
+	if (*s1 == *s2)
+		return (1);
+	return (0);
 }

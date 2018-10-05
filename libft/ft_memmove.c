@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 08:55:19 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/03 09:25:34 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/04 11:46:19 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/05 03:41:03 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int n)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	long lnb;
+	char	*a;
+	char	*b;
+	size_t	size;
 
-	lnb = n;
-	if (lnb < 0)
-	{
-		lnb = -lnb;
-		ft_putchar('-');
-	}
-	if (lnb > 9)
-	{
-		ft_putnbr(lnb / 10);
-	}
-	ft_putchar((lnb % 10) + 48);
+	size = 0;
+	a = (char *)src;
+	b = (char *)dst;
+	if (a < b)
+		while ((int)(len) > 0)
+		{
+			*(b + len) = *(a + len);
+			size--;
+		}
+	else
+		while (size < len)
+		{
+			*(b + size) = *(a + size);
+			size++;
+		}
+	return (b);
 }

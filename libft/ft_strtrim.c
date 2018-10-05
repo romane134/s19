@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 08:55:19 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/03 09:25:34 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/04 21:56:42 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/05 03:29:11 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int n)
+int			ft_space(int c)
 {
-	long lnb;
+	return (c == ' ' || c == '\t' || c == '\n');
+}
 
-	lnb = n;
-	if (lnb < 0)
-	{
-		lnb = -lnb;
-		ft_putchar('-');
-	}
-	if (lnb > 9)
-	{
-		ft_putnbr(lnb / 10);
-	}
-	ft_putchar((lnb % 10) + 48);
+char		*ft_strtrim(char const *s)
+{
+	unsigned int	i;
+	size_t			len;
+	char			*ret;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (ft_space(s[i]))
+		i++;
+	len = ft_strlen(s) - 1;
+	while (len > i && ft_space(s[len]))
+		len--;
+	if (len < i)
+		return (ret = ft_strdup(""));
+	return (ret = ft_strsub(s, i, len - (size_t)i + 1));
 }

@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 08:55:19 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/03 09:25:34 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/04 14:30:59 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/04 19:05:50 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int n)
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	long lnb;
+	const char *a;
+	const char *b;
 
-	lnb = n;
-	if (lnb < 0)
+	a = (const char *)s1;
+	b = (const char *)s2;
+	while (n > 0)
 	{
-		lnb = -lnb;
-		ft_putchar('-');
+		if (*a != *b)
+			return (*a - *b);
+		else
+		{
+			n--;
+			a++;
+			b++;
+		}
 	}
-	if (lnb > 9)
-	{
-		ft_putnbr(lnb / 10);
-	}
-	ft_putchar((lnb % 10) + 48);
+	return (0);
 }
