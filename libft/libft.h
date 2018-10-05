@@ -6,16 +6,16 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 08:53:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/05 06:35:55 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/05 08:37:39 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
 
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
@@ -46,9 +46,8 @@ void	ft_strdel(char **as);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
-//char	**ft_strsplit(char const *s, char c);
+char	**ft_strsplit(char const *s, char c);
 char	*ft_strtrim(char const *s);
-
 
 int		ft_atoi(const char *str);
 char	*ft_itoa(int nbr);

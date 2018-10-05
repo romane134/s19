@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 08:56:18 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/04 17:44:47 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/05 09:48:33 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strstr(const char *s1, const char *s2)
 	const char	*to_return;
 	int			count;
 
+	if (*s2 == '\0')
+		return ((char*)s1);
 	while (*s1 != '\0')
 	{
 		count = 0;
