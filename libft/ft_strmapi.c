@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 08:55:48 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/08 01:02:07 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/07 17:18:14 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/08 00:45:48 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int a;
+	unsigned int	a;
+	char			*str;
 
+	if (!s || !(str = ft_strnew(ft_strlen(s))))
+		return (NULL);
 	a = 0;
-	while (src[a] != '\0')
+	while (s[a])
 	{
-		dest[a] = src[a];
+		str[a] = f(a, s[a]);
 		a++;
 	}
-	dest[a] = '\0';
-	return (dest);
+	return (str);
 }

@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 08:55:48 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/08 01:02:07 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/08 11:48:58 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/08 12:00:36 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Ajoute l’élément new en tête de la liste.
+*/
 #include "libft.h"
-
-char	*ft_strcpy(char *dest, const char *src)
+void	ft_lstadd(t_list **alst, t_list *new)
 {
-	int a;
-
-	a = 0;
-	while (src[a] != '\0')
-	{
-		dest[a] = src[a];
-		a++;
-	}
-	dest[a] = '\0';
-	return (dest);
+	t_list	*new;
 }

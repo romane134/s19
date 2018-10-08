@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 18:56:36 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/04 19:04:03 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/08 08:49:06 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ char	*ft_strrchr(const char *s, int c)
 	char	*str;
 
 	str = (char *)s;
-	a = 0;
-	while (str[a] != '\0')
-		a++;
-	str[a] = '\0';
-	while (a > 0 && str[a] != (char)c)
+	a = ft_strlen(s);
+	if (!(char)c)
+		return (str + a);
+	a--;
+	while (str[a] != (char)c && str[a] && a > 0)
 		a--;
 	if (str[a] == (char)c)
-		return (&str[a]);
+		return (str + a);
 	return (NULL);
 }

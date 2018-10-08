@@ -6,13 +6,13 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 21:56:42 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/05 03:29:11 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/08 03:02:01 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_space(int c)
+static int	ft_space(int c)
 {
 	return (c == ' ' || c == '\t' || c == '\n');
 }

@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 13:58:04 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/05 09:36:44 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/08 09:33:55 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	*ft_memalloc(size_t size)
 	void	*area;
 
 	if (!(area = (void *)malloc(sizeof(area) * (size))))
-		return (NULL);
-	if (area == NULL)
 		return (NULL);
 	ft_bzero(area, size);
 	return (area);
