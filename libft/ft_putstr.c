@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 08:55:06 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/08 03:21:27 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/09 20:59:06 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_putstr(char *str)
 	int a;
 
 	a = 0;
+	if (!str)
+		return ;
 	while (str[a] != '\0')
 	{
 		ft_putchar(str[a]);

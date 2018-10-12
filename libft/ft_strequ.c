@@ -6,11 +6,9 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 23:01:13 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/05 03:10:03 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/12 18:42:27 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int		ft_strequ(char const *s1, char const *s2)
 {

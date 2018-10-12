@@ -6,11 +6,21 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 21:42:42 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/08 09:24:29 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/12 18:38:36 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static char	**ft_stop(char **str, int a)
+{
+	while (a < 0)
+	{
+		free(str[a]);
+	}
+	free(str);
+	return (NULL);
+}
 
 static int	ft_word(char const *str, char c)
 {
@@ -74,6 +84,8 @@ char		**ft_strsplit(char const *s, char c)
 			a++;
 		if (s[a] != c && s[a])
 		{
+			if (!(ft_cast(s + a, c)))
+				return (ft_stop(new, a));
 			*new = ft_cast(s + a, c);
 			new++;
 			while (s[a] != c && s[a])
