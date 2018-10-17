@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_negative.c                                   :+:      :+:    :+:   */
+/*   aff_first_params.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/01 11:23:18 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/01 11:23:19 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/17 08:36:10 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/17 08:45:40 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putchar(char c);
-
-void	ft_is_negative(int n)
+int		main(int argc, char **argv)
 {
-	if (n < 0)
-		ft_putchar('N');
-	else
-		ft_putchar('P');
+	int a;
+
+	a = 0;
+	if (argc != 2)
+	{
+		write (1, "\n", 1);
+		return (0);
+	}
+	while (argv[1][a])
+	{
+		write (1, &argv[1][a], 1);
+		a++;
+	}
+	write (1, "\n", 1);
+	return (0);
 }

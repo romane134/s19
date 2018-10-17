@@ -1,29 +1,28 @@
-#include <stdio.h>
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/01 13:20:42 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/01 14:37:33 by rlucas-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_strcmp(char *s1, char *s2)
+int		ft_strcmp(char *s1, char *s2)
 {
-  int a;
-  int b;
+	int a;
+	int b;
 
-  a = 0;
-  b = 0;
-  while (s1[a] != '\0' || s2[b] != '\0')
-  {
-    if (s1[a] != s2[b])
-      return (s1[a] - s2[b]);
-    a++;
-    b++;
-  }
-  return (0);
-}
-
-int main()
-{
-  char s1[] = "aoucouco";
-  char s2[] = "coucouco";
-
-  printf("%d\n", ft_strcmp(s1, s2));
-  printf("%d\n", strcmp(s1, s2));
-  return (0);
+	a = 0;
+	b = 0;
+	while (s1[a] != '\0' || s2[b] != '\0')
+	{
+		if (s1[a] != s2[b])
+			return (s1[a] - s2[b]);
+		a++;
+		b++;
+	}
+	return (0);
 }

@@ -1,14 +1,27 @@
-# include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_alphabet.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/01 11:22:47 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/01 11:29:20 by rlucas-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void ft_putchar(char c);
+#include <unistd.h>
 
-void ft_print_alphabet(void)
+void	ft_putchar(char c);
+
+void	ft_print_alphabet(void)
 {
-  char lettre;
-  lettre = 'a';
-  while (lettre <= 'z')
-  {
-    ft_putchar (lettre);
-    lettre++;
-  }
+	char c;
+
+	c = 'a';
+	while (c <= 'z')
+	{
+		ft_putchar(c);
+		c++;
+	}
 }

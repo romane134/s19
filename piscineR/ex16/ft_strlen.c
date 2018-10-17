@@ -1,15 +1,21 @@
-#include <stdio.h>
-int ft_strlen(char *str)
-{
-  int a;
-  while (str[a] != '\0')
-    a++;
-  return (a);
-}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/01 11:25:01 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/01 13:09:46 by rlucas-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int main ()
+int		ft_strlen(char *str)
 {
-  char c[] = "salut les loustiques";
-  printf("%d\n", ft_strlen(c));
-  return (0);
+	int a;
+
+	a = 0;
+	while (str[a] != '\0')
+		a++;
+	return (a);
 }

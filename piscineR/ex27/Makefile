@@ -5,28 +5,22 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/10/01 14:19:39 by rlucas-d          #+#    #+#              #
-#    Updated: 2018/10/05 02:21:42 by rlucas-d         ###   ########.fr        #
+#    Created: 2018/10/01 16:22:19 by rlucas-d          #+#    #+#              #
+#    Updated: 2018/10/05 02:49:55 by rlucas-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = ft_display_file
 
-SRC_LIBS = srcs/ft_putchar.c srcs/ft_putstr.c srcs/ft_swap.c srcs/ft_strcmp.c srcs/ft_strlen.c
-
-H_LIBS = includes
-
-FLAG = -Wall -Wextra -Werror
+SRC_LIBS = ft_display_file.c
 
 all:
-	gcc $(FLAG) -c $(SRC_LIBS) -I $(H_LIBS)
-	ar rc $(NAME) *.o
-	ranlib $(NAME)
-
+	gcc -Wall -Wextra -Werror -c $(FLAG) $(SRC_LIBS)
+	gcc -o $(NAME) ft_display_file.o
 clean:
-	rm -rf *.o
+	/bin/rm -f ft_display_file.o
 
 fclean:
-	rm -rf $(NAME)
+	/bin/rm -f ft_display_file.o $(NAME)
 
 re: fclean all

@@ -1,24 +1,27 @@
-# include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_numbers.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/01 11:23:11 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/01 17:39:41 by rlucas-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void ft_putchar(char c)
+#include <unistd.h>
+
+void	ft_putchar(char c);
+
+void	ft_print_numbers(void)
 {
-  write (1, &c, 1);
-}
+	char c;
 
-void ft_print_numbers(void)
-{
-  char a;
-
-  a = '1';
-  while (a <= '9')
-  {
-    ft_putchar (a);
-    a++;
-  }
-}
-
-int main(void)
-{
-  ft_print_numbers();
-  return (0);
+	c = '0';
+	while (c <= '9')
+	{
+		ft_putchar(c);
+		c++;
+	}
 }

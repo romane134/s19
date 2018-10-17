@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_negative.c                                   :+:      :+:    :+:   */
+/*   ft_ulstr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/01 11:23:18 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/01 11:23:19 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/17 08:51:04 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/17 08:55:32 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putchar(char c);
-
-void	ft_is_negative(int n)
+int		main(int argc, char **argv)
 {
-	if (n < 0)
-		ft_putchar('N');
-	else
-		ft_putchar('P');
+	int a;
+
+	a = 0;
+	if (argc == 2)
+	{
+		while (argv[1][a])
+		{
+			if (*argv[a] >= 'A' && *argv[a] <= 'Z')
+				*argv[a] = *argv[a + 32];
+			if (*argv[a] >= 'a' && *argv[a] <= 'z')
+				*argv[a] = *argv[a - 32];
+			write (1, &argv[1][a], 1);
+			a++;
+		}
+
+	}
+	write (1, "\n", 1);
+	return (0);
 }

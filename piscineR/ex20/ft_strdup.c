@@ -1,33 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/01 13:51:27 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/01 14:01:10 by rlucas-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
-#include <stdio.h>
 
-char *ft_strdup(char *src)
+char	*ft_strdup(char *src)
 {
-  int a;
-  int size;
-  char *tab;
+	int		a;
+	int		size;
+	char	*copy;
 
-  size = 0;
-  while (src[size] != '\0')
-    size++;
-  if (size == 0)
-  		return (NULL);
-  else
-    tab = (char*)malloc(sizeof(char) * (size + 1));
-  a = 0;
-  while (a < size)
-  {
-    tab[a] = src[a];
-    a++;
-  }
-  tab[a] = '\0';    //si ne le met pas, affiche un carractere en plus
-  printf("%s\n", tab);
-  return (tab);
-}
-
-int main()
-{
-  char str[90] = "coucou";
-  ft_strdup(str);
-  return (0);
+	size = 0;
+	while (src[size] != '\0')
+		size++;
+	if (!(copy = (char*)malloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	a = 0;
+	while (a < size)
+	{
+		copy[a] = src[a];
+		a++;
+	}
+	copy[a] = '\0';
+	return (copy);
 }

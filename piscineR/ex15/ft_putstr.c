@@ -1,25 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/01 11:24:56 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/01 11:27:43 by rlucas-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
-void ft_putchar(char c)
-{
-  write (1, &c, 1);
-}
+void	ft_putchar(char c);
 
-void ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
-  int a;
+	int a;
 
-  a = 0;
-  while (str[a] != '\0')
-    {
-      ft_putchar(str[a]);
-      a++;
-    }
-}
-
-int main()
-{
-  char str[90] = "coucou";
-  ft_putstr(str);
-  return (0);
+	a = 0;
+	while (str[a] != '\0')
+	{
+		ft_putchar(str[a]);
+		a++;
+	}
 }
