@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 08:53:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/16 21:45:05 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/12 18:36:57 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,9 @@ int				ft_isprint(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 
-int				ft_count_letter(char const *s, char c);
-long int		ft_abs(long int nbr);
-size_t			ft_count(size_t a, size_t b);
-int				ft_space(int c);
-
 void			ft_striter(char *s, void (*f)(char *));
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 char			*ft_strmap(char const *s, char (*f)(char));
+char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 #endif

@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 11:43:01 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/12 17:48:11 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/16 20:33:19 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
 	t_list	*nextone;
 
-	if (!alst || del == 0)
+	if (!alst || !del)
 		return ;
 	while (*alst)
 	{

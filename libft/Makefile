@@ -6,7 +6,7 @@
 #    By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/05 01:36:09 by rlucas-d          #+#    #+#              #
-#    Updated: 2018/10/12 14:23:42 by rlucas-d         ###   ########.fr        #
+#    Updated: 2018/10/17 00:57:56 by rlucas-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,15 @@ ft_toupper.c ft_isalpha.c ft_memcpy.c ft_putnbr_fd.c ft_strdup.c ft_strnew.c \
 ft_isascii.c ft_memdel.c ft_putstr.c ft_strequ.c ft_strnstr.c ft_isdigit.c \
 ft_memmove.c ft_putstr_fd.c ft_strjoin.c ft_striteri.c ft_striter.c \
 ft_strmap.c ft_strmapi.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
-ft_lstadd.c ft_lstiter.c ft_lstiter.c ft_lstmap.c
+ft_lstadd.c ft_lstiter.c ft_lstiter.c ft_lstmap.c ft_count_letter.c \
+ft_abs.c ft_count.c ft_space.c 
 OBJ = $(SRC_LIB:%.c=%.o)
 
 FLAG = -Wall -Wextra -Werror 
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): 
 	gcc $(FLAG) -c $(SRC_LIB)
 	ar rc $(NAME) $(OBJ) 
 	ranlib $(NAME)
@@ -41,3 +42,5 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+
+.PHONY: fclean all

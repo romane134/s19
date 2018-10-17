@@ -6,19 +6,11 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 10:38:09 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/08 02:59:48 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/16 21:43:41 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static size_t	ft_count(size_t a, size_t b)
-{
-	if (a < b)
-		return (a);
-	else
-		return (b);
-}
 
 size_t			ft_strlcat(char *dst, const char *src, size_t size)
 {

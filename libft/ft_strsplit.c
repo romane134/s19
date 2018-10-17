@@ -6,18 +6,19 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 21:42:42 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/12 18:38:36 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/17 06:41:49 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**ft_stop(char **str, int a)
+static char	**ft_stop(char **str)
 {
-	while (a < 0)
-	{
-		free(str[a]);
-	}
+	int a;
+
+	a = 0;
+	while (str[a])
+		free(str[a++]);
 	free(str);
 	return (NULL);
 }
@@ -41,16 +42,6 @@ static int	ft_word(char const *str, char c)
 			a++;
 	}
 	return (count);
-}
-
-static int	ft_count_letter(char const *s, char c)
-{
-	int size;
-
-	size = 0;
-	while (s[size] != c && s[size])
-		size++;
-	return (size);
 }
 
 static char	*ft_cast(char const *s, char c)
@@ -85,7 +76,7 @@ char		**ft_strsplit(char const *s, char c)
 		if (s[a] != c && s[a])
 		{
 			if (!(ft_cast(s + a, c)))
-				return (ft_stop(new, a));
+				return (ft_stop(new));
 			*new = ft_cast(s + a, c);
 			new++;
 			while (s[a] != c && s[a])

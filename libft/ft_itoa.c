@@ -6,16 +6,11 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 21:21:49 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/09 16:39:37 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/16 21:41:59 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static long int	ft_abs(long int nbr)
-{
-	return ((nbr < 0) ? -nbr : nbr);
-}
 
 static int		ft_len(long int nbr)
 {

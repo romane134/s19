@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 06:32:24 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/09 18:11:30 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/16 20:36:35 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	{
 		new->content = ft_memalloc(content_size);
 		if (new->content == NULL)
+		{
+			free(new);
 			return (NULL);
+		}
 		ft_memcpy(new->content, content, content_size);
 		new->content_size = content_size;
 	}
