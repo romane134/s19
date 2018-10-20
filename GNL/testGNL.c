@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 #include <stdio.h>
 
 static int		ft_checkstop(static char buf)
@@ -26,55 +27,42 @@ static int		ft_checkstop(static char buf)
 	return (0);
 }
 
-char			*ft_stock_buf(char **str, static char *buf)
-{
-	int a;
-	int b;
-	char *stock;
-
-	b = 0;
-	str[a] = ft_read();
-
-	if (a = ft_strchr(buf, '\n')) //on est au premier '\n'?
-		while (a < BUFF_SIZE)
-			str[a++] = stock[b++];
-	if (buf[BUFF_SIZE] == '\0')
-			ft_strcpy(str, stock);
-	return (stock);
-}
-static char		*ft_read(static  char *buf, const int fd, char **str)
+char			*ft_stock_buf(char **str, static char *buf, const int fd)
 {
 	int ret;
+	int b;
+	char *stock;
 	static char		buf[BUFF_SIZE + 1];
-	char *tmp;
-	while (BUFF_SIZE > 0)
+
+	b = 0;
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		if (str = ft_stock_buf)
-	}
-	while ((ret = read(fd, buf, BUFF_SIZE)) > 0) // ecrase le text de la lecture precedente
-	{
-		buf[ret] = '\0';
-		if (!(ft_strchr(buf, '\n')))
+		if (str[ret] = ft_strchr(buf, '\n'))
 		{
-			tmp = *str;
-			*str = ft_strjoin(*str, buf); //faire une fonction pour moove ces 3 lignes de merde (☞ﾟヮﾟ)☞
-			free(tmp);
-			return (&str);
+			ft_strncpy(str, stock, (size_t)a); //souuuuucis aaaah, peut etre paaaas
 		}
-		if (tmp = ft_strchr(buf, '\n'))
-		{
-			*tmp = 0;
-			tmp = *str;
-			*str = ft_strjoin(*str, buf); //ici, mettre une fonction qui sotck le reste du buffer
-			free(tmp);
-		//	tmp = ft_strchr(buf, '\0');
-		//	*tmp = '\n';
-		*str = ft_stock(*str, buf /*....*/)
-			return (&str)
-		}
+		if (buf[BUFF_SIZE] == '\0')
+				ft_strcpy(str, stock)
+			return (stock);
 	}
 	if (ret == 0)
 		return (0);
+}
+static char		*ft_check_line(static  char *buf, const int fd, char **str)
+{
+	char *tmp;
+	*str = ft_stock_buf();
+	if (ft_strchr(*str, '\n'))
+	{
+
+		return (1)
+	}
+	else
+	{
+		ft_strjoin(str, buf/*???*/)
+	}
+
+
 }
 
 int		get_next_line(const int fd, char **line)
@@ -86,12 +74,15 @@ int		get_next_line(const int fd, char **line)
 	if (fd < 0 || !line || BUFF_SIZE <= 0)
 		return (-1);
 	*line = str;
-	if ('\n' |||| *str = ft_read(buf, fd, &str)) //j'ai lu jusq '\n'      &str difg
+	if (ft_stock(buf, fd, &str))
 	{
- 		//finir
+		if (ft_check_line == 1)
+		*line = *str;
+		free (str)
+
 	}
 
-	if (ft_read(buf ,fd, &str) == 0) //pas appeller ft_stock_buff plutot??
+	if (ft_read(buf ,fd, &str) == 0) //pas appeller ft_stock plutot??
 		return (0);
 
 	return (0);
