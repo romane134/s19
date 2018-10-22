@@ -6,12 +6,26 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 17:31:26 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/22 18:43:45 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/22 23:32:24 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
+
+char	*ft_check_rest(char *rest)
+{
+	int i;
+	char *str;
+
+	i = 0;
+	while (rest[i] != '\n')
+		i++;
+	rest[i - 1] = '\0';
+	str = rest;
+	free(rest);
+	return (str);
+}
 
 int		ft_check_buf(char *str, int ret)
 {
@@ -31,45 +45,33 @@ char	*ft_read_line(char *buf, const int fd)
 	i = 0;
 	if (rest == NULL)
 		rest = ft_strnew(0);
-	printf("rest2 = %s\n",rest);
-	str = ft_strnew(0); /*je dois free str non??*/
+	if (*rest)
+		str = ft_check_rest(rest);
+	else
+		str = ft_strnew(0);
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[ret] = '\0';
-		printf("rest3 ---%s\n", rest);
-		printf("buf-----%s\n", buf);
-		buf = ft_strjoin(rest, buf);
-		printf("buf join--- = %s\n", buf);	
-
-		if (!(ft_strchr(buf, '\n')))/* ici on a pas de \n donc on relit encore la prochaine fois vu que pas de return */
-		{
-
-			tmp = str;
-			str = ft_strjoin(str, buf);
-			free(tmp);
-		}
-		else
-		{
-			tmp = str;
-			str = ft_strjoin(str, buf);
-			free(tmp);
-
-			if (ft_check_buf(str, ft_strlen(str)) != 0)/*ici on a un \n et il est a la fin du buf donc on peut return*/
-			{
-
-				str[ft_strlen(str) - 1] = '\0';
-				return (str);/*on return la ligne*/
-			}
-			else/*on a un \n mais il y a autre chose apres*/
-			{
-				while (str[i] != '\n')
-					i++;
-				str[i] = '\0';
-				rest = ft_strdup(str + i + 1);
-				//printf("rest = %s\n",rest);	
-				return (str);
-			}
-		}
+		if (rest)
+			buf = ft_strjoin(rest, buf);
+		tmp = str;
+		str = ft_strjoin(str, buf);
+		free(tmp);
+		if ((ft_strchr(buf, '\n')))/* ici on a pas de \n donc on relit encore la prochaine fois vu que pas de return */
+			break ;
+	}
+	if (ft_check_buf(str, ft_strlen(str)) != 0)/*ici on a un \n et il est a la fin du buf donc on peut return*/
+	{
+		str[ft_strlen(str) - 1] = '\0';
+		return (str);/*on return la ligne*/
+	}
+	else/*on a un \n mais il y a autre chose apres*/
+	{
+		while (str[i] != '\n' && str[i])
+			i++;
+		str[i] = '\0';
+		rest = ft_strdup(str + i + 1);
+		return (str);
 	}
 	if (ret == -1)
 		return (NULL);
