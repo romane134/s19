@@ -16,7 +16,7 @@
 
 #include "libft.h"
 #include <sys/types.h>
-#include <sys/uio.h>
+//#include <sys/uio.h>
 int		get_next_line(const int fd, char **line);
 
 #endif
