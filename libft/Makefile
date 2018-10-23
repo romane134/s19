@@ -6,12 +6,12 @@
 #    By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/05 01:36:09 by rlucas-d          #+#    #+#              #
-#    Updated: 2018/10/17 00:57:56 by rlucas-d         ###   ########.fr        #
+#    Updated: 2018/10/23 13:51:20 by rlucas-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-
+INCLUDES = -I. 
 SRC_LIB = ft_isprint.c ft_memset.c ft_strcat.c ft_strlcat.c ft_strsplit.c \
 ft_itoa.c ft_putchar.c ft_strchr.c ft_strlen.c ft_strstr.c  ft_strrchr.c \
 ft_memalloc.c ft_putchar_fd.c ft_strclr.c ft_strncat.c ft_strsub.c \
@@ -30,16 +30,20 @@ FLAG = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): 
-	gcc $(FLAG) -c $(SRC_LIB)
-	ar rc $(NAME) $(OBJ) 
-	ranlib $(NAME)
+$(NAME): $(OBJ)
+	@ar rc $(NAME) $(OBJ) 
+	@ranlib $(NAME)
+	@echo "Compilation de la lib"
+
+%.o: %.c
+	@gcc -o $@ -c $(FLAGS) $< $(INCLUDES)
+	@echo "Compilation de $< en $@"	
 
 clean:
-	rm -rf $(OBJ)
+	@rm -rf $(OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 
