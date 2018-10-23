@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 17:31:26 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/22 23:32:24 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/23 17:05:25 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_check_rest(char *rest)
 	i = 0;
 	while (rest[i] != '\n')
 		i++;
-	rest[i - 1] = '\0';
+	rest[i] = '\0';
 	str = rest;
 	free(rest);
 	return (str);
@@ -46,14 +46,15 @@ char	*ft_read_line(char *buf, const int fd)
 	if (rest == NULL)
 		rest = ft_strnew(0);
 	if (*rest)
-		str = ft_check_rest(rest);
+	{
+		rest = ft_check_rest(rest);
+	}
 	else
 		str = ft_strnew(0);
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[ret] = '\0';
-		if (rest)
-			buf = ft_strjoin(rest, buf);
+		buf = ft_strjoin(ft_strdup(rest), buf);
 		tmp = str;
 		str = ft_strjoin(str, buf);
 		free(tmp);
@@ -67,6 +68,7 @@ char	*ft_read_line(char *buf, const int fd)
 	}
 	else/*on a un \n mais il y a autre chose apres*/
 	{
+		i = 0;
 		while (str[i] != '\n' && str[i])
 			i++;
 		str[i] = '\0';
