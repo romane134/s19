@@ -1,0 +1,204 @@
+/*html{
+	background-color:#26d59a21;
+}
+
+body
+{
+	margin:   10%;
+	border-radius: 12px;
+	background-color: white;
+	background-color: white;
+	border-radius: 10px;
+	margin: 15px;
+	padding: 10px;
+}*/
+
+#hello
+{
+	width:    80%;
+	background: black;
+}
+
+#idHTML, #idCSS, #idOutput
+{
+	width: 757px;
+	height: 232px;
+	margin-left: 15px;
+}
+
+#idHTML
+{
+	border-color: #009688;
+	border-radius: 5px;
+	background-color: #2c97cc1a;
+}
+
+#idCSS
+{
+	border-color: red;
+	border-radius:5px;
+	background-color: beige
+}
+
+#idOutput
+{
+	border-color: #3F51B5;
+	border-radius: 5px;
+	background-color: white;
+}
+
+#Example-CSS, #Example-noCSS
+{
+/*	border-style: solid;
+	border-color: #e2ccc4;
+	border-radius: 5px;
+	background-color: white;
+	margin-bottom: 30px;
+	padding-left: 15px;
+	padding-bottom: 15px;*/
+
+    background-color: white;
+    padding: 15px;
+}
+
+.outputWithCSS
+{
+	background: url(https://www.s19.be/wp-content/uploads/2018/07/accueil.png);
+	background-size: cover;
+	background-position: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 60px;
+	font-weight: bold;
+	color: #ff5722;
+}
+
+.button
+{
+	background-color: #179191;
+	border-radius: 12px;
+	color: white;
+	padding: 3px 20px;
+	text-align: center;
+	display: inline-block;
+	font-size: 10px;
+	margin-left: 10px;
+}
+
+#next_form
+{
+	text-align: center;
+}
+
+#next_form button
+{
+	width: 50px;
+	height: 30px;
+	border-radius: 10px;
+}
+
+#ft_arrow
+{
+	transform: rotate(90deg);
+	height: 35px;
+}
+
+#output2
+{
+	display: flex;
+	flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#output2 button
+{
+	border-radius: 10px;
+	margin-left: 250px;
+}
+
+#inHTML
+{
+	width: 95%;
+	height: 150px;
+}
+
+#HTMLOutput
+{
+	border-style: solid;
+	border-width: 1px;
+	max-width: 95%;
+}
+
+/*.input
+{
+	width: 45%;
+	height: 200px;
+}*/
+
+/*.example
+{
+	display: flex;
+	flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.example h4
+{
+	width: 50%;
+	text-align: center;
+}
+
+.example h2
+{
+	width:100%;
+	height: 40px;
+}
+
+.example h3
+{
+	width: 100%;
+}
+
+.example h3
+{
+	text-align:center;
+}
+*/
+#button_refresh
+{
+	/*width: 100%;*/
+	display: flex;
+	/*flex-direction: row;*/
+    /*justify-content: center;*/
+    align-items: center;
+}
+
+#button_refresh h4
+{
+	width: 55px;
+}
+
+#button_refresh button
+{
+	width: 60px;
+	height: 70px;
+	border-radius: 10px;
+	margin: 5px;
+}
+
+#OURResult
+{
+	background-color: yellow;
+	background-position: center;
+	text-align: justify;
+	font-size: 60px;
+	font-weight: bold;
+	color: red;
+	padding:10px;
+}
+
+.syntax-image, #idHTML, #idOutput
+{
+	max-width: 95%;
+}

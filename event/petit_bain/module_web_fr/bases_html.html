@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>Petit Bain</title>
+	<link rel="stylesheet" href="css/main.css">
+	<script src="./script.js"></script>
+	<style id="CSSInput"></style>
+</head>
+<body>
+	<div class="top-menu">
+		<a href="bases_html.html">
+			<div><img src="img/archibook.png" style="opacity: 1;"></div>
+		</a>
+		<a href="bases_css.html">
+			<div><img src="img/archibook2.png"></div>
+		</a>
+		<a href="ex00.html">
+			<div><img src="img/moustique-fish.png"></div>
+		</a>
+		<a href="ex01.html">
+			<div><img src="img/moustique-squirrel.png"></div>
+		</a>
+		<a href="ex02.html">
+			<div><img src="img/moustique-bird.png"></div>
+		</a>
+	</div>
+
+	<div class="text-center">
+		<h2>D'abord, les bases !</h2>
+		<h1>“le HTML, c'est le fond”</h1>
+	</div>
+
+	<div class="intro-container">
+		<textarea readonly class="textarea-intro">
+En HTML, on utilise des balises pour structurer une page. Ces balises forment des blocks et indiquent ce que sont ou font ces blocks.
+
+Les balises vont toujours par deux : une balise ouvrante et une fermante. 
+Par exemple <div> ouvre un block et </div> le ferme.
+
+Il existe 3 couples de balises fondamentales :
+	<html></html> : on commence toujours par la balise <html> qui annonce que la suite sera du code html, et on ferme tout à la fin avec </html>. 
+	<head></head> contient des méta-données, c'est à dire des données qui ne seront pas lisibles sur la page web, mais sont importantes pour le navigateur web.
+	<body></body> contient tout ce qui sera visible sur la page web.
+
+Ensuite la plus courante est la balise <div></div>, qui permet simplement de stucturer la page. Comme quand on structure un texte en créant des paragraphes.
+Puis, la balise <a href="url d'une page web"></a> permet d'insérer un lien vers une autre page web.
+Enfin, la balise <img src="image.jpg">, comme son nom l'indique permet d'insérer une image.
+
+Ils existe plein d'autres balises.
+Vous pouvez essayer par exemple <h1></h1> ou <p></p> ou même <strong></strong>
+Vous les découvrirez petit à petit...
+		</textarea>
+	</div>
+
+	<div class="text-center">
+		<h2>Essayons !</h2>
+		<p>Observez bien le code et le résultat.</p>
+		<p>Puis, essayez par exemple :
+			<br>de modifier le titre
+			<br>de changer la balise de titre "h3" en "h1"
+			<br>d'ajouter une phrase
+			<br>de changer la page sur laquelle le lien renvoie
+			<br>d'ajouter un bouton (balise 'button')
+		</p>
+		<p>À chaque changement que vous ferez dans le code, il vous faudra cliquer sur la flèche 'refresh' pour voir le résultat</p>
+		<p>Attention, si vous rafraîchissez la page, toutes vos modifications dans le code disparaîtrons.</p>
+	</div>
+
+	<div id="Example-CSS" class="example white-box">
+
+		<div class="ctrl-container">
+			<div class="ctrl">
+				<div class="title"><h3>HTML</h3></div>
+				<textarea class="input" id="UserHTML">
+<html>
+	<head>
+		<title>Titre</title>
+	</head>
+	<body>
+		<div>
+			<h3>Archimède, ce héros</h3>
+			<p>Archimède est le vérible maître spirituel de Merlin. Sans lui, Merlin ne serait rien.</p>
+			<p>Il tente à l'occasion d'éduquer Moustique. Mais ce gamin ne comprend rien à rien.</p>
+			<p>Les humains sont <strong>exaspérants</strong>.</p>
+			<a href="https://www.youtube.com/watch?v=KLI46yMdtmU">Même si ils sont parfois hilarants...</a>
+			<div contentEditable="true">
+				<img src="img/archibook.png">
+			</div>
+		</div>
+	</body>
+</html>
+
+				</textarea>
+			</div>
+
+		</div>
+
+		<div class="btn-refresh-container">
+			<button onclick="updateHTML()" class="btn-refresh">
+			</button>
+		</div>
+
+		<div class="result-container">
+			<div class="title"><h3>Résultat</h3></div>
+			<div class="result-area textarea">
+				<div id="UserResult"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="text-center">
+		<h2>Simple, non ?</h2>
+	</div>
+
+	<div class="footer">
+		<div class="flex">
+			<div class="arrow"></div>
+			<a href="bases_css.html"><img src="img/arrow-fantasy.png" class="arrow"></a>
+		</div>
+	</div>
+
+
+	<script type="text/javascript"> 
+		function	updateHTML()
+		{
+			let input = document.getElementById("UserHTML").value;
+			document.getElementById("UserResult").innerHTML = input;
+		}
+		updateHTML()
+	</script>
+
+</body>
+</html>

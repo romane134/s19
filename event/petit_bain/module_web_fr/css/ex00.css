@@ -1,0 +1,27 @@
+textarea, .textarea {
+	height: 50vh;
+}
+.textarea, .result-area {
+	height: 50vh;
+	width: 30em;
+	text-align: center;
+}
+.textarea img { 
+	height: 219px;
+}
+
+.exemple {
+	background-color: gold;
+	color: chocolate;
+}
+.textarea .angry {
+	text-transform: uppercase;
+}
+.textarea h1 {
+	text-decoration: underline;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+}
