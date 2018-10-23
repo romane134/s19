@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>Petit Bain</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/ex00.css">
+	<script src="./script.js"></script>
+	<style id="CSSInput"></style>
+</head>
+<body>
+
+	<div class="top-menu">
+		<a href="bases_html.html">
+			<div><img src="img/archibook.png"></div>
+		</a>
+		<a href="bases_css.html">
+			<div><img src="img/archibook2.png"></div>
+		</a>
+		<a href="ex00.html">
+			<div><img src="img/moustique-fish.png" style="opacity: 1;"></div>
+		</a>
+		<a href="ex01.html">
+			<div><img src="img/moustique-squirrel.png"></div>
+		</a>
+		<a href="ex02.html">
+			<div><img src="img/moustique-bird.png"></div>
+		</a>
+	</div>
+
+
+	<div class="text-center">
+		<h1>Maintenant, jouons !</h1>
+		<h4>
+			Nous allons jouer au jeu des 7 différences : 
+			<br>l'exemple est à droite. Et la partie gauche est pour vous.
+			<br>Faites en sorte que votre résultat soit identique à l'exemple !
+		</h4>
+	</div>
+
+	<div class="flex">
+
+
+
+		<div id="Example-CSS" class="example white-box flex-3">
+
+			<div class="ctrl-container flex-3">
+				<div class="ctrl">
+					<div class="title"><h3>HTML</h3></div>
+					<textarea class="input" id="UserHTML">
+<div class="owl-lover">
+	<h1>Archimède est</h1>
+	<h2>le plus beau</h2>
+	<h1>le plus fort</h1>
+	<h4>le plus grand</h4>
+	<h5>le plus intelligent</h5>
+	<h6>le plus drole</h6>
+	<p>mais surtout il n'aime pas l'eau !</p>
+	<div contentEditable="true">
+		<img src="img/archiwater.png" class="wet">
+	</div>
+</div>
+					</textarea>
+				</div>
+				<div class="ctrl">
+					<div class="title"><h3>CSS</h3></div>
+					<textarea class="input" id="UserCSS">.owl-lover
+{
+	background-color: grey;
+	padding: 19px;
+	color: pink;
+	border-color: #e2f9f1;
+	border-radius: 5px;
+	height: 50vh;
+}
+.wet
+{
+	height: 42px;
+}			
+					</textarea>
+				</div>
+			</div>
+
+			<div class="btn-refresh-container flex-1">
+				<button onclick="updateHTMLWithCSS()" class="btn-refresh">
+				</button>
+			</div>
+
+			<div class="result-container flex-1">
+				<div class="title"><h3>Résultat</h3></div>
+				<div class="result-area">
+					<div id="UserResult"></div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class="white-box flex-1">
+			<div class="ctrl-container">
+				<div class="ctrl flex">
+					<div class="title"><h3>Original</h3></div>
+					<div class="textarea exemple">
+						<h1>Archimède est</h1>
+						<h2>le plus beau</h2>
+						<h3>le plus fort</h3>
+						<h4>le plus grand</h4>
+						<h5>le plus intelligent</h5>
+						<h6>le meilleur</h6>
+						<p class="angry">mais surtout il n'aime pas l'eau !</p>
+						<div><img src="img/archiwater.png"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		<div class="flex">
+			<a href="bases_css.html".html"><img src="img/arrow-fantasy-prev.png" class="arrow"></a>
+			<a href="ex01.html"><img src="img/arrow-fantasy.png" class="arrow"></a>
+		</div>
+	</div>
+
+
+	<script type="text/javascript"> 
+
+		function	updateHTMLWithCSS()
+		{
+			let css = document.getElementById("UserCSS").value;
+			let HTML = document.getElementById("UserHTML").value;
+			document.getElementById("CSSInput").innerHTML = css;
+			document.getElementById("UserResult").innerHTML = HTML;
+		}
+		updateHTMLWithCSS()
+	</script>
+
+</body>
+</html>

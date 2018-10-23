@@ -1,0 +1,42 @@
+/* INDEX */
+
+.index-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 90vh;
+}
+
+.index-container a {
+align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: black;
+}
+
+.img-circle {
+	border-radius: 75%;
+	width: 200px;
+	height: 200px;
+}
+
+.intro-arrow {
+	height: 42px;
+  x-transition: all 1s ease-in-out;
+  animation: ani 1.7s infinite;
+  margin-top: -9px;
+}
+
+@keyframes ani {
+  0% {
+    margin-left: 19px;
+  }
+  50% {
+    margin-left: 38px;
+  }
+  100% {
+    margin-left: 19px;
+  }
+}

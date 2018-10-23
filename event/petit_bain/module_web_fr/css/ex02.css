@@ -1,0 +1,13 @@
+p {
+	font-size: 19px;
+}
+
+.explanations img {
+	width: 25px;
+	margin: 0 5px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+}

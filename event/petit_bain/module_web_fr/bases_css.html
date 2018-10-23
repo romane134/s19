@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>Petit Bain</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/bases.css">
+	<script src="./script.js"></script>
+	<style id="CSSInput"></style>
+</head>
+<body>
+
+	<div class="top-menu">
+		<a href="bases_html.html">
+			<div><img src="img/archibook.png"></div>
+		</a>
+		<a href="bases_css.html">
+			<div><img src="img/archibook2.png" style="opacity: 1"></div>
+		</a>
+		<a href="ex00.html">
+			<div><img src="img/moustique-fish.png"></div>
+		</a>
+		<a href="ex01.html">
+			<div><img src="img/moustique-squirrel.png"></div>
+		</a>
+		<a href="ex02.html">
+			<div><img src="img/moustique-bird.png"></div>
+		</a>
+	</div>
+
+	<div class="text-center">
+		<h2>D'abord, les bases !</h2>
+		<h1>“le CSS, c'est la forme”</h1>
+	</div>
+
+		<div class="intro-container">
+		<textarea readonly class="textarea-intro bases-css-intro">
+Maintenant, on peut ajouter du style...
+
+...et pour ca, on va utiliser du CSS.
+C'est toujours aussi simple : il suffit d'appeler une balise, puis de décrire entre parenthèse comment on veut que ce qu'il y a dans cette balise soit stylisé.
+Par exemple :
+p {
+	color: red;
+	text-transform: uppercase;
+}
+indique que tous les textes entre les balises <p></p> apparaîtront en rouge et en lettres capitales.
+On peut ainsi désigner n'importe quel nom de balise et lui donner du style.
+
+Mais si on veut styliser seulement une seule balise <p></p> en particulier, on donnera à cette balise une classe :
+<p class="awesome-class"></p>
+Puis, on appellera cette balise particulière en la désignant par le nom de sa classe (avec un point devant) :
+.awesome-class {
+	color: yellow;
+	text-decoration: underline;
+}
+Ainsi, le texte contenu dans cette balise <p></p> très particulière sera souligné et jaune.
+
+Vous pouvez aussi cumuler les appels des balises et des classes :
+.awesome-class h1 {
+	background-color: gold;
+}
+Les titres 'h1' contenus dans une balise tagée avec la classe 'awesome-class', et seulement ceux-çi, auront un fond doré.
+
+Facile comme tout !
+		</textarea>
+	</div>
+
+	<div class="text-center">
+		<h2>Essayons !</h2>
+		<p>Observez bien le code et le résultat.</p>
+		<p>Puis, essayez par exemple :
+			<br>de changer la couleur du texte
+			<br>de changer la couleur de fond du titre
+			<br>de souligner seulement la 2ème phrase
+			<br>de centrer le texte
+			<br>de remettre Archimède à l'endroit (voir la propriété 'transform')
+		</p>
+		<p>À chaque changement que vous ferez dans le code, il vous faudra cliquer sur la flèche 'refresh' pour voir le résultat</p>
+		<p>Attention, si vous rafraîchissez la page, toutes vos modifications dans le code disparaîtrons.</p>
+	</div>
+
+	<div id="Example-CSS" class="example white-box">
+
+		<div class="ctrl-container">
+			<div class="ctrl">
+				<div class="title"><h3>HTML</h3></div>
+				<textarea class="input" id="UserHTML">
+<div class="owl-lover">
+	<div contentEditable="true">
+		<img src="img/architraviol.png">
+	</div>
+	<h3>Archimède, ce héros</h3>
+	<p>Archimède est le vérible maître spirituel de Merlin. Sans lui, Merlin ne serait rien.</p>
+	<p>Il tente à l'occasion d'éduquer Moustique. Mais ce gamin ne comprend rien à rien.</p>
+	<p class="angry">Les humains sont <strong>exaspérants</strong>.</p>
+	<a href="https://www.youtube.com/watch?v=KLI46yMdtmU">Même si ils sont parfois hilarants...</a>
+
+</div>
+				</textarea>
+			</div>
+			<div class="ctrl">
+				<div class="title"><h3>CSS</h3></div>
+				<textarea class="input" id="UserCSS">.owl-lover {
+	padding: 19px;
+	font-weight: bold;
+	border: solid 1px;
+	border-color: #e2f9f1;
+	border-radius: 5px;
+	text-align: left;
+}
+.owl-lover h1 {
+	text-align: center;
+}
+.angry {
+	color: red;
+	text-transform: uppercase;
+}
+a:hover {
+	color: green
+}
+.owl-lover img {
+	width: 100px
+}
+				</textarea>
+			</div>
+		</div>
+
+		<div class="btn-refresh-container">
+			<button onclick="updateHTMLWithCSS()" class="btn-refresh">
+			</button>
+		</div>
+
+		<div class="result-container">
+			<div class="title"><h3>Résultat</h3></div>
+			<div class="result-area">
+				<div id="UserResult"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="footer">
+	<div class="flex">
+		<a href="bases_html.html".html"><img src="img/arrow-fantasy-prev.png" class="arrow"></a>
+		<a href="ex00.html"><img src="img/arrow-fantasy.png" class="arrow"></a>
+	</div>
+	</div>
+
+
+	<script type="text/javascript"> 
+
+		function	updateHTMLWithCSS()
+		{
+			let css = document.getElementById("UserCSS").value;
+			let HTML = document.getElementById("UserHTML").value;
+			document.getElementById("CSSInput").innerHTML = css;
+			document.getElementById("UserResult").innerHTML = HTML;
+		}
+		updateHTMLWithCSS()
+	</script>
+
+</body>
+</html>
