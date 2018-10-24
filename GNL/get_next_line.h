@@ -12,7 +12,7 @@
 
 #ifndef GET_NEXT_LIGNE_H
 # define GET_NEXT_LIGNE_H
-# define BUFF_SIZE 1
+# define BUFF_SIZE 14
 
 #include "libft/libft.h"
 #include <sys/types.h>
