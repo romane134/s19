@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 17:31:26 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/23 17:05:25 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/24 16:22:19 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 char	*ft_check_rest(char *rest)
 {
+	printf("AAAAAAAAA----%s\n", rest);
 	int i;
 	char *str;
 
@@ -41,19 +42,21 @@ char	*ft_read_line(char *buf, const int fd)
 	char			*tmp;
 	static char		*rest;
 	int				i;
-
+	printf("rest----%s\n", rest);
 	i = 0;
 	if (rest == NULL)
 		rest = ft_strnew(0);
 	if (*rest)
 	{
 		rest = ft_check_rest(rest);
+		printf("REST_____%s\n", rest);
 	}
 	else
 		str = ft_strnew(0);
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[ret] = '\0';
+		printf("000000%s\n", buf);
 		buf = ft_strjoin(ft_strdup(rest), buf);
 		tmp = str;
 		str = ft_strjoin(str, buf);
@@ -63,7 +66,9 @@ char	*ft_read_line(char *buf, const int fd)
 	}
 	if (ft_check_buf(str, ft_strlen(str)) != 0)/*ici on a un \n et il est a la fin du buf donc on peut return*/
 	{
+		//printf("coucou");
 		str[ft_strlen(str) - 1] = '\0';
+		free(rest);
 		return (str);/*on return la ligne*/
 	}
 	else/*on a un \n mais il y a autre chose apres*/
@@ -72,7 +77,11 @@ char	*ft_read_line(char *buf, const int fd)
 		while (str[i] != '\n' && str[i])
 			i++;
 		str[i] = '\0';
+		printf("str---%s\n", str);
+		printf("rest___%s\n", rest);
+		
 		rest = ft_strdup(str + i + 1);
+		printf("----------%s\n", rest);
 		return (str);
 	}
 	if (ret == -1)
@@ -104,7 +113,7 @@ int		main(void)
 	fd = open("file.txt", O_RDONLY);
 	while (get_next_line(fd, &line) > 0)
 	{
-		printf("%s\n", line);
+		printf("GNL--%s\n", line);
 		free(line);
 		printf("!!!!!!!!!!!!!!!!\n");
 	}
