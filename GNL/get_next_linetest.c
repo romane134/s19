@@ -15,16 +15,17 @@
 
 char	*ft_check_rest(char *rest)
 {
-	printf("AAAAAAAAA----%s\n", rest);
-	int i;
+	//printf("AAAAAAAAA----%s\n", rest);
 	char *str;
+	int i;
 
-	i = 0;
+	i = ft_strlen(rest);
 	while (rest[i] != '\n')
 		i++;
 	rest[i] = '\0';
 	str = rest;
 	free(rest);
+	//printf("AHAHAHAH---%s\n", str);
 	return (str);
 }
 
@@ -42,11 +43,11 @@ char	*ft_read_line(char *buf, const int fd)
 	char			*tmp;
 	static char		*rest;
 	int				i;
-	printf("rest----%s\n", rest);
+	//printf("rest----%s\n", rest);
 	i = 0;
 	if (rest == NULL)
 		rest = ft_strnew(0);
-	if (*rest)
+	if (*rest && ret < 0)
 	{
 		rest = ft_check_rest(rest);
 		printf("REST_____%s\n", rest);
@@ -56,7 +57,7 @@ char	*ft_read_line(char *buf, const int fd)
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[ret] = '\0';
-		printf("000000%s\n", buf);
+		//printf("000000%s\n", buf);
 		buf = ft_strjoin(ft_strdup(rest), buf);
 		tmp = str;
 		str = ft_strjoin(str, buf);
@@ -77,11 +78,10 @@ char	*ft_read_line(char *buf, const int fd)
 		while (str[i] != '\n' && str[i])
 			i++;
 		str[i] = '\0';
-		printf("str---%s\n", str);
-		printf("rest___%s\n", rest);
-		
+		//printf("str---%s\n", str);
+		//printf("rest___%s\n", rest);	
 		rest = ft_strdup(str + i + 1);
-		printf("----------%s\n", rest);
+		//printf("----------%s\n", rest);
 		return (str);
 	}
 	if (ret == -1)
@@ -110,6 +110,7 @@ int		main(void)
 	int		fd;
 	char	*line;
 
+	
 	fd = open("file.txt", O_RDONLY);
 	while (get_next_line(fd, &line) > 0)
 	{
