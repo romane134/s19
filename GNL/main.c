@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/12 17:31:31 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/29 19:37:32 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/29 14:49:41 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/29 19:20:42 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 1
-# include "libft/libft.h"
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <limits.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include "get_next_line.h"
 
-int		get_next_line(const int fd, char **line);
+int		main(void)
+{
+	int		fd;
+	char	*line;
 
-#endif
+	line = NULL;
+	fd = open("file.txt", O_RDONLY);
+	while (get_next_line(fd, &line) > 0)
+	{
+		printf("GNL--%s", line);
+		free(line);
+		printf("-------------");
+	}
+	close(fd);
+}
