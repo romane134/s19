@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 17:31:26 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/29 22:10:43 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/10/31 22:29:54 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ char	*ft_line(char *str, char **rest)
 	int		i;
 
 	i = 0;
+	if (str[0] == '\n')
+	{
+		if (!(*rest = ft_strdup(str + i + 1)))
+		{
+			ft_strdel(&str);
+			return (NULL);
+		}
+		return (str);
+	}
 	while (str[i] != '\n' && str[i])
 		i++;
 	if (str[i] != '\0')
