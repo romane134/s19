@@ -41,8 +41,8 @@ typedef struct	s_window
 
 int			get_next_line(const int fd, char **line);
 int			deal_key(int key, void *param);
-void		draw_line(int x1, int x2, int y1, int y2, void *mlx_ptr, void *win_ptr);
-//t_line		*draw_sqrt(char *mlx_ptr, char *win_ptr);
+void		draw_line(int x1, int x2, int y1, int y2, t_window window);
+void    draw_sqrt(t_window window, t_line *lst_map)
 char		**ft_read_fdf(int fd);
 void		init_point(t_coord *point);
 t_line		*init_map(t_window window);
