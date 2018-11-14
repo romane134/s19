@@ -48,8 +48,9 @@ void      set_point(t_coord *current, t_line *lst_map, t_window window)
 	while (i < lst_map->size)
 	{
 		alt = ft_atoi(lst_map->tab[i]);
+		((alt < 0) ? (neg == -1) : (neg == 1));
 		lst_map->point[i].x = current->x - (alt * cos(current->b)) /*- current->y / 2 * sin(current->b)*/;
-		lst_map->point[i].y = current->y - (alt * sin(current->b)) /*+ current->x / 4 * cos(current->b)*/;
+		lst_map->point[i].y = current->y - (alt * sin(current->b) * neg) /*+ current->x / 4 * cos(current->b)*/;
 		if (alt > 0)
 			mlx_pixel_put(window.mlx_ptr, window.win_ptr, lst_map->point[i].x, lst_map->point[i].y, 7667971);
 		else
@@ -68,7 +69,7 @@ t_line    *init_map(t_window window)
 	t_line    *begin_lst;
 	t_coord    current;
 	int        fd;
-
+	char			*tmp;
 	fd = open("10-70.fdf", O_RDONLY);
 	init_point(&current);
 	lst_map = (t_line*)malloc(sizeof(t_line));
@@ -92,8 +93,9 @@ t_line    *init_map(t_window window)
 		  current.x = DEPART + 500;
 		  current.y += 20;*/
 		lst_map->next = (t_line*)malloc(sizeof(t_line));
+		tmp = lst_map->next;
 		lst_map = lst_map->next;
 	}
-	lst_map->next = NULL;
+	tmp = NULL;
 	return (begin_lst);
 }
