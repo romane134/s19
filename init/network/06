@@ -1,0 +1,2 @@
+/etc/resolv.conf
+nslookup slash16.org

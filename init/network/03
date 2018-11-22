@@ -1,0 +1,2 @@
+# ether --> igne ether, $2 2eme mot
+ifconfig en1 | awk '/ether/{print $2}'
