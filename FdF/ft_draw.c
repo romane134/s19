@@ -42,7 +42,7 @@ void		draw_sqrt(char *mlx_ptr, char *win_ptr)
 			if (*tab[i] != '0')
 			{
 				draw_line(x1, y1, (x - 20), y, mlx_ptr, win_ptr); //vers gauche
-				while ((tab[i + 1]) && (*tab[i + 1] != '0')) 
+				while ((tab[i + 1]) && (*tab[i + 1] != '0'))
 				{
 					draw_line(x1, y1, (x1 + 20), y1, mlx_ptr, win_ptr); //plateau
 					x1 += 20;
