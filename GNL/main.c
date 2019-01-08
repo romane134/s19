@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 14:49:41 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/31 23:01:28 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/11/06 16:37:50 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ int		main(void)
 	fd = open("file.txt", O_RDONLY);
 	while (get_next_line(fd, &line) > 0)
 	{
-		printf("GNL--%s\n", line);
+		printf("%s", line);
 		free(line);
-		printf("-------------\n");
 	}
-	close(fd);
 	while (19)
 		;
+	close(fd);
 }

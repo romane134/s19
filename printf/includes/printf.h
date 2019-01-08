@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/12 17:31:31 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/05 11:39:04 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/11/05 11:40:30 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/11/05 11:43:03 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 30
-# include "libft/includes/libft.h"
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <limits.h>
+#ifndef PRINTF_H
+# define PRINTF_H
 
-int		get_next_line(const int fd, char **line);
+# include "libft/include/libft.h"
+# include <unistd.h>
+# include <locale.h>
+# include <stdlib.h>
+# include <stdarg.h>
+
+int		ft_printf(const char * restrict format, ...);
 
 #endif
