@@ -92,5 +92,8 @@ void	which_flag(char **argv, int argc)
 
 int		main(int argc, char **argv)
 {
-	which_flag(argv, argc);
+	t_flag flag;
+
+	ft_flags(argv, flag);	
+	//which_flag(argv, argc);
 }
