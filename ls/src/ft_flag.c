@@ -6,17 +6,17 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 14:13:40 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/15 11:51:16 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/15 12:02:23 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-static void		ft_error_flag(void)
+/*static void		ft_error_flag(void)
 {
 	printf ("Error");
 	exit(0);
-}
+	}*/
 
 void		set_flag(char *argv, int *flag)
 {
@@ -25,27 +25,28 @@ void		set_flag(char *argv, int *flag)
 	char *str;
 	int bits;
 
-	j = -1;
+	j = 0;
 	i = 1;
 	bits = 1;
 	str = "aRltg1r";
 	while (argv[i])
 	{
-		j = -1;
+		j = 0;
 		bits = 1;
-		while (str[++j])
+		while (str[j])
 		{
 			if (argv[i] == str[j])
 			{
 				*flag |= bits;
 			}
+			j++;
 			bits *=  2;
 		}
-		if (str[j] == '\0')
+		/*if (argv[i] != str[j])
 		{
 			ft_error_flag();
 			return ;
-		}
+		}*/
 		i++;
 	}
 }

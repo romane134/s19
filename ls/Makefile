@@ -6,7 +6,7 @@
 #    By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 13:25:35 by rlucas-d          #+#    #+#              #
-#    Updated: 2019/01/08 12:31:39 by rlucas-d         ###   ########.fr        #
+#    Updated: 2019/01/15 11:50:27 by rlucas-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME	= ft_ls
 
 # src / obj files
-SRC		= ft_stat_right.c ls_test.c
+SRC		= ft_stat_right.c ft_ls.c ft_flag.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

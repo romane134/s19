@@ -103,5 +103,5 @@ int				get_next_next_line(int fd, char **line);
 void			ft_free_tab(char **tab, int p);
 
 int				st_printf(const char *restrict fmt, ...);
-
+void            ft_print_bits(unsigned char octect);
 #endif

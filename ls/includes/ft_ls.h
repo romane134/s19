@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 16:18:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/08 12:10:16 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/15 11:43:24 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_LS_H
@@ -26,6 +26,8 @@
 # include <limits.h>
 # include <sys/ioctl.h>
 # include <stdio.h>
+# include <string.h>
+# include <errno.h>
 
 /* (readdir)
  **
@@ -43,18 +45,42 @@
  ** ft_inspect_file.ce
  */
 
-typedef struct	s_file
-{
-	int           size;
-	int           date;
-	int           mode;
-	int           user;
-	int           group;
-	int           device;
-}			t_file;
+# define	A_FLAG = 1
+# define	RR_FLAG = 2
+# define	L_FLAG = 4
+# define	T_FLAG = 8
+# define	G_FLAG = 16
+# define	ONE_FLAG = 32
+# define	R_FLAG = 64
+# define	UU_FLAG = 128
+# define	CC_FLAG = 256
+# define	C_FLAG = 512
+# define	AA_FLAG = 1024
+# define	SS_FLAG = 2048
+# define	GG_FLAG = 4096
 
-int		analyse_file(char *file);
-void	ft_inspect_file(struct stat s);
-void	ft_inspect_rep(struct stat s);
+typedef struct	s_file t_file;
+struct		s_file
+{
+	int		size;
+	char	*date;
+	int		link;
+	char	*mode;
+	int		device;
+	char	*group;
+	char	*user;
+	char	*name;
+	t_file	*next;
+};
+
+int			analyse_file(char *doc, t_file file);
+t_file		ft_inspect_file(struct stat s, t_file file);
+
+/*
+** ft_flag
+*/
+
+int			ft_flag(char **argv, int *flag);
+void		set_flag(char *argv, int *flag);
 
 #endif
