@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 16:18:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/15 11:43:24 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/15 16:27:33 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_LS_H
@@ -45,19 +45,19 @@
  ** ft_inspect_file.ce
  */
 
-# define	A_FLAG = 1
-# define	RR_FLAG = 2
-# define	L_FLAG = 4
-# define	T_FLAG = 8
-# define	G_FLAG = 16
-# define	ONE_FLAG = 32
-# define	R_FLAG = 64
-# define	UU_FLAG = 128
-# define	CC_FLAG = 256
-# define	C_FLAG = 512
-# define	AA_FLAG = 1024
-# define	SS_FLAG = 2048
-# define	GG_FLAG = 4096
+# define	A_FLAG 1
+# define	RR_FLAG 2
+# define	L_FLAG  4
+# define	T_FLAG 8
+# define	G_FLAG 16
+# define	ONE_FLAG 32
+# define	R_FLAG 64
+# define	UU_FLAG 128
+# define	CC_FLAG 256
+# define	C_FLAG 512
+# define	AA_FLAG 1024
+# define	SS_FLAG 2048
+# define	GG_FLAG 4096
 
 typedef struct	s_file t_file;
 struct		s_file

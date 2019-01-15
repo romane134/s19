@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*   ft_flag.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 14:13:40 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/15 12:02:23 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/15 16:25:29 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-/*static void		ft_error_flag(void)
+static void		ft_error_flag(char *str, int i)
 {
-	printf ("Error");
+	st_printf ("ls: illegal option -- %c\n", str[i]);
+	st_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
 	exit(0);
-	}*/
+}
 
 void		set_flag(char *argv, int *flag)
 {
@@ -38,15 +39,16 @@ void		set_flag(char *argv, int *flag)
 			if (argv[i] == str[j])
 			{
 				*flag |= bits;
+				break;
 			}
 			j++;
 			bits *=  2;
 		}
-		/*if (argv[i] != str[j])
+		if (str[j] == '\0')
 		{
-			ft_error_flag();
+			ft_error_flag(argv, i);
 			return ;
-		}*/
+		}
 		i++;
 	}
 }
@@ -73,5 +75,5 @@ int			ft_flag(char **argv, int *flag)
 			break;
 		i++;
 	}
-	return (i + 1);
+	return ((i < 0) ? 0 : (i + 1));
 }

@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 13:38:41 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/15 12:00:26 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/15 16:25:27 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,33 @@
 
 #include "../includes/ft_ls.h"
 
-void	lecture(char *flag, char *doc)
+void	lecture(int flag, char *doc)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
 	char			*fludg;
 	t_file			file;
+
+
 	if (!(dirp = opendir(doc)))
 	{
 		st_printf("ls: %s\n", strerror(errno));
 		exit(0);
 	}
-	ft_total(flag, doc);
 	doc = ft_strjoin(doc, "/");
 	while ((dp = readdir(dirp)) != NULL)
 	{
-		if (dp->d_name[0] != '.' || ft_strchr(flag, 'a') != NULL)
+		fludg = ft_strjoin(doc, dp->d_name);
+		file.name = dp->d_name;
+		/*if (((flag & A_FLAG) != 0) && ((ft_strcmp(file.name, ".") != 0) || (ft_strcmp(file.name, "..") != 0/))
 		{
-			fludg = ft_strjoin(doc, dp->d_name);
-			file.name = dp->d_name;
-			if (ft_strchr(flag, 'l'))
-				analyse_file(fludg, file);
-			if (can_rec(flag, fludg) == 1)
-			{
-				if (ft_strcmp(dp->d_name, ".") != 0 &&
-						ft_strcmp(dp->d_name, "..") != 0)
-					lecture(flag, fludg);
-				st_printf("\n");
-			}
-			st_printf("%s\n", file.name);
-		}
+			continue;
+		}*/
+		if (((flag & L_FLAG) == L_FLAG))
+			analyse_file(fludg, file);
+				//	lecture(flag, fludg);
+		//st_printf("\n");
+		st_printf("%s\n", file.name);
 	}
 	closedir(dirp);
 }
@@ -73,12 +70,16 @@ void		ft_what_kind(char *flags, char *doc)
 
 int main (int argc, char **argv)
 {
+	//struct stat s;
 	int flag;
+	int i;
 	(void)argc;
-
 	flag = 0;
-	ft_flag(argv, &flag);
-	st_printf("%d\n",flag);
+	i = ft_flag(argv, &flag);
+	if (i > argc)
+		lecture(flag, ".");
+	else
+		lecture(flag, argv[i]);
 	return (0);
 }
 
@@ -89,28 +90,28 @@ int main (int argc, char **argv)
 /* savoir si @, +, - !!!!!
  *
  * acl_t acl = NULL;
-	acl_entry_t dummy;
-	ssize_t xattr = 0;
-	char str[10];
-	char * filename = "/Applications";
+ acl_entry_t dummy;
+ ssize_t xattr = 0;
+ char str[10];
+ char * filename = "/Applications";
 
-	acl = acl_get_link_np(filename, ACL_TYPE_EXTENDED);
-	if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) {
-		acl_free(acl);
-		acl = NULL;
-	}
-	xattr = listxattr(filename, NULL, 0, XATTR_NOFOLLOW);
-	if (xattr < 0)
-		xattr = 0;
+ acl = acl_get_link_np(filename, ACL_TYPE_EXTENDED);
+ if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) {
+ acl_free(acl);
+ acl = NULL;
+ }
+ xattr = listxattr(filename, NULL, 0, XATTR_NOFOLLOW);
+ if (xattr < 0)
+ xattr = 0;
 
-	str[1] = '\0';
-	if (xattr > 0)
-		str[0] = '@';
-	else if (acl != NULL)
-		str[0] = '+';
-	else
-		str[0] = ' ';
+ str[1] = '\0';
+ if (xattr > 0)
+ str[0] = '@';
+ else if (acl != NULL)
+ str[0] = '+';
+ else
+ str[0] = ' ';
 
-	printf("%s\n", str);
-*/
+ printf("%s\n", str);
+ */
 
