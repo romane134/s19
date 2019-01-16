@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 14:13:40 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/15 16:25:29 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/16 13:53:41 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 static void		ft_error_flag(char *str, int i)
 {
-	st_printf ("ls: illegal option -- %c\n", str[i]);
-	st_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+	st_printf("ls: illegal option -- %c\n", str[i]);
+	st_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghi
+			klmnopqrstuwx1] [file ...]\n");
 	exit(0);
 }
 
-void		set_flag(char *argv, int *flag)
+void			set_flag(char *argv, int *flag)
 {
-	int i;
-	int j;
-	char *str;
-	int bits;
+	int		i;
+	int		j;
+	char	*str;
+	int		bits;
 
 	j = 0;
 	i = 1;
@@ -39,10 +40,10 @@ void		set_flag(char *argv, int *flag)
 			if (argv[i] == str[j])
 			{
 				*flag |= bits;
-				break;
+				break ;
 			}
 			j++;
-			bits *=  2;
+			bits *= 2;
 		}
 		if (str[j] == '\0')
 		{
@@ -53,7 +54,7 @@ void		set_flag(char *argv, int *flag)
 	}
 }
 
-int			ft_flag(char **argv, int *flag)
+int				ft_flag(char **argv, int *flag)
 {
 	int i;
 
@@ -61,18 +62,16 @@ int			ft_flag(char **argv, int *flag)
 	while (argv[i])
 	{
 		if (argv[i][0] != '-')
-			break;
-		if (ft_strequ(argv[i], "--")) 
+			break ;
+		if (ft_strequ(argv[i], "--"))
 		{
 			i++;
-			break;
+			break ;
 		}
 		if (argv[i][0] == '-' && argv[i][1])
-		{
 			set_flag(argv[i], flag);
-		}
 		else
-			break;
+			break ;
 		i++;
 	}
 	return ((i < 0) ? 0 : (i + 1));

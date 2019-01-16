@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 16:18:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/15 16:27:33 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/16 13:24:53 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_LS_H
@@ -73,7 +73,7 @@ struct		s_file
 	t_file	*next;
 };
 
-int			analyse_file(char *doc, t_file file);
+int			print_info_file(char *doc, t_file file);
 t_file		ft_inspect_file(struct stat s, t_file file);
 
 /*
