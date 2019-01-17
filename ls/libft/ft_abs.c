@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 13:21:21 by smondesi          #+#    #+#             */
-/*   Updated: 2018/12/05 13:21:16 by smondesi         ###   ########.fr       */
+/*   Created: 2018/10/16 21:33:46 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/23 13:48:43 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_abs(int d)
+#include "libft.h"
+
+long int	ft_abs(long int nbr)
 {
-	if (d < 0)
-		return (-d);
-	return (d);
+	return ((nbr < 0) ? -nbr : nbr);
 }

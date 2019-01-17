@@ -15,8 +15,7 @@
 static void		ft_error_flag(char *str, int i)
 {
 	st_printf("ls: illegal option -- %c\n", str[i]);
-	st_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghi
-			klmnopqrstuwx1] [file ...]\n");
+	st_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
 	exit(0);
 }
 

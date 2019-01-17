@@ -82,7 +82,7 @@ t_file			ft_inspect_file(struct stat s, t_file file)
 	file.user = pwd->pw_name;
 	file.group = group->gr_name;
 	file.size = (int)s.st_size;
-	file.date = ft_strsub(ctime((const long *)&s.st_mtimespec), 4, 12);
+	file.date = ft_strsub(ctime((const long *)&s.st_mtim/*espec*/), 4, 12);
 	return (file);
 }
 

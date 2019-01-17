@@ -3,32 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/17 15:16:05 by smondesi          #+#    #+#             */
-/*   Updated: 2018/12/07 14:30:03 by smondesi         ###   ########.fr       */
+/*   Created: 2018/10/08 06:32:24 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/11/01 17:06:44 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Alloue (avec malloc(3)) et retourne un maillon “frais”. Les
+** champs content et content_size du nouveau maillon sont
+** initialisés par copie des paramètres de la fonction. Si le paramètre
+** content est nul, le champs content est initialisé à
+** NULL et le champs content_size est initialisé à 0 quelque
+** soit la valeur du paramètre content_size. Le champ next
+** est initialisé à NULL. Si l’allocation échoue, la fonction renvoie
+** NULL.
+*/
 #include "libft.h"
 
 t_list	*ft_lstnew(void const *content, size_t content_size)
 {
 	t_list	*new;
-	void	*ccontent;
 
 	if (!(new = (t_list *)malloc(sizeof(t_list))))
 		return (NULL);
-	if (content == NULL || content_size == 0)
+	if (content == NULL)
 	{
 		new->content = NULL;
 		new->content_size = 0;
+		new->next = NULL;
+		return (new);
 	}
-	else if (content != NULL)
+	if (content_size)
 	{
-		ccontent = ft_memalloc(content_size);
-		ft_memcpy(ccontent, content, content_size);
-		new->content = ccontent;
+		new->content = ft_memalloc(content_size);
+		if (new->content == NULL)
+		{
+			free(new);
+			return (NULL);
+		}
+		ft_memcpy(new->content, content, content_size);
 		new->content_size = content_size;
 	}
 	new->next = NULL;

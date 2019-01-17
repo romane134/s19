@@ -3,39 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/05 14:11:54 by smondesi          #+#    #+#             */
-/*   Updated: 2018/10/23 11:17:41 by smondesi         ###   ########.fr       */
+/*   Created: 2018/10/03 08:54:15 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/23 13:53:37 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int		ft_atoi(const char *str)
 {
-	size_t	i;
-	long	num;
-	int		p;
+	long	result;
+	int		a;
+	int		neg;
 	long	count;
 
-	p = 1;
-	num = 0;
-	i = 0;
-	while (str[i] == '\f' || str[i] == '\v' || str[i] == '\r' ||
-				str[i] == '\n' || str[i] == '\t' || str[i] == ' ')
-		i++;
-	if (str[i] == '-')
-		p = -1;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	a = 0;
+	result = 0;
+	neg = 1;
+	while (str[a] == ' ' || str[a] == '\t' || str[a] == '\n' || str[a] == '\r'
+			|| str[a] == '\f' || str[a] == '\v')
+		a++;
+	if (str[a] == '-' || str[a] == '+')
+		if (str[a++] == '-')
+			neg = -1;
+	while (str[a] >= 48 && str[a] <= 57)
 	{
-		count = num;
-		num = num * 10 + ((str[i] - 48) * p);
-		if (count && (count ^ num) < 0)
-			return ((p == -1) ? 0 : -1);
-		i++;
+		count = result;
+		result = result * 10 + str[a] - '0';
+		if (count && (count ^ result) < 0)
+			return ((neg == 1) ? -1 : 0);
+		a++;
 	}
-	return ((int)num);
+	return ((int)result * neg);
 }

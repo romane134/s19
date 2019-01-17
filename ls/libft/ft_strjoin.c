@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 12:36:27 by smondesi          #+#    #+#             */
-/*   Updated: 2018/10/19 09:52:52 by smondesi         ###   ########.fr       */
+/*   Created: 2018/10/04 23:30:45 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/17 06:49:11 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,24 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
+	char	*str;
 	size_t	len;
-	int		i;
-	int		a;
-	char	*c;
+	size_t	a;
+	size_t	b;
 
-	i = 0;
-	a = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	len = ft_strlen(s1) + ft_strlen(s2);
-	if ((c = ft_strnew(len)) == NULL)
+	b = 0;
+	if (!s1 || !s2)
 		return (NULL);
-	while (s1[i])
+	len = ft_strlen(s1) + ft_strlen(s2);
+	if (!(str = ft_strnew(len)))
+		return (NULL);
+	ft_strcpy(str, s1);
+	a = ft_strlen(str);
+	while (s2[b] != '\0')
 	{
-		c[i] = s1[i];
-		i++;
+		str[a + b] = s2[b];
+		b++;
 	}
-	while (s2[a])
-	{
-		c[a + i] = s2[a];
-		a++;
-	}
-	return (c);
+	str[a + b] = '\0';
+	return (str);
 }

@@ -3,27 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 14:20:31 by smondesi          #+#    #+#             */
-/*   Updated: 2018/10/22 09:29:07 by smondesi         ###   ########.fr       */
+/*   Created: 2018/10/03 21:38:19 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/10/08 09:34:06 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t len)
+void	*ft_memccpy(void *dst, const void *src, int c,
+		size_t n)
 {
-	size_t	i;
-	char	*cpy;
+	unsigned char	*d;
+	unsigned char	*s;
+	size_t			size;
 
-	i = -1;
-	cpy = (char *)dst;
-	while (++i < len)
+	size = 0;
+	d = (unsigned char*)dst;
+	s = (unsigned char*)src;
+	while (size < n)
 	{
-		*(cpy + i) = *((unsigned char *)src + i);
-		if (*((unsigned char *)src + i) == (unsigned char)c)
-			return (dst + i + 1);
+		d[size] = s[size];
+		if (d[size] == (unsigned char)c)
+		{
+			size++;
+			return (d + sizeof(unsigned char) * size);
+		}
+		size++;
 	}
 	return (NULL);
 }
