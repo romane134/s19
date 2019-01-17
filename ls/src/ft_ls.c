@@ -39,12 +39,12 @@ void		lecture(int flag, char *doc)
 	closedir(dirp);
 }
 
-void		ft_what_kind(char *flags, char *doc)
+void		ft_what_kind(char *flag, char *doc)
 {
 	struct stat	s;
 	t_file		file;
 
-	(void)flags;
+	(void)flag;
 	if ((stat(doc, &s) == -1))
 	{
 		st_printf("stat: %s\n", strerror(errno));
@@ -66,6 +66,10 @@ int			main(int argc, char **argv)
 	if (i > argc)
 		lecture(flag, ".");
 	else
+	{
+		if (!(what_kind(flag, argv[i])))
+			printf ("error");
 		lecture(flag, argv[i]);
+	}
 	return (0);
 }
