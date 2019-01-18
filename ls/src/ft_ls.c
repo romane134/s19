@@ -69,7 +69,8 @@ int			main(int argc, char **argv)
 				lecture(flag, ".");
 		else
 		{
-printf("%d\n", i);
+printf("iiiiii%d\n", i);
+printf ("ARGVVVV______%s\n", argv[2]);
 				while (argv[i])
 				{
 						printf("coucoucccccc\n");
