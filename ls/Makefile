@@ -6,7 +6,7 @@
 #    By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 13:25:35 by rlucas-d          #+#    #+#              #
-#    Updated: 2019/01/15 11:50:27 by rlucas-d         ###   ########.fr        #
+#    Updated: 2019/01/20 16:44:41 by rlucas-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,13 @@
 NAME	= ft_ls
 
 # src / obj files
-SRC		= ft_stat_right.c ft_ls.c ft_flag.c
+SRC		= ft_stat_right.c ft_ls.c ft_flag.c ft_lecture.c ft_list.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
 # compiler
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-
 # ft library
 FT		= ./libft/
 FT_LIB	= $(addprefix $(FT),libft.a)
@@ -39,7 +38,7 @@ obj:
 	@mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-	@$(CC)  $(FT_INC)  -I $(INCDIR) -o $@ -c $(CFLAGS) $<
+	@$(CC)   $(CFLAGS) $(FT_INC)  -I $(INCDIR) -o $@ -c $<
 	@echo "compilation de $< en $@"
 
 $(FT_LIB):

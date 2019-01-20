@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 16:18:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/16 13:24:53 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/20 15:56:18 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_LS_H
@@ -60,27 +60,40 @@
 # define	GG_FLAG 4096
 
 typedef struct	s_file t_file;
-struct		s_file
+struct			s_file
 {
-	int		size;
-	char	*date;
-	int		link;
-	char	*mode;
-	int		device;
-	char	*group;
-	char	*user;
-	char	*name;
-	t_file	*next;
+	int			size;
+	char		*date;
+	int			link;
+	char		*mode;
+	int			device;
+	char		*group;
+	char		*user;
+	char		*name;
+	struct stat	stat;
+	t_file		*next;
 };
 
-int			print_info_file(char *doc, t_file file);
-t_file		ft_inspect_file(struct stat s, t_file file);
+int				print_info_file(char *doc, t_file file);
+t_file			ft_inspect_file(struct stat s, t_file file);
 
 /*
 ** ft_flag
 */
 
-int			ft_flag(char **argv, int *flag);
-void		set_flag(char *argv, int *flag);
+int				ft_flag(char **argv, int *flag);
+void			set_flag(char *argv, int *flag);
+
+/*
+** ft_lecture.c
+*/
+void			lecture(int flag, char *doc);
+
+/*
+** ft_list.c
+*/
+
+t_file		*ft_list(char **file, int i);
+t_file		*ft_elem_list(t_file *list, char *file);
 
 #endif

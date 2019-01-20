@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 17:06:25 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/16 14:02:09 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/20 13:37:37 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_file			ft_inspect_file(struct stat s, t_file file)
 	file.user = pwd->pw_name;
 	file.group = group->gr_name;
 	file.size = (int)s.st_size;
-	file.date = ft_strsub(ctime((const long *)&s.st_mtim/*espec*/), 4, 12);
+	file.date = ft_strsub(ctime((const long *)&s.st_mtimespec), 4, 12);
 	return (file);
 }
 
