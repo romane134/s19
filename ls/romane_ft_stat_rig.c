@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 17:06:25 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/21 11:40:58 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/01/20 13:37:37 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,53 +65,25 @@ static char		*ft_filetype(struct stat s)
 	return (str);
 }
 
-char			*stat_time(struct stat s, t_file file)
-{
-	char	*date;
-	int		var_time;
-	int		age;
-
-	/* If the modification time of the file is more than 6 months in the past or
-	 * future, then the year of the last modification is displayed in place of
-	 *the hour and minute fields*/
-	if (file.flag & U_FLAG)
-		var_time = s.st_atimespec.tv_sec;
-	else if (file.flag & UU_FLAG)
-		var_time = s.st_birthtimespec.tv_sec;
-	else
-		var_time = s.st_mtimespec.tv_sec;
-	age = time(0) - var_time;//?fonctionne ?change si var_time?
-	if ((file.flag & TT_FLAG) == TT_FLAG)
-		date = ft_strsub(ctime((const long *)&var_time), 4, 20);
-	else if (age > 0 && age < 15778800)
-		date = ft_strsub(ctime((const long *)&var_time), 4, 12);
-	else
-		date = ft_strsub(ctime((const long *)&var_time), 20, 4);
-	return (date);
-}
-
-t_file			ft_inspect_file(char *doc, t_file *file)
+t_file			ft_inspect_file(struct stat s, t_file file)
 {
 	struct group	*group;
 	struct passwd	*pwd;
 	char			*str;
-	struct stat		s;
 
-	stat(doc, &s);
 	pwd = getpwuid(s.st_uid);
 	group = getgrgid(s.st_gid);
-	file->mode = ft_strnew(10);
-	file->mode = ft_filetype(s);
+	file.mode = ft_strnew(10);
+	file.mode = ft_filetype(s);
 	str = permissions(s);
-	file->mode = ft_strjoin(file->mode, str);
+	file.mode = ft_strjoin(file.mode, str);
 	free(str);
-	file->link = (int)s.st_nlink;
-	file->user = ((file->flag & N_FLAG) ? ft_itoa(s.st_uid) : pwd->pw_name);
-	file->group = ((file->flag & N_FLAG) ? ft_itoa(s.st_gid) : group->gr_name);
-	file->size = (int)s.st_size;
-	file->date = stat_time(s, *file);
-	file->blks = s.st_blocks;
-	return (*file);
+	file.link = (int)s.st_nlink;
+	file.user = pwd->pw_name;
+	file.group = group->gr_name;
+	file.size = (int)s.st_size;
+	file.date = ft_strsub(ctime((const long *)&s.st_mtimespec), 4, 12);
+	return (file);
 }
 
 int				print_info_file(char *doc, t_file file)
@@ -123,19 +95,14 @@ int				print_info_file(char *doc, t_file file)
 		strerror(errno);
 		exit(EXIT_FAILURE);
 	}
-//	file = ft_inspect_file(doc, file);
+	file = ft_inspect_file(s, file);
 	st_printf("%s ", file.mode);
 	st_printf("%d ", file.link);
 	st_printf("%s ", file.user);
 	st_printf("%s ", file.group);
 	st_printf("%d ", file.size);
 	st_printf("%s ", file.date);
-/*	
- *	if ((file.flag & S_FLAG) == S_FLAG)
- *	st_printf("%d ", file.blks);
-*/
-
-	//st_printf("The file %s a symbolic link\n\n", (S_ISLNK(s.st_mode))
-	//? "is" : "is not");
+		//st_printf("The file %s a symbolic link\n\n", (S_ISLNK(s.st_mode))
+		//? "is" : "is not");
 	return (0);
 }

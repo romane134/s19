@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 16:18:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/20 15:56:18 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/21 19:25:52 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_LS_H
@@ -45,24 +45,26 @@
  ** ft_inspect_file.ce
  */
 
-# define	A_FLAG 1
-# define	RR_FLAG 2
-# define	L_FLAG  4
-# define	T_FLAG 8
-# define	G_FLAG 16
-# define	ONE_FLAG 32
-# define	R_FLAG 64
-# define	UU_FLAG 128
-# define	CC_FLAG 256
-# define	C_FLAG 512
-# define	AA_FLAG 1024
-# define	SS_FLAG 2048
-# define	GG_FLAG 4096
+# define A_FLAG 1
+# define RR_FLAG 2
+# define L_FLAG  4
+# define T_FLAG 8
+# define G_FLAG 16
+# define ONE_FLAG 32
+# define R_FLAG 64
+# define TT_FLAG 128
+# define U_FLAG 256
+# define UU_FLAG 512
+# define N_FLAG 1024
+# define S_FLAG 2048
 
 typedef struct	s_file t_file;
 struct			s_file
 {
 	int			size;
+	int			flag;
+	int			blks;
+	char		*path;
 	char		*date;
 	int			link;
 	char		*mode;
@@ -74,8 +76,15 @@ struct			s_file
 	t_file		*next;
 };
 
+typedef struct	s_test t_test;
+struct			s_test
+{
+	t_file		doki;
+	t_test		*next;
+};
+
 int				print_info_file(char *doc, t_file file);
-t_file			ft_inspect_file(struct stat s, t_file file);
+t_file			ft_inspect_file(char *doc, t_file *file);
 
 /*
 ** ft_flag
@@ -87,13 +96,13 @@ void			set_flag(char *argv, int *flag);
 /*
 ** ft_lecture.c
 */
-void			lecture(int flag, char *doc);
+t_test			*lecture(int flag, char *doc);
 
 /*
 ** ft_list.c
 */
 
 t_file		*ft_list(char **file, int i);
-t_file		*ft_elem_list(t_file *list, char *file);
+t_file		*ft_elem_list(/*t_file *list,*/ char *file);
 
 #endif

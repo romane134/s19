@@ -5,16 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/20 15:21:13 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/20 17:41:25 by rlucas-d         ###   ########.fr       */
+/*   Created: 2019/01/21 19:33:15 by rlucas-d          #+#    #+#             */
+/*   Updated: 2019/01/21 19:46:47 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
-/*t_file			tri_list(t_file *list)
-{
-
-}*/
 
 t_file			*ft_list(char **file, int i)
 {
@@ -22,31 +18,35 @@ t_file			*ft_list(char **file, int i)
 	struct stat		s;
 	t_file			*start;
 
-	if (!(list = (t_file *)malloc(sizeof(t_file))))
-		return (NULL);
-	start = list;
+	list = NULL;
+	start = NULL;
 	while (file[i] != '\0')
 	{
 		if (stat(file[i], &s) == 0)
 		{
-			list = ft_elem_list(list, file[i]);
+			list = ft_elem_list(file[i]);
+			if (start == NULL)
+				start = list;
+			i++;
+			//printf ("%s\n", list->name);
 			list = list->next;
 		}
 		else
 			i++;
-		printf ("%s\n", list->name);
-		i++;
 	}
-	list->next = NULL;
+	//printf ("%s\n", start->name);
+	//printf ("%s\n", start->next->name);
 	return (start);
 }
 
-t_file			*ft_elem_list(t_file *list, char *file)
+t_file			*ft_elem_list(char *file)
 {
+	t_file		*list;
+
 	if (!(list = (t_file *)malloc(sizeof(t_file))))
 		return (NULL);
 	list->name = file;
 	//list->stat = s;
-	//list->next = NULL;
+	list->next = NULL;
 	return (list);
 }
