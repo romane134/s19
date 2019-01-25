@@ -3,30 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 21:56:42 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/16 21:48:28 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/08 11:40:41 by smondesi          #+#    #+#             */
+/*   Updated: 2018/10/19 11:02:27 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strtrim(char const *s)
+char	*ft_strtrim(char const *s)
 {
-	unsigned int	i;
-	size_t			len;
-	char			*ret;
+	int			i;
+	int			a;
+	int			k;
+	char		*c;
 
-	if (!s)
+	if (s == NULL)
 		return (0);
+	k = ft_strlen(s);
 	i = 0;
-	while (ft_space(s[i]))
+	a = -1;
+	while ((s[i] == ' ' || s[i] == '\n' || s[i] == '\t') && s[i])
 		i++;
-	len = ft_strlen(s) - 1;
-	while (len > i && ft_space(s[len]))
-		len--;
-	if (len < i)
-		return (ret = ft_strdup(""));
-	return (ret = ft_strsub(s, i, len - (size_t)i + 1));
+	while ((s[k - 1] == ' ' || s[k - 1] == '\n' || s[k - 1] == '\t') && k > 0)
+		k--;
+	if (s[i] == '\0')
+		return (ft_strnew(0));
+	if ((c = (char*)malloc(sizeof(char) * ((k - i) + 1))) == NULL)
+		return (NULL);
+	while ((a++) < (k - i - 1))
+		c[a] = s[i + a];
+	c[a++] = '\0';
+	return (c);
 }

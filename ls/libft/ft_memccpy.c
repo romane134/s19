@@ -3,34 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 21:38:19 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/08 09:34:06 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/04 14:20:31 by smondesi          #+#    #+#             */
+/*   Updated: 2018/10/22 09:29:07 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c,
-		size_t n)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t len)
 {
-	unsigned char	*d;
-	unsigned char	*s;
-	size_t			size;
+	size_t	i;
+	char	*cpy;
 
-	size = 0;
-	d = (unsigned char*)dst;
-	s = (unsigned char*)src;
-	while (size < n)
+	i = -1;
+	cpy = (char *)dst;
+	while (++i < len)
 	{
-		d[size] = s[size];
-		if (d[size] == (unsigned char)c)
-		{
-			size++;
-			return (d + sizeof(unsigned char) * size);
-		}
-		size++;
+		*(cpy + i) = *((unsigned char *)src + i);
+		if (*((unsigned char *)src + i) == (unsigned char)c)
+			return (dst + i + 1);
 	}
 	return (NULL);
 }

@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_letter.c                                  :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/16 21:27:32 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/16 21:51:39 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/12/07 13:36:41 by smondesi          #+#    #+#             */
+/*   Updated: 2018/12/07 15:49:41 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_count_letter(char const *s, char c)
+void	ft_free_tab(char **tab, int p)
 {
-	int size;
-
-	size = 0;
-	while (s[size] != c && s[size])
-		size++;
-	return (size);
+	while (p--)
+		free(tab[p]);
+	free(tab);
 }

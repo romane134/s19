@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 17:06:25 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/21 11:40:58 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/01/25 10:41:11 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,13 @@ char			*stat_time(struct stat s, t_file file)
 	int		var_time;
 	int		age;
 
-	/* If the modification time of the file is more than 6 months in the past or
-	 * future, then the year of the last modification is displayed in place of
-	 *the hour and minute fields*/
 	if (file.flag & U_FLAG)
 		var_time = s.st_atimespec.tv_sec;
 	else if (file.flag & UU_FLAG)
 		var_time = s.st_birthtimespec.tv_sec;
 	else
 		var_time = s.st_mtimespec.tv_sec;
-	age = time(0) - var_time;//?fonctionne ?change si var_time?
+	age = time(0) - var_time;
 	if ((file.flag & TT_FLAG) == TT_FLAG)
 		date = ft_strsub(ctime((const long *)&var_time), 4, 20);
 	else if (age > 0 && age < 15778800)
@@ -90,12 +87,13 @@ char			*stat_time(struct stat s, t_file file)
 	return (date);
 }
 
-t_file			ft_inspect_file(char *doc, t_file *file)
+void			ft_inspect_file(char *doc, t_file *file)
 {
 	struct group	*group;
 	struct passwd	*pwd;
 	char			*str;
 	struct stat		s;
+
 
 	stat(doc, &s);
 	pwd = getpwuid(s.st_uid);
@@ -111,31 +109,5 @@ t_file			ft_inspect_file(char *doc, t_file *file)
 	file->size = (int)s.st_size;
 	file->date = stat_time(s, *file);
 	file->blks = s.st_blocks;
-	return (*file);
-}
-
-int				print_info_file(char *doc, t_file file)
-{
-	struct stat		s;
-
-	if ((stat(doc, &s) == -1) && (lstat(doc, &s) == -1))
-	{
-		strerror(errno);
-		exit(EXIT_FAILURE);
-	}
-//	file = ft_inspect_file(doc, file);
-	st_printf("%s ", file.mode);
-	st_printf("%d ", file.link);
-	st_printf("%s ", file.user);
-	st_printf("%s ", file.group);
-	st_printf("%d ", file.size);
-	st_printf("%s ", file.date);
-/*	
- *	if ((file.flag & S_FLAG) == S_FLAG)
- *	st_printf("%d ", file.blks);
-*/
-
-	//st_printf("The file %s a symbolic link\n\n", (S_ISLNK(s.st_mode))
-	//? "is" : "is not");
-	return (0);
+	//file->name OK
 }

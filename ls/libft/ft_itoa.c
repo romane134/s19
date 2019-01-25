@@ -3,47 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 21:21:49 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/16 21:41:59 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/05 14:48:42 by smondesi          #+#    #+#             */
+/*   Updated: 2018/10/24 14:01:42 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_len(long int nbr)
+static	size_t		ft_taille(long n)
 {
-	int		len;
+	size_t taille;
 
-	len = (nbr <= 0) ? 1 : 0;
-	while (nbr != 0)
+	taille = 0;
+	if (n == 0)
+		taille = 1;
+	while (n > 0)
 	{
-		nbr = nbr / 10;
-		len++;
+		n = n / 10;
+		taille++;
 	}
-	return (len);
+	return (taille);
 }
 
-char			*ft_itoa(int nbr)
+char				*ft_itoa(int n)
 {
-	int			len;
-	int			sign;
-	char		*c;
+	size_t	taille;
+	int		p;
+	long	nb;
+	char	*str;
 
-	sign = (nbr < 0) ? -1 : 1;
-	len = ft_len(nbr);
-	if (!(c = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	c[len] = '\0';
-	len--;
-	while (len >= 0)
+	p = 0;
+	nb = n;
+	if (nb < 0)
 	{
-		c[len] = '0' + ft_abs(nbr % 10);
-		nbr = ft_abs(nbr / 10);
-		len--;
+		p = 1;
+		nb = nb * -1;
 	}
-	if (sign == -1)
-		c[0] = '-';
-	return (c);
+	taille = ft_taille(nb);
+	if ((str = (char*)malloc(sizeof(char) * (taille + p + 1))) == NULL)
+		return (0);
+	if (p == 1)
+		str[0] = '-';
+	str[taille + p] = '\0';
+	while (taille > 0)
+	{
+		taille--;
+		str[taille + p] = (nb % 10) + '0';
+		nb = nb / 10;
+	}
+	return (str);
 }

@@ -3,50 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/21 19:33:15 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/21 19:46:47 by rlucas-d         ###   ########.fr       */
+/*   Created: 2019/01/22 11:54:35 by smondesi          #+#    #+#             */
+/*   Updated: 2019/01/25 10:01:06 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-t_file			*ft_list(char **file, int i)
+void		sort_list_time(t_file *file)
 {
-	t_file			*list;
-	struct stat		s;
-	t_file			*start;
+	t_file		*tmp;
 
-	list = NULL;
-	start = NULL;
-	while (file[i] != '\0')
+	tmp = file;
+	if (file == NULL)
+		return ;
+	while (file->next != NULL)
 	{
-		if (stat(file[i], &s) == 0)
+		if (file->time < file->next->time)
 		{
-			list = ft_elem_list(file[i]);
-			if (start == NULL)
-				start = list;
-			i++;
-			//printf ("%s\n", list->name);
-			list = list->next;
+			tmp = file;
+			file = file->next;
+			file->next = tmp;
 		}
 		else
-			i++;
+			file = file->next;
 	}
-	//printf ("%s\n", start->name);
-	//printf ("%s\n", start->next->name);
-	return (start);
+	file = tmp;
 }
 
-t_file			*ft_elem_list(char *file)
+t_file		*list_rev(t_file *file)
 {
-	t_file		*list;
+	t_file			*tmp;
 
-	if (!(list = (t_file *)malloc(sizeof(t_file))))
-		return (NULL);
-	list->name = file;
-	//list->stat = s;
-	list->next = NULL;
-	return (list);
+	tmp = NULL;
+	if (file == NULL)
+		return (file);
+	while (file != NULL)
+	{
+		if (tmp == NULL)
+			file->next = NULL;
+		else
+			file->next = tmp;
+		tmp = file;
+		file = file->next;
+	}
+	return (tmp);
+}
+
+void		sort_list(t_file *file, int (*cmp)(const char *a, const char *b))
+{
+	t_file		*tmp;
+
+	tmp = file;
+	if (file == NULL)
+		return ;
+	while (file->next != NULL)
+	{
+		if (cmp(file->name, file->next->name) > 0)
+		{
+			tmp = file;
+			file = file->next;
+			file->next = tmp;
+		}
+		else
+			file = file->next;
+	}
+	file = tmp;
 }

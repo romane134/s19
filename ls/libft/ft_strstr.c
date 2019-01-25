@@ -3,36 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 08:56:18 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/18 11:52:16 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/04 17:00:46 by smondesi          #+#    #+#             */
+/*   Updated: 2018/10/18 11:26:15 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(const char *s1, const char *s2)
+char	*ft_strstr(const char *look, const char *to_find)
 {
-	const char	*to_return;
-	int			count;
+	size_t	i;
+	size_t	j;
 
-	if (*s2 == '\0')
-		return ((char*)s1);
-	while (*s1 != '\0')
+	i = 0;
+	j = 0;
+	if (to_find[i] == '\0')
+		return ((char*)look);
+	while (look[i])
 	{
-		count = 0;
-		to_return = s1;
-		while (*to_return == *(s2 + count) && *(s2 + count) != '\0')
-		{
-			count++;
-			to_return++;
-		}
-		if (*(s2 + count) == '\0')
-		{
-			return ((char*)(to_return - count));
-		}
-		s1++;
+		while (look[i + j] == to_find[j] && look[i + j])
+			j++;
+		if (to_find[j] == '\0')
+			return ((char*)&look[i]);
+		else if (to_find[j] != '\0')
+			j = 0;
+		i++;
 	}
 	return (0);
 }

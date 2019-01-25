@@ -6,88 +6,101 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 13:38:41 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/21 19:44:18 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/25 10:41:08 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-/*void	print_list(t_test *li)
+t_file			*lecture(int flag, char *doc)
 {
-	while (li != NULL)
+	DIR					*dirp;
+	struct dirent		*dp;
+	t_file				*file;
+
+	file = NULL;
+	if (!(dirp = opendir(doc)))
 	{
-		printf("%s\n", li->doki.name);
-		printf("%d\n", li->doki.size);
-	*		printf("%s\n", li->date);
-		 *		**		printf("%s\n", li->user);
-		 *		**		printf("%s\n", li->mode);
-		 *		
-		li = li->next;
+		st_printf("ls: %s: %s\n", doc, strerror(errno));
+		return (NULL);
 	}
-}*/
-
-void		sort_list(t_test *file)
-{
-	t_file tp;
-	t_test *tmp;
-
-	tmp = file;
-	while (file->next != NULL)
+	doc = ft_strjoin(doc, "/");
+	while ((dp = readdir(dirp)) != NULL)
 	{
-		if(ft_strcmp(file->doki.name, file->next->doki.name) > 0)
+		if ((flag & A_FLAG) == A_FLAG || dp->d_name[0] != '.')
 		{
-			tp = file->doki;
-			file->doki = file->next->doki;
-			file->next->doki = tp;
-			file = tmp;
+			printf ("!\n");
+			if (!(file = (t_file *)malloc(sizeof(*file))))
+				return (NULL);
+			file->flag = flag;
+			file->path = ft_strjoin(doc, dp->d_name);
+			file->name = dp->d_name;
+			ft_inspect_file(file->path, file);
+			printf ("%s\n", file->name); //file->name  OK;
+			if (file == NULL)
+				file->next = NULL;
+			else
+				file = file->next;
+			printf ("iiii%s\n", file->name);
 		}
-		else
-			file = file->next;
 	}
-	file = tmp;
-	printf("\n");
-	//print_list(file);
+	closedir(dirp);
+	return (file);
 }
 
-void	ft_printlist(t_file *debut)
+void			ft_recur(int flag, t_file *file)
 {
-	while (debut != NULL)
+	t_file	*child;
+
+	while (file != NULL)
 	{
-		printf("%s\n", debut->name);
-		debut = debut->next;
+		if (file->mode[0] == 'd' && ft_strcmp(file->name, ".") != 0 &&
+				ft_strcmp(file->name, "..") != 0)
+		{
+			st_printf("\n%s:\n", file->path);
+			child = lecture(flag, file->path);
+			sort_list(child, ft_strcmp);
+			print_list(child);
+			ft_recur(flag, child);
+			free(child);
+		}
+		file = file->next;
 	}
 }
 
-int			main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
-	int			flag;
-	int			i;
-	//	struct stat	s;
-	t_file		*list;
-	t_test		*file;
+	int		flag;
+	int		i;
+	t_file	*file;
+	t_file	*list;
+	struct stat s;
 
-	(void)argc;
+	list = (t_file*)malloc(sizeof(*list));
 	flag = 0;
 	i = ft_flag(argv, &flag);
-	if (i >= argc)
-	{
+	if (i == argc)
 		file = lecture(flag, ".");
-		sort_list(file);
-	}
-	else
-	{
-		list = ft_list(argv, i);
-		ft_printlist(list);
-	//	while (list)
-	//	{
-			//printf ("coucou\n");
-	//		file = lecture(flag, list->name);
-			//printf ("%s\n", list->name);
-		//	list = list->next;
-		//	printf ("%s\n", list->name);
 
-		//}
-		//ft_witch_type(list, flag);
+	while (i < argc)
+	{
+		if (opendir(argv[i]))
+		{
+			printf("\n%s:\n", argv[i]);
+			file = lecture(flag, argv[i]);
+			printf ("MAIN:   %s\n",file->name);
+		}
+		else if ((stat(argv[i], &s) != -1))
+		{
+			file = ft_lecture_file(flag, argv[i]);
+//			ft_sort(flag, file);
+			free(file);
+			//i++;
+		}
+		else
+			st_printf("ls: %s: %s\n", argv[i], strerror(errno));
+		ft_sort(flag, file);
+		i++;
 	}
 	return (0);
 }

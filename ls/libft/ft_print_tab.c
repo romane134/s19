@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_space.c                                         :+:      :+:    :+:   */
+/*   ft_print_tab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/16 21:44:23 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/16 21:44:40 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/08 16:41:54 by smondesi          #+#    #+#             */
+/*   Updated: 2018/12/05 13:24:26 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_space(int c)
+void	ft_print_tab(char **tab)
 {
-	return (c == ' ' || c == '\t' || c == '\n');
+	int i;
+
+	i = 0;
+	if (tab != NULL)
+	{
+		while (tab[i][0] != '\0')
+		{
+			ft_putstr(tab[i]);
+			ft_putchar('\n');
+			i++;
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 14:13:40 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/21 19:11:59 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/23 14:35:03 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void		ft_error_flag(char *str, int i)
 {
 	st_printf("ls: illegal option -- %c\n", str[i]);
-	st_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+	st_printf("usage: ls \
+			[-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
 	exit(0);
 }
 
@@ -75,5 +76,5 @@ int				ft_flag(char **argv, int *flag)
 			break ;
 		i++;
 	}
-	return ((i < 0) ? 0 : i);
+	return ((i < 0) ? 0 : (i));
 }
