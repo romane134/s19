@@ -6,78 +6,15 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:40:48 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/25 10:41:09 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/31 17:16:19 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-void		sort_list_time(t_file *file)
+void			ft_sort(int flag, t_test *file)
 {
-	t_file		*tmp;
-
-	tmp = file;
-	if (file == NULL)
-		return ;
-	while (file->next != NULL)
-	{
-		if (file->time < file->next->time)
-		{
-			tmp = file;
-			file = file->next;
-			file->next = tmp;
-		}
-		else
-			file = file->next;
-	}
-	file = tmp;
-}
-
-t_file		*list_rev(t_file *file)
-{
-	t_file			*tmp;
-
-	tmp = NULL;
-	if (file == NULL)
-		return (file);
-	while (file != NULL)
-	{
-		if (tmp == NULL)
-			file->next = NULL;
-		else
-			file->next = tmp;
-		tmp = file;
-		file = file->next;
-	}
-	return (tmp);
-}
-
-void		sort_list(t_file *file, int (*cmp)(const char *a, const char *b))
-{
-	t_file		*tmp;
-
-	printf ("----%s\n", file->name);
-	tmp = file;
-	if (file == NULL)
-		return ;
-	while (file->next != NULL)
-	{
-		if (cmp(file->name, file->next->name) > 0)
-		{
-			tmp = file;
-			file = file->next;
-			file->next = tmp;
-		}
-		else
-			file = file->next;
-	}
-	file = tmp;
-}
-
-void			ft_sort(int flag, t_file *file)
-{
-	sort_list(file, ft_strcmp);
-	printf ("_____%s\n", file->name);
+	//sort_list(file);
 	if ((flag & T_FLAG) == T_FLAG)
 		sort_list_time(file);
 	if ((flag & R_FLAG) == R_FLAG)
@@ -85,5 +22,73 @@ void			ft_sort(int flag, t_file *file)
 	print_list(file);
 	if ((flag & RR_FLAG) == RR_FLAG)
 		ft_recur(flag, file);
-	printf ("iiiii%s\n", file->name);
+}
+
+void		sort_list_time(t_test *file)
+{
+	t_file		tp;
+	t_test		*tmp;
+
+	tmp = file;
+	if (file == NULL)
+		return ;
+	while (file->next != NULL)
+	{
+		if (file->doki.time < file->next->doki.time)
+		{
+			tp = file->doki;
+			file->doki = file->next->doki;
+			file->next->doki = tp;
+			file = tmp;
+		}
+		else
+			file = file->next;
+	}
+	file = tmp;
+}
+
+t_test		*list_rev(t_test *file)
+{
+	t_test			*tmp;
+	t_test			*element;
+
+	tmp = NULL;
+	if (file == NULL)
+		return (file);
+	while (file != NULL)
+	{
+		element = malloc(sizeof(*element));
+		element->doki = file->doki;
+		if (tmp == NULL)
+			element->next = NULL;
+		else
+			element->next = tmp;
+		tmp = element;
+		file = file->next;
+	}
+	return (tmp);
+}
+
+void		sort_list(t_test *file)
+{
+	t_file		tp;
+	t_test		*tmp;
+
+	tmp = file;
+	if (file == NULL)
+		return ;
+	while (file->next != NULL)
+	{
+		if (ft_strcmp(file->doki.name, file->next->doki.name) > 0)
+		{
+			tp = file->doki;
+			file->doki = file->next->doki;
+			file->next->doki = tp;
+			file = tmp;
+			//	print_list(file);
+		}
+		else
+			file = file->next;
+	}
+	file = tmp;
 }

@@ -6,7 +6,7 @@
 #    By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 13:25:35 by rlucas-d          #+#    #+#              #
-#    Updated: 2019/01/25 10:23:38 by rlucas-d         ###   ########.fr        #
+#    Updated: 2019/01/31 17:21:06 by rlucas-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME	= ft_ls
 
 # src / obj files
-SRC		= ft_stat_right.c ft_ls.c ft_flag.c ft_good_print.c ft_sort.c \
+SRC		= ft_stat_right.c ft_ls.c ft_flag.c ft_list.c ft_good_print.c ft_sort.c \
 		  ft_print.c ft_lecture_file.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
@@ -47,8 +47,7 @@ $(FT_LIB):
 	@make -C $(FT)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ)  $(FT_LNK) -lm -o $(NAME)
-	#-fsanitize=address
+	@$(CC) $(OBJ)  $(FT_LNK) -lm -o $(NAME) -fsanitize=address
 clean:
 	@rm -rf $(OBJDIR)
 	@make -C $(FT) clean

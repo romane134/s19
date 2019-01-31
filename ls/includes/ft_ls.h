@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 16:18:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/25 10:41:12 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/31 17:18:18 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
  */
 
 /*
- ** ft_inspect_file.ce
+ ** ft_inspect_file.c
  */
 
 # define A_FLAG 1
@@ -57,12 +57,12 @@
 # define UU_FLAG 512
 # define N_FLAG 1024
 # define S_FLAG 2048
+# define F_FLAG 4096
 //# define CC_FLAG 256
 //# define C_FLAG 512
 //# define AA_FLAG 1024
 //# define SS_FLAG 2048
-# define GG_FLAG 4096
-//# define TT_FLAG 8192
+//# define GG_FLAG 4096
 
 typedef struct s_file	t_file;
 struct				s_file
@@ -79,27 +79,40 @@ struct				s_file
 	int				blks;
 	int				time;
 	char			*path;
-	t_file			*next;
+	int				major;
+	int				minor;
 };
 
-/*typedef struct s_test	t_test;
+typedef struct s_space	t_space;
+struct				s_space
+{
+	int 			link;
+	size_t			group;
+	int				size;
+	size_t			user;
+	int				major;
+	int				minor;
+};
+
+
+typedef struct s_test	t_test;
 struct				s_test
 {
 	t_file			doki;
 	t_test			*next;
-};*/
+};
 
 /*
 ** ft_ls
 */
 void			ft_what_kind(char *flags, char *doc);
-void			ft_recur(int flag, t_file *file);
-t_file			*lecture(int flag, char *doc);
-void			print_list(t_file *li);
+void			ft_recur(int flag, t_test *file);
+t_test			*lecture(int flag, char *doc);
+void			print_list(t_test *li);
 
 
 int					print_info_file(char *doc, t_file file);
-void				ft_inspect_file(char *doc, t_file *file);
+t_file				ft_inspect_file(t_file *file);
 
 /*
  ** ft_flag
@@ -108,30 +121,39 @@ void				ft_inspect_file(char *doc, t_file *file);
 int					ft_flag(char **argv, int *flag);
 void				set_flag(char *argv, int *flag);
 
-void				sort_list(t_file *file, int (*cmp)(const char *a, const char *b));
-t_file				*list_rev(t_file *file);
-void				sort_list_time(t_file *file);
-
 /*
 ** ft_good_print
 */
 
-int					ft_tot_blks(t_file *li);
+int					ft_tot_blks(t_test *li);
 int					ft_lg(int nb);
-int					ft_totspace(t_file *li);
-int					ft_totspace_size(t_file *li);
 void				ft_space(int i);
-void				print_list_2(t_file *li, int nb, int nbl);
-void				print_list(t_file *li);
+void				print_list_2(t_test *li, t_space nb);
+void				print_list(t_test *li);
+void				ft_totspace(t_test *li, t_space *i);
 
 /*
 ** ft_sort.c
 */
 
-void				ft_sort(int flag, t_file *file);
+void				ft_sort(int flag, t_test *file);
+void				sort_list(t_test *file);
+t_test				*list_rev(t_test *file);
+void				sort_list_time(t_test *file);
 
 /*
 ** ft_lecture_file.c
 */
-t_file				*ft_lecture_file(int flag, char *file);
+t_test				*ft_lecture_file(int flag, char *file);
+
+/*
+** ft_list.c
+*/
+
+t_test				*ft_list_file(char **argv, int start);
+void				ft_print_file(t_test *li);
+
+
+
+
 #endif

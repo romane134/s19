@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 21:42:42 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/17 06:41:49 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/29 15:15:17 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ char		**ft_strsplit(char const *s, char c)
 			a++;
 		if (s[a] != c && s[a])
 		{
-			if (!(ft_cast(s + a, c)))
+			if (!( *new = ft_cast(s + a, c)))
 				return (ft_stop(new));
-			*new = ft_cast(s + a, c);
 			new++;
 			while (s[a] != c && s[a])
 				a++;

@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 14:13:40 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/23 14:35:03 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/29 15:38:47 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ void			set_flag(char *argv, int *flag)
 	j = 0;
 	i = 1;
 	bits = 1;
-	str = "aRltg1rTuUns";
+	str = "aRltg1rTuUnsf";
 	while (argv[i])
 	{
 		j = 0;
 		bits = 1;
 		if (argv[i] == 'n')
 			*flag |= 4;
+		else if (argv[i] == 'f')
+			*flag |= 1;
 		while (str[j])
 		{
 			if (argv[i] == str[j])

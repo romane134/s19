@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 17:06:25 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/25 10:41:11 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/01/31 17:15:13 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char		*permissions(struct stat s)
 {
 	char *str;
 
-	str = ft_strnew(10);
+	str = ft_strnew(8);
 	str[0] = ((s.st_mode & S_IRUSR) ? 'r' : '-');
 	str[1] = ((s.st_mode & S_IWUSR) ? 'w' : '-');
 	if (s.st_mode & S_ISUID)
@@ -38,7 +38,6 @@ static char		*permissions(struct stat s)
 		str[8] = ((s.st_mode & S_IXUSR) ? 't' : 'T');
 	else
 		str[8] = ((s.st_mode & S_IXOTH) ? 'x' : '-');
-	str[9] = '\0';
 	return (str);
 }
 
@@ -46,7 +45,7 @@ static char		*ft_filetype(struct stat s)
 {
 	char *str;
 
-	str = ft_strnew(2);
+	str = ft_strnew(1);
 	if ((s.st_mode & S_IFMT) == S_IFREG)
 		str[0] = ('-');
 	else if ((s.st_mode & S_IFMT) == S_IFSOCK)
@@ -61,53 +60,57 @@ static char		*ft_filetype(struct stat s)
 		str[0] = ('f');
 	else if ((s.st_mode & S_IFMT) == S_IFDIR)
 		str[0] = ('d');
-	str[1] = '\0';
 	return (str);
 }
 
-char			*stat_time(struct stat s, t_file file)
+char			*stat_time(struct stat s, t_file *file)
 {
 	char	*date;
 	int		var_time;
 	int		age;
 
-	if (file.flag & U_FLAG)
+	if (file->flag & U_FLAG)
 		var_time = s.st_atimespec.tv_sec;
-	else if (file.flag & UU_FLAG)
+	else if (file->flag & UU_FLAG)
 		var_time = s.st_birthtimespec.tv_sec;
 	else
 		var_time = s.st_mtimespec.tv_sec;
 	age = time(0) - var_time;
-	if ((file.flag & TT_FLAG) == TT_FLAG)
+	if ((file->flag & TT_FLAG) == TT_FLAG)
 		date = ft_strsub(ctime((const long *)&var_time), 4, 20);
-	else if (age > 0 && age < 15778800)
+	else if (age > -15778800 && age < 15778800)
 		date = ft_strsub(ctime((const long *)&var_time), 4, 12);
 	else
 		date = ft_strsub(ctime((const long *)&var_time), 20, 4);
+	file->time = var_time;
 	return (date);
 }
 
-void			ft_inspect_file(char *doc, t_file *file)
+t_file			ft_inspect_file(t_file *file)
 {
 	struct group	*group;
 	struct passwd	*pwd;
 	char			*str;
+	char			*tmp;
 	struct stat		s;
 
-
-	stat(doc, &s);
-	pwd = getpwuid(s.st_uid);
+	lstat(file->path, &s);
 	group = getgrgid(s.st_gid);
-	file->mode = ft_strnew(10);
-	file->mode = ft_filetype(s);
+	tmp = ft_filetype(s);
 	str = permissions(s);
-	file->mode = ft_strjoin(file->mode, str);
-	free(str);
+	file->mode = ft_strjoin(tmp, str);
+	ft_memdel((void**)&str);
+	ft_memdel((void**)&tmp);
 	file->link = (int)s.st_nlink;
-	file->user = ((file->flag & N_FLAG) ? ft_itoa(s.st_uid) : pwd->pw_name);
+	file->major = major(s.st_rdev);
+	file->minor = minor(s.st_rdev);
+	if (!(pwd = getpwuid(s.st_uid)))
+		file->user = ft_itoa(s.st_uid);
+	else
+		file->user = ((file->flag & N_FLAG) ? ft_itoa(s.st_uid) : ft_strdup(pwd->pw_name));
 	file->group = ((file->flag & N_FLAG) ? ft_itoa(s.st_gid) : group->gr_name);
 	file->size = (int)s.st_size;
-	file->date = stat_time(s, *file);
+	file->date = stat_time(s, file);
 	file->blks = s.st_blocks;
-	//file->name OK
+	return (*file);
 }

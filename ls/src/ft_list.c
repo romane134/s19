@@ -3,72 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/22 11:54:35 by smondesi          #+#    #+#             */
-/*   Updated: 2019/01/25 10:01:06 by rlucas-d         ###   ########.fr       */
+/*   Created: 2019/01/31 14:21:12 by rlucas-d          #+#    #+#             */
+/*   Updated: 2019/01/31 16:38:30 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../includes/ft_ls.h"
 
-void		sort_list_time(t_file *file)
-{
-	t_file		*tmp;
 
-	tmp = file;
-	if (file == NULL)
-		return ;
-	while (file->next != NULL)
-	{
-		if (file->time < file->next->time)
-		{
-			tmp = file;
-			file = file->next;
-			file->next = tmp;
-		}
-		else
-			file = file->next;
-	}
-	file = tmp;
+static t_test			*ft_list(char *str)
+{
+	t_test *new;
+
+	if (!(new = (t_test*)malloc(sizeof(t_test))))
+		return (NULL);
+	ft_strdup(str);
+	new->doki.name = str;
+	new->next = NULL;
+	return (new);
 }
 
-t_file		*list_rev(t_file *file)
+static void		push_back(t_test **list, t_test *new)
 {
-	t_file			*tmp;
+	t_test *current;
 
-	tmp = NULL;
-	if (file == NULL)
-		return (file);
-	while (file != NULL)
+	if (!(*list))
+		*list = new;
+	else
 	{
-		if (tmp == NULL)
-			file->next = NULL;
-		else
-			file->next = tmp;
-		tmp = file;
-		file = file->next;
+		current = *list;
+		while (current->next)
+			current = current->next;
+		current->next = new;
 	}
-	return (tmp);
 }
 
-void		sort_list(t_file *file, int (*cmp)(const char *a, const char *b))
+t_test			*ft_list_file(char **argv, int start)
 {
-	t_file		*tmp;
+	t_test			*list;
+	struct stat		s;
 
-	tmp = file;
-	if (file == NULL)
-		return ;
-	while (file->next != NULL)
+	list = NULL;
+	while (argv[start] != '\0')
 	{
-		if (cmp(file->name, file->next->name) > 0)
-		{
-			tmp = file;
-			file = file->next;
-			file->next = tmp;
-		}
+		if ((stat(argv[start], &s) != -1))
+			push_back(&list, ft_list(argv[start]));
 		else
-			file = file->next;
+			printf ("ls: %s: %s\n", argv[start] ,strerror(errno));
+		start++;
 	}
-	file = tmp;
+	return (list);
 }
