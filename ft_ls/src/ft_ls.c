@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 13:38:41 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/31 17:23:26 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/02/05 18:02:33 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,39 +147,71 @@ int		main(int argc, char **argv)
 	int			i;
 	int			j;
 	t_test		*file;
-	struct stat s;
-	DIR			*dir;
 	t_test		*list;
+	t_test	*debut;
 
 
 	flag = 0;
+	file = NULL;
 	i = ft_flag(argv, &flag);
 	j = i;
 	if (i == argc)
+	{
+		printf ("Coucou\n");
 		file = lecture(flag, ".");
+		ft_sort(flag, file);
+	}
 	if ((argc - i) >= 1)
 	{
 		list = ft_list_file(argv, i);
-		while (list)
+		//list = ft_sort_list(list) //faire aboslument
+		debut = list;
+		file = ft_file(list, flag);
+		while (file)
 		{
-			//printf("%s\n",list->doki.name);
-			if ((dir = opendir((list->doki.name))))
-			{
-				printf("\n%s:\n", list->doki.name);
-				file = lecture(flag, list->doki.name);
-				ft_sort(flag, file);
-			}
-			else if ((stat(list->doki.name, &s) != -1))
-			{
-				list = ft_lecture_file(flag, list->doki.name);
-				ft_print_file(list);
-			}
-			else
-				st_printf("ls: %s: %s\n", list->doki.name, strerror(errno));
-			if (dir != opendir((list->doki.name)))
-				closedir(dir);
-			list = list->next;
+			file = ft_lecture_file(flag, list->doki.name);
+			//ft_sort(flag, file);
+			//pas faire un sort, aucune idee de quoi faire.... mmh
 		}
+		//print le file, le trier, et faire stat (file = tous les fichier donnes en arguments (pas les dossiers quoi);
+		//ft_doc(list, flag);
 	}
 	return (0);
+}
+
+/*	if ((dir = opendir((list->doki.name))))
+	{
+	printf("\n%s:\n", list->doki.name);
+	ft_sort(flag, lecture(flag, list->doki.name));
+	}
+	else if ((stat(list->doki.name, &s) != -1))
+	{
+	file = ft_lecture_file(flag, list->doki.name);
+	}
+	else
+	st_printf("ls: %s: %s\n", list->doki.name, strerror(errno));
+	if (dir != opendir((list->doki.name)))
+	closedir(dir);
+	list = list->next;
+	}*/
+
+t_test			*ft_file(t_test *list, int flag)
+{
+	struct stat s;
+	DIR			*dir;
+	t_test		*file;
+
+	file = NULL;
+	while (list)
+	{
+		if ((dir = opendir((list->doki.name))))
+		{
+			printf("\n%s:\n", list->doki.name);
+			ft_sort(flag, lecture(flag, list->doki.name));
+		}
+		else if ((stat(list->doki.name, &s) != -1))
+			push_back(&file, ft_list(list->doki.name));
+		list = list->next;
+	}
+	return (file);
 }

@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:02:30 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/31 17:23:24 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/02/05 18:02:35 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_test				*ft_lecture_file(int flag, char *doc)
 		return (0);
 	file.flag = flag;
 	file.path = ft_strjoin("./", file.name);
-	printf ("%s\n", file.path);
 	ft_inspect_file(&file);
 	element = malloc(sizeof(*element));
 	element->doki = file;

@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 14:21:12 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/31 16:38:30 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/02/05 17:55:45 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/ft_ls.h"
 
 
-static t_test			*ft_list(char *str)
+t_test			*ft_list(char *str)
 {
 	t_test *new;
 
@@ -26,7 +26,7 @@ static t_test			*ft_list(char *str)
 	return (new);
 }
 
-static void		push_back(t_test **list, t_test *new)
+void		push_back(t_test **list, t_test *new)
 {
 	t_test *current;
 

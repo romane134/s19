@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 15:15:04 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/31 17:15:56 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/02/05 18:02:37 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void		print_list(t_test *li)
 
 	if (li == NULL)
 		return ;
+
 	ft_totspace(li, &i);
 	if ((li->doki.flag & L_FLAG) == L_FLAG)
 		st_printf("total %d\n", ft_tot_blks(li));
@@ -74,4 +75,5 @@ void		print_list(t_test *li)
 			st_printf("%s\n", li->doki.name);
 		li = li->next;
 	}
+
 }

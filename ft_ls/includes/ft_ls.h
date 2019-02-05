@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 16:18:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/31 17:18:18 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/02/05 18:02:40 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ void			ft_what_kind(char *flags, char *doc);
 void			ft_recur(int flag, t_test *file);
 t_test			*lecture(int flag, char *doc);
 void			print_list(t_test *li);
-
+t_test			*ft_file(t_test *file, int flag);
+t_test			*ft_doc(t_test *file, int flag);
 
 int					print_info_file(char *doc, t_file file);
 t_file				ft_inspect_file(t_file *file);
@@ -152,7 +153,8 @@ t_test				*ft_lecture_file(int flag, char *file);
 
 t_test				*ft_list_file(char **argv, int start);
 void				ft_print_file(t_test *li);
-
+t_test				*ft_list(char *str);
+void				push_back(t_test **list, t_test *new);
 
 
 
