@@ -6,7 +6,7 @@
 #    By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 13:25:35 by rlucas-d          #+#    #+#              #
-#    Updated: 2019/02/11 10:35:42 by rlucas-d         ###   ########.fr        #
+#    Updated: 2019/02/11 14:04:05 by rlucas-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ $(FT_LIB):
 	@make -C $(FT)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ)  $(FT_LNK) -lm -o $(NAME) -fsanitize=address
+	@$(CC) $(OBJ)  $(FT_LNK) -lm -o $(NAME) #-fsanitize=address
 clean:
 	@rm -rf $(OBJDIR)
 	@make -C $(FT) clean
