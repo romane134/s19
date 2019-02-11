@@ -5,55 +5,86 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/31 14:21:12 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/02/05 17:55:45 by rlucas-d         ###   ########.fr       */
+/*   Created: 2019/02/06 14:17:58 by rlucas-d          #+#    #+#             */
+/*   Updated: 2019/02/10 17:15:48 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/ft_ls.h"
 
-
-t_test			*ft_list(char *str)
+t_test			*add_lst(t_test *li, t_file data)
 {
-	t_test *new;
+	struct s_test *element;
 
-	if (!(new = (t_test*)malloc(sizeof(t_test))))
+	if (!(element = malloc(sizeof(*element))))
 		return (NULL);
-	ft_strdup(str);
-	new->doki.name = str;
-	new->next = NULL;
-	return (new);
+	element->list = data;
+	if (li == NULL)
+		element->next = NULL;
+	else
+		element->next = li;
+	return (element);
 }
 
-void		push_back(t_test **list, t_test *new)
+t_test			*push_back_list(t_test *li, t_file data)
 {
-	t_test *current;
+	t_test *element;
+	t_test *temp;
 
-	if (!(*list))
-		*list = new;
+	if (!(element = malloc(sizeof(*element))))
+		return (NULL);
+	element->list = data;
+	element->next = NULL;
+	if (li == NULL)
+		return (element);
+	temp = li;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = element;
+	return (li);
+}
+
+t_test			*add_sort(t_test *li, t_file data)
+{
+	t_test *tmp;
+	t_test *element;
+
+	tmp = li;
+	if (li == NULL || ft_strcmp(li->list.name, data.name) > 0)
+		return (li = add_lst(li, data));
+	while (li->next != NULL && ft_strcmp(li->next->list.name, data.name) < 0)
+		li = li->next;
+	if (li->next == NULL)
+	{
+		li = tmp;
+		li = push_back_list(li, data);
+	}
 	else
 	{
-		current = *list;
-		while (current->next)
-			current = current->next;
-		current->next = new;
+		if (!(element = malloc(sizeof(*element))))
+			return (NULL);
+		element->list = data;
+		element->next = li->next;
+		li->next = element;
 	}
+	li = tmp;
+	return (li);
 }
 
-t_test			*ft_list_file(char **argv, int start)
+void			ft_free_list(t_test *child)
 {
-	t_test			*list;
-	struct stat		s;
+	t_test *next;
 
-	list = NULL;
-	while (argv[start] != '\0')
+	while (child != NULL)
 	{
-		if ((stat(argv[start], &s) != -1))
-			push_back(&list, ft_list(argv[start]));
-		else
-			printf ("ls: %s: %s\n", argv[start] ,strerror(errno));
-		start++;
+		next = child->next;
+		ft_memdel((void**)&child->list.path);
+		ft_memdel((void**)&child->list.name);
+		ft_memdel((void**)&child->list.date);
+		ft_memdel((void**)&child->list.mode);
+		ft_memdel((void**)&child->list.user);
+		ft_memdel((void**)&child->list.group);
+		ft_memdel((void**)&child);
+		child = next;
 	}
-	return (list);
 }

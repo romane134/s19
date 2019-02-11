@@ -6,7 +6,7 @@
 #    By: smondesi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/03 13:45:09 by smondesi          #+#    #+#              #
-#    Updated: 2019/01/28 11:58:42 by smondesi         ###   ########.fr        #
+#    Updated: 2019/02/10 11:20:10 by rlucas-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC = ft_atoi.c ft_memcpy.c ft_putnbr_fd.c ft_strdup.c \
 	ft_strlcat.c ft_lstnew.c ft_lstadd.c ft_lstdelone.c ft_swap.c ft_strrev.c\
 	ft_lstdel.c ft_lstiter.c ft_lstmap.c st_itoa_base.c ft_count_words.c\
 	ft_abs.c ft_free_tab.c get_next_line.c mini_printf.c\
-	ft_ismaj.c
+	ft_ismaj.c mini_printf_error.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 12:08:25 by smondesi          #+#    #+#             */
-/*   Updated: 2019/01/28 11:59:08 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/02/10 11:19:08 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int				get_next_next_line(int fd, char **line);
 void			ft_free_tab(char **tab, int p);
 
 int				st_printf(const char *restrict fmt, ...);
-void            ft_print_bits(unsigned char octect);
+int				st_printf_error(const char *restrict fmt, ...);
+
+void			ft_print_bits(unsigned char octect);
 int				ft_ismaj(char c);
 #endif

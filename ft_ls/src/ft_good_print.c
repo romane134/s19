@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:21:09 by rlucas-d          #+#    #+#             */
-/*   Updated: 2019/01/30 13:05:53 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/02/10 16:59:18 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_tot_blks(t_test *li)
 	i = 0;
 	while (li != NULL)
 	{
-		i = i + li->doki.blks;
+		i = i + li->list.blks;
 		li = li->next;
 	}
 	return (i);
@@ -54,18 +54,18 @@ void	ft_totspace(t_test *li, t_space *i)
 	i->major = 0;
 	while (li != NULL)
 	{
-		if (i->link < ft_lg(li->doki.link))
-			i->link = ft_lg(li->doki.link);
-		if (i->size < ft_lg(li->doki.size))
-			i->size = ft_lg(li->doki.size);
-		if (i->group < ft_strlen(li->doki.group))
-			i->group = ft_strlen(li->doki.group);
-		if (i->user < ft_strlen(li->doki.user))
-			i->user = ft_strlen(li->doki.user);
-		if (i->major < ft_lg(li->doki.major))
-			i->major = ft_lg(li->doki.major) + 1;
-		if (i->minor < ft_lg(li->doki.minor))
-			i->minor = ft_lg(li->doki.minor) + 2;
+		if (i->link < ft_lg(li->list.link))
+			i->link = ft_lg(li->list.link);
+		if (i->size < ft_lg(li->list.size))
+			i->size = ft_lg(li->list.size);
+		if (i->group < ft_strlen(li->list.group))
+			i->group = ft_strlen(li->list.group);
+		if (i->user < ft_strlen(li->list.user))
+			i->user = ft_strlen(li->list.user);
+		if (i->major < ft_lg(li->list.major))
+			i->major = ft_lg(li->list.major) + 1;
+		if (i->minor < ft_lg(li->list.minor))
+			i->minor = ft_lg(li->list.minor) + 2;
 		li = li->next;
 	}
 }
