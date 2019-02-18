@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   msh_message.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 11:40:30 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/05 11:43:03 by rlucas-d         ###   ########.fr       */
+/*   Created: 2019/02/12 18:44:49 by rlucas-d          #+#    #+#             */
+/*   Updated: 2019/02/18 13:48:57 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "../includes/minishell.h"
 
-# include "libft/include/libft.h"
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include <stdarg.h>
 
-int		ft_printf(const char * restrict format, ...);
-
-#endif
+void			msh_message(char *line, char **argv)
+{
+	if ((ft_strcmp(line, "echo") >= 0))
+		msh_echo(line);
+		if ((ft_strcmp(line, "ls") == 0))
+		execve("/bin/ls", argv, NULL);
+	else
+		st_printf ("ERROR\n");
+}

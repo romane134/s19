@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 11:34:55 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/05 11:57:00 by rlucas-d         ###   ########.fr       */
+/*   Created: 2019/02/11 14:43:57 by rlucas-d          #+#    #+#             */
+/*   Updated: 2019/02/18 13:49:04 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_printf(const char *restrict format, ...)
-{
-	return (0);
-}
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+#include "../libft/includes/libft.h"
+#include <sys/wait.h>
+#include <unistd.h>
+#include "../../gnl/get_next_line.h"
+
+
+typedef				void (*sig_t)(int);
+
+/*
+**  minishell.c
+*/
+
+void				ft_sig(int i);
+void				prompt(int i);
+void				msh_message(char *line, char **argv);
+#endif
