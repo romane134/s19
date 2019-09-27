@@ -35,40 +35,6 @@ int		prepare_read_history_line_by_line(void)
 	return (fd);
 }
 
-/*
-** har	*result_reasearch(char *old_cmd, t_termcaps *t)
-** {
-**	char	*result;
-**	char	*line;
-**	size_t	i;
-**	size_t	y;
-**	int		fd;
-**
-**	i = 0;
-**	y = 0;
-**	if ((fd = prepare_read_history_line_by_line()) == -1)
-**		return (NULL);
-**	line = NULL;
-**	result = ft_strnew(0);
-**	while (i < t->r_hist)
-**	{
-**		get_next_line(fd, &line, 0);
-**		if (ft_strlen(old_cmd) != 0 && ft_strstr(line, old_cmd) != NULL)
-**		{
-**			ft_strdel(&result);
-**			result = ft_strdup(line);
-**			y = i;
-**		}
-**		ft_strdel(&line);
-**		i++;
-**	}
-**	if (y > 0)
-**		t->r_hist = y + 1;
-**	close(fd);
-**	return (result);
-** }
-*/
-
 char	*result_reasearch(char *old_cmd, t_termcaps *t)
 {
 	char	*result;

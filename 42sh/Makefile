@@ -70,7 +70,7 @@ SRC_FILES += $(addprefix $(BUILTIN_DIR)/, $(BUILTIN_FILES))
 SRC  = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ  = $(addprefix $(OBJ_DIR)/, $(subst .c,.o, $(SRC_FILES)))
 
-CC = gcc -fsanitize=address
+CC = gcc #-fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
 
 LIB = -L libft/ -lft

@@ -21,6 +21,12 @@
 ** while (i < x) on se replace sur la ligne en x
 */
 
+int debug()
+{
+	return (open("/Users/rlucas-d/Documents/42sh/debug_1",  O_RDWR | O_CREAT | O_APPEND,
+					0755));
+}
+
 void		term_reset(t_termcaps *termcaps)
 {
 	int x;
@@ -48,6 +54,7 @@ void		term_reset(t_termcaps *termcaps)
 
 void		which_key(char *buffer, char **cmd, t_termcaps *t)
 {
+
 	if (buffer[0] == CTRL_D && *cmd[0] == '\0')
 	{
 		tcsetattr(0, 0, &t->term_restore);
@@ -55,10 +62,6 @@ void		which_key(char *buffer, char **cmd, t_termcaps *t)
 	}
 	else if (buffer[0] == CTRL_R)
 	{
-		// t->research_mode = !t->research_mode;
-		// if (t->research_mode)
-		// 	tputs(tgoto(t->godown, 0, 0), 1, (void *)ft_putchar);
-		// show_new(*cmd, t, 1);
 		t->research_mode = 1;
 		if (t->r_hist > 0)
 			t->r_hist--;
@@ -73,7 +76,7 @@ void		which_key(char *buffer, char **cmd, t_termcaps *t)
 	else if (buffer[0] == -62 || buffer[0] == -61 || buffer[0] == -53 ||
 			buffer[0] == -30)
 		alt_maj(t, cmd, buffer);
-	else if (isprintable(buffer))
+	else if (isprintable(buffer) || buffer[0] == '\n')
 	{
 		t->edit_mode = FALSE;
 		*cmd = add_char(*cmd, buffer, t);
@@ -107,10 +110,6 @@ void		ctrl_c(t_termcaps *termcaps, char **cmd)
 	ft_printf("\n");
 }
 
-/*
-** 	//	dprintf(debug(), "{%s}{%d, %d, %d}\n", buffer, buffer[0], buffer[1], buffer[2]);
-*/
-
 char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 {
 	char	*buffer;
@@ -131,8 +130,12 @@ char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 			ctrl_c(termcaps, &cmd);
 		if (g_shell->stop == 1)
 			return (ctrl_c_heredoc(termcaps, &cmd));
-		if (buffer[0] == ENTER)
+		if (buffer[0] == ENTER && buffer[1] && buffer[1] != ENTER)
+			cmd = ft_strdup(buffer + 1);
+		dprintf (debug(), "1\n");
+		if (buffer[0] == ENTER && ((buffer[1] == '\n' || !buffer[1]) && (buffer[2] == '\n' || !buffer[2])))
 		{
+			dprintf (debug(), "COUCOU\n");
 			if (termcaps->research_mode == FALSE)
 				return (entre_key(termcaps, cmd, &buffer));
 			termcaps->research_mode = !termcaps->research_mode;
@@ -147,6 +150,3 @@ char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 		ft_bzero(buffer, 3);
 	}
 }
-/* > ls
-** // reasearch_MTF : lsaasd  | result_reasearch
-*/
