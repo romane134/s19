@@ -22,11 +22,6 @@
 ** On join avec le reste de la cmd de base
 ** On free la commande de base et retourne la nouvelle
 */
-int debug_1()
-{
-	return (open("/Users/rlucas-d/Documents/42sh/debug_1",  O_RDWR | O_CREAT | O_APPEND,
-					0755));
-}
 
 char	*remove_previous_char(char *str, t_termcaps *termcaps)
 {
@@ -99,10 +94,9 @@ char	*add_char(char *str, char *buff, t_termcaps *termcaps)
 	char	*new;
 	char	*tmp;
 
-	dprintf(debug_1(), "BUFF :%s\n", buff);
-	tmp = str;
 	new = ft_strnew((termcaps->pos + ft_strlen(buff)) * sizeof(char*));
-	new = ft_strjoin(str, buff);
+	tmp = new;
+	new = ft_strjoin_free(&str, &buff, 0);
 	ft_strdel(&tmp);
 	return (new);
 }

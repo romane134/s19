@@ -21,11 +21,7 @@
 ** while (i < x) on se replace sur la ligne en x
 */
 
-int debug()
-{
-	return (open("/Users/rlucas-d/Documents/42sh/debug_1",  O_RDWR | O_CREAT | O_APPEND,
-					0755));
-}
+
 
 void		term_reset(t_termcaps *termcaps)
 {
@@ -54,7 +50,9 @@ void		term_reset(t_termcaps *termcaps)
 
 void		which_key(char *buffer, char **cmd, t_termcaps *t)
 {
+	int i;
 
+	i = 0;
 	if (buffer[0] == CTRL_D && *cmd[0] == '\0')
 	{
 		tcsetattr(0, 0, &t->term_restore);
@@ -78,10 +76,21 @@ void		which_key(char *buffer, char **cmd, t_termcaps *t)
 		alt_maj(t, cmd, buffer);
 	else if (isprintable(buffer) || buffer[0] == '\n')
 	{
+		if (buffer[0] == '\n')
+			while (buffer[i] == '\n')
+				i++;
 		t->edit_mode = FALSE;
 		*cmd = add_char(*cmd, buffer, t);
-		t->pos += ft_strlen(buffer);
-		t->cmd_len += ft_strlen(buffer);
+		if (i >= 1)
+		{
+			t->pos += ft_strlen(buffer) - i - ft_strlen(SHELL_NAME);
+			t->cmd_len += ft_strlen(buffer) - i - ft_strlen(SHELL_NAME);
+		}
+		else
+		{
+			t->pos += ft_strlen(buffer);
+			t->cmd_len += ft_strlen(buffer);
+		}
 		show_new(*cmd, t, 1);
 	}
 }
@@ -132,13 +141,16 @@ char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 			return (ctrl_c_heredoc(termcaps, &cmd));
 		if (buffer[0] == ENTER && buffer[1] && buffer[1] != ENTER)
 			cmd = ft_strdup(buffer + 1);
-		dprintf (debug(), "1\n");
-		if (buffer[0] == ENTER && ((buffer[1] == '\n' || !buffer[1]) && (buffer[2] == '\n' || !buffer[2])))
+		if (buffer[0] == ENTER && ((buffer[1] == '\n' ||
+		!buffer[1]) && (buffer[2] == '\n' || !buffer[2])))
 		{
-			dprintf (debug(), "COUCOU\n");
 			if (termcaps->research_mode == FALSE)
 				return (entre_key(termcaps, cmd, &buffer));
 			termcaps->research_mode = !termcaps->research_mode;
+			termcaps->pos = 0;
+			tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
+			termcaps->cmd_len = 0;
+			g_shell->i = 0;
 			tmp = cmd;
 			cmd = result_reasearch(tmp, termcaps);
 			ft_strdel(&tmp);

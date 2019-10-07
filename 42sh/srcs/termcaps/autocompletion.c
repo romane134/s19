@@ -22,6 +22,10 @@
 // 	tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
 // }
 
+int debug_1()
+{
+	return (open("/Users/rlucas-d/Documents/42sh/debug_1", O_RDWR | O_CREAT | O_APPEND, 0755));
+}
 char	*autocomplete_main(char *cmd, int context)
 {
 	if (context == 1)
@@ -54,8 +58,9 @@ char	*ft_what_word(char *cmd, t_termcaps *t)
 	{
 		t->auto_start++;
 	}
-	//printf("  |%d %d|\n", t->auto_end, t->auto_start);
+
 	word = ft_strsub(cmd, t->auto_start, t->auto_end - t->auto_start);
+	dprintf(debug_1(), "WORD:%s|\n", word);
 	return (word);
 }
 
