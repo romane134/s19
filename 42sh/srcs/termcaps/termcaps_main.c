@@ -21,7 +21,11 @@
 ** while (i < x) on se replace sur la ligne en x
 */
 
-
+int			debug(void)
+{
+	return (open("/Users/rlucas-d/Documents/42sh/debug_1", O_RDWR | O_CREAT |
+	O_APPEND, 0755));
+}
 
 void		term_reset(t_termcaps *termcaps)
 {
@@ -48,49 +52,59 @@ void		term_reset(t_termcaps *termcaps)
 	}
 }
 
-void		which_key(char *buffer, char **cmd, t_termcaps *t)
+void			remove_backn(char **buffer)
 {
-	int i;
+	int			i;
+	int			len;
+	char		*tmp;
 
 	i = 0;
-	if (buffer[0] == CTRL_D && *cmd[0] == '\0')
+	len = 0;
+	while ((*buffer)[i] && (*buffer)[i] == '\n')
+		i++;
+	tmp = ft_strnew(ft_strlen(*buffer));
+	while ((*buffer)[i])
+	{
+		tmp[len] = (*buffer)[i];
+		i++;
+		len++;
+	}
+	ft_strdel(buffer);
+	*buffer = ft_strdup(tmp);
+	ft_strdel(&tmp);
+}
+
+void			which_key(char **buffer, char **cmd, t_termcaps *t)
+{
+	if ((*buffer)[0] == '\n' && ((*buffer)[1] != '\n' || (*buffer)[2] != '\n'))
+		remove_backn(buffer);
+	if ((*buffer)[0] == CTRL_D && *cmd[0] == '\0')
 	{
 		tcsetattr(0, 0, &t->term_restore);
 		builtin_exit(NULL, NULL);
 	}
-	else if (buffer[0] == CTRL_R)
+	else if ((*buffer)[0] == CTRL_R)
 	{
 		t->research_mode = 1;
 		if (t->r_hist > 0)
 			t->r_hist--;
 		show_new(*cmd, t, 1);
 	}
-	else if (buffer[0] == TAB && buffer[1] == 0)
+	else if ((*buffer)[0] == TAB && (*buffer)[1] == 0)
 		key_tab(cmd, t);
-	else if (buffer[0] == ARROW_1 && buffer[1] == ARROW_2)
-		arrow_key(buffer, t, cmd);
-	else if (buffer[0] == BACKSPACE)
+	else if ((*buffer)[0] == ARROW_1 && (*buffer)[1] == ARROW_2)
+		arrow_key(*buffer, t, cmd);
+	else if ((*buffer)[0] == BACKSPACE)
 		backspace_key(cmd, t);
-	else if (buffer[0] == -62 || buffer[0] == -61 || buffer[0] == -53 ||
-			buffer[0] == -30)
-		alt_maj(t, cmd, buffer);
-	else if (isprintable(buffer) || buffer[0] == '\n')
+	else if ((*buffer)[0] == -62 || (*buffer)[0] == -61 || (*buffer)[0] == -53
+	|| (*buffer)[0] == -30)
+		alt_maj(t, cmd, *buffer);
+	else if (isprintable(*buffer) || (*buffer)[0] == '\n')
 	{
-		if (buffer[0] == '\n')
-			while (buffer[i] == '\n')
-				i++;
 		t->edit_mode = FALSE;
-		*cmd = add_char(*cmd, buffer, t);
-		if (i >= 1)
-		{
-			t->pos += ft_strlen(buffer) - i - ft_strlen(SHELL_NAME);
-			t->cmd_len += ft_strlen(buffer) - i - ft_strlen(SHELL_NAME);
-		}
-		else
-		{
-			t->pos += ft_strlen(buffer);
-			t->cmd_len += ft_strlen(buffer);
-		}
+		add_char(cmd, *buffer);
+		t->pos += ft_strlen(*buffer);
+		t->cmd_len += ft_strlen(*buffer);
 		show_new(*cmd, t, 1);
 	}
 }
@@ -139,8 +153,6 @@ char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 			ctrl_c(termcaps, &cmd);
 		if (g_shell->stop == 1)
 			return (ctrl_c_heredoc(termcaps, &cmd));
-		if (buffer[0] == ENTER && buffer[1] && buffer[1] != ENTER)
-			cmd = ft_strdup(buffer + 1);
 		if (buffer[0] == ENTER && ((buffer[1] == '\n' ||
 		!buffer[1]) && (buffer[2] == '\n' || !buffer[2])))
 		{
@@ -157,8 +169,9 @@ char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 			show_new(cmd, termcaps, 1);
 		}
 		else
-			which_key(buffer, &cmd, termcaps);
+			which_key(&buffer, &cmd, termcaps);
 		termcaps->prev_pos = termcaps->pos;
 		ft_bzero(buffer, 3);
 	}
+	ft_strdel(&cmd);
 }

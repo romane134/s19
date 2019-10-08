@@ -106,21 +106,19 @@ void	show_new(char *cmd, t_termcaps *termcaps, int opt_save)
 	int		nbre_len1;
 	int		nbre_len2;
 
-	nbre_len1 = 0;
-	nbre_len2 = 0;
-	y = 0;
-	height = 0;
 	if (termcaps->research_mode)
 	{
-		nbre_len1 = ((termcaps->prev_cmd + display_name_len() - 1) /
+		// cmd_look = result_reasearch(ft_strdup(cmd), termcaps);
+		nbre_len1 = ((termcaps->prev_cmd + display_name_len()-1) /
 		(termcaps->size));
 		nbre_len2 = ((14 + termcaps->prev_pos) / termcaps->size);
 		height = nbre_len1 + nbre_len2 + 1;
+
 		while (height-- > 0)
 			tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
 		tputs(tgoto(termcaps->gostart, 0, 0), 1, (void *)ft_putchar);
-		tputs(tgoto(termcaps->del_allline, 0, 0), 1, (void *)ft_putchar);
-		cmd_look = result_reasearch(cmd, termcaps);
+		tputs(termcaps->del_allline, 1, (void *)ft_putchar);
+		cmd_look = result_reasearch(ft_strdup(cmd), termcaps);
 		display_name();
 		if (cmd_look)
 			ft_printf("%s\n", cmd_look);

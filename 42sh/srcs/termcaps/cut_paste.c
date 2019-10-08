@@ -52,7 +52,7 @@ void	paste(t_termcaps *termcaps, char **cmd)
 	i = 0;
 	if (termcaps->copy)
 	{
-		*cmd = add_char(*cmd, termcaps->copy, termcaps);
+		add_char(cmd, termcaps->copy);
 		termcaps->pos += ft_strlen(termcaps->copy);
 		termcaps->cmd_len += ft_strlen(termcaps->copy);
 		show_new(*cmd, termcaps, 1);

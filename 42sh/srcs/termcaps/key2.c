@@ -42,8 +42,8 @@ char	*entre_key(t_termcaps *t, char *cmd, char **buffer)
 	ft_strdel(buffer);
 	if (expansion_history(&cmd))
 		add_in_history(t, cmd);
-	tputs(tgoto(t->godown, 0, 0), 1, (void *)ft_putchar);
-	tputs(tgoto(t->gostart, 0, 0), 1, (void *)ft_putchar);
+	tputs(tgoto(t->godown, 0, 0), 1, (void *)ft_putchar); //descendre d'ue ligne
+	tputs(tgoto(t->gostart, 0, 0), 1, (void *)ft_putchar); // ?
 	if (tcsetattr(0, TCSADRAIN, &t->term_restore) == -1)
 		exit(-1);
 	return (cmd);

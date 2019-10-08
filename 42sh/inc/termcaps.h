@@ -113,6 +113,7 @@ typedef struct			s_filename
 	struct s_filename	*next;
 }						t_filename;
 
+int debug();
 void	job(int nb);
 /*
  ** TERMCAPS HEADERS
@@ -150,7 +151,7 @@ void					paste(t_termcaps *termcaps, char **cmd);
 */
 char					*remove_previous_char(char *str, t_termcaps *termcaps);
 char					*remove_next_char(char *str, t_termcaps *termcaps);
-char					*add_char(char *str, char *buff, t_termcaps *termcaps);
+void					add_char(char **str, char *buff);
 void					del_line(t_termcaps *termcaps);
 
 /*
@@ -205,7 +206,7 @@ void					down_one_line(t_termcaps *t);
 /*
 ** termcaps_main
 */
-void					which_key(char *buffer, char **cmd, t_termcaps *t);
+void					which_key(char **buffer, char **cmd, t_termcaps *t);
 char					*termcaps_main(t_termcaps *termcaps, int opt_display);
 void					term_reset(t_termcaps *termcaps);
 
