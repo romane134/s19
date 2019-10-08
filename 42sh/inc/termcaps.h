@@ -124,7 +124,7 @@ int		isprintable(char *str);
  ** autocomplete
 */
 char					*autocomplete(char *cmd, t_termcaps *termcaps);
-void					save_formated_file(struct dirent	*dent, char *buf,
+void					save_formated_file(struct dirent *dent, char *buf,
 		char *cmd, t_filename **fname);
 int						ft_last_word(char *str);
 int						ft_last_slash(char *cmd);

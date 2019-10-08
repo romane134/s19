@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 16:22:56 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/08 09:14:49 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2019/10/08 14:29:15 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,42 +65,24 @@ int		ft_context(char *cmd, t_termcaps *t)
 	int i;
 
 	i = ft_strlen(cmd);
-	if (cmd[i] && cmd[i] == ' ')
-	{
-		dprintf(debug(), "1\n");
+	if (cmd[i] == ' ')
 		i--;
-	}
-	while (cmd[i] && (i >= 0 && cmd[i] != ' '))
-	{
-		dprintf(debug(), "2\n");
+	if (i >= 1 && (cmd[i] == '\0'))
 		i--;
-	}
-	if ((cmd[i + 1]) && cmd[i + 1] == '$')
-	{
-		dprintf(debug(), "3\n");
+	if ((ft_strequ(cmd, "~/") != 1) && (ft_strchr(cmd, 36) == NULL))
+		return (4);
+	while ((i >= 0 && cmd[i] != ' '))
+		i--;
+	if (cmd[i + 1] == '$')
 		return (1);
-	}
-	else if (((cmd[i + 1]) && (cmd[i + 2])) && (cmd[i + 1] == '~' &&
-	(cmd[i + 2] == '/' || cmd[i + 2] == ' ' || i + 2 == t->cmd_len)))
-	{
-		dprintf(debug(), "4\n");
-		return (4);
-	}
-	while (cmd[i] && cmd[i] == ' ')
-	{
-		dprintf(debug(), "5\n");
+	else if (cmd[i + 1] == '~' && (cmd[i + 2] == '/' ||
+				cmd[i + 2] == ' ' || i + 2 == t->cmd_len))
+		return (2);
+	while (cmd[i] == ' ')
 		i--;
-	}
-	// if (cmd[i] && (!ft_isalnum(cmd[i]) || i == -1))
-	// {
-	// 	dprintf(debug(), "6\n");
-	// 	return (3);
-	// }
-	// else
-	// {
-		dprintf(debug(), "7\n");
-		return (4);
-	// }
+	if (!ft_isalnum(cmd[i]) || i == -1)
+		return (3);
+	return (4);
 }
 
 char	*autocomplete(char *cmd, t_termcaps *termcaps)

@@ -12,13 +12,21 @@
 
 #include "sh42.h"
 
-void		save_formated_file(struct dirent	*dent, char *buf, char *cmd,
+int			ft_is_only_dot(char *name)
+{
+	if ((ft_strequ(name, ".") == 1) || (ft_strequ(name, "..")))
+		return(1);
+	return (0);
+}
+void		save_formated_file(struct dirent *dent, char *buf, char *cmd,
 		t_filename **fname)
 {
 	char		*str;
 	struct stat	f_info;
 	char		*tmp;
+	int			i;
 
+	i = ((cmd[0] == '/') ? 1 : 0);
 	lstat(buf, &f_info);
 	if (ft_strcmpstart(ft_last_ch(cmd), dent->d_name))
 	{
@@ -27,13 +35,15 @@ void		save_formated_file(struct dirent	*dent, char *buf, char *cmd,
 		stat(str, &f_info);
 		ft_strdel(&str);
 		ft_strdel(&tmp);
-		if (f_info.st_mode == 16877)
+		if (ft_is_only_dot(dent->d_name) == 1)
+			return ;
+		if (((f_info.st_mode & S_IFMT) == S_IFDIR))
 		{
 			tmp = ft_strjoin(dent->d_name, "/");
 			*fname = ft_add_list(*fname, tmp);
 			ft_strdel(&tmp);
 		}
-		else
+		else if (i != 1)
 			*fname = ft_add_list(*fname, dent->d_name);
 	}
 }

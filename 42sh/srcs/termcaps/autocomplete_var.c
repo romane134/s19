@@ -115,7 +115,5 @@ char		*autocompletion_var_home(char *cmd)
 	if (home == '\0')
 		return (cmd);
 	tmp = ft_strjoin(home, &cmd[1]);
-//	ft_strdel(&home); not malloce
-//	ft_strdel(&cmd); idem
 	return (tmp);
 }
