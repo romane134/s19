@@ -136,7 +136,7 @@ t_filename				*ft_add_list(t_filename *li, char *data);
 int						ft_list_lenght(t_filename *li);
 char					*ft_last_ch(char *str);
 void					ft_del_list(t_filename *li);
-char					*autocomplete_command(char *cmd);
+char					*autocomplete_command(char *cmd, int *i);
 char					*autocomplete_path(char *cmd);
 char					*autocompletion_var_home(char *cmd);
 char					*autocompletion_dynamique(char *cmd);
@@ -160,7 +160,7 @@ void					del_line(t_termcaps *termcaps);
 void					highlight(t_termcaps *termcaps);
 void					reset_highlight(t_termcaps *termcaps);
 void					print_highlight(t_termcaps *termcaps, char *cmd);
-char					*cut_in_cmd(t_termcaps *termcaps, char *cmd);
+void					cut_in_cmd(t_termcaps *termcaps, char **cmd);
 /*
  ** history
 */

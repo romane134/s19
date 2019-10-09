@@ -27,7 +27,7 @@ void	cut(t_termcaps *termcaps, char **cmd)
 {
 	if (termcaps->edit_mode)
 	{
-		*cmd = cut_in_cmd(termcaps, *cmd);
+		cut_in_cmd(termcaps, cmd);
 		termcaps->copy = termcaps->tmp_select;
 		termcaps->edit_mode = FALSE;
 		if (termcaps->cc_start < termcaps->pos)

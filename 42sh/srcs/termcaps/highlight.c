@@ -46,10 +46,10 @@ void	print_highlight(t_termcaps *termcaps, char *cmd)
 	display_name();
 	ft_strdel(&termcaps->tmp_select);
 	if (termcaps->cc_start == termcaps->pos)
-		termcaps->tmp_select = ft_strnew((1) * sizeof(char *));
+		termcaps->tmp_select = ft_strnew(1);
 	else
-		termcaps->tmp_select = ft_strnew((val_abs((int)termcaps->pos -
-								(int)termcaps->cc_start)) * sizeof(char *));
+		termcaps->tmp_select = ft_strnew(val_abs((int)termcaps->pos -
+								(int)termcaps->cc_start));
 	while (i < termcaps->cc_start && i < termcaps->pos)
 		ft_putchar(cmd[i++]);
 	highlight(termcaps);
@@ -75,7 +75,7 @@ void	print_highlight(t_termcaps *termcaps, char *cmd)
 ** On free la commande qu'on a remplace
 */
 
-char	*cut_in_cmd(t_termcaps *t, char *cmd)
+void		cut_in_cmd(t_termcaps *t, char **cmd)
 {
 	int		i;
 	int		y;
@@ -87,19 +87,20 @@ char	*cut_in_cmd(t_termcaps *t, char *cmd)
 	if (t->pos > t->cc_start)
 	{
 		while (i < t->cc_start)
-			new_cmd[y++] = cmd[i++];
+			new_cmd[y++] = (*cmd)[i++];
 		while (i <= t->pos)
 			i++;
 	}
 	else
 	{
 		while (i < t->pos)
-			new_cmd[y++] = cmd[i++];
+			new_cmd[y++] = (*cmd)[i++];
 		while (i <= t->cc_start)
 			i++;
 	}
-	while (cmd[i])
-		new_cmd[y++] = cmd[i++];
-	ft_strdel(&cmd);
-	return (new_cmd);
+	while ((*cmd)[i])
+		new_cmd[y++] = (*cmd)[i++];
+	ft_strdel(cmd);
+	*cmd = ft_strdup(new_cmd);
+	ft_strdel(&new_cmd);
 }

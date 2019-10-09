@@ -37,7 +37,7 @@ static int			ft_find_command(t_filename **fname, char *cmd)
 	return (nb);
 }
 
-char				*autocomplete_command(char *cmd)
+char				*autocomplete_command(char *cmd, int *i)
 {
 	int				nb;
 	char			*tmp;
@@ -51,11 +51,13 @@ char				*autocomplete_command(char *cmd)
 	{
 		tmp = ft_strdup(fname->file);
 		ft_del_list(fname);
+		*i = 1;
 		return (tmp);
 	}
 	else if (nb > 1 && ft_printf("\n"))
 		while (fname)
 		{
+			*i = 1;
 			ft_printf("%s\n", fname->file);
 			fname = fname->next;
 		}

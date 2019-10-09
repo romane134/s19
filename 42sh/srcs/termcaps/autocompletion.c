@@ -14,12 +14,21 @@
 
 char	*autocomplete_main(char *cmd, int context)
 {
+	int i;
+	char	*tmp;
+
+	i = 0;
 	if (context == 1)
 		return (autocompletion_dynamique(cmd));
 	else if (context == 2)
 		return (autocompletion_var_home(cmd));
 	else if (context == 3)
-		return (autocomplete_command(cmd));
+	{
+		tmp = autocomplete_command(cmd, &i);
+		if (i != 1)
+			return (autocomplete_path(cmd));
+		return (tmp);
+	}
 	else
 		return (autocomplete_path(cmd));
 }
@@ -65,12 +74,8 @@ int		ft_context(char *cmd, t_termcaps *t)
 	int i;
 
 	i = ft_strlen(cmd);
-	if (cmd[i] == ' ')
+	if (cmd[i] == ' ' && (i >= 1 && (cmd[i] == '\0')))
 		i--;
-	if (i >= 1 && (cmd[i] == '\0'))
-		i--;
-	if ((ft_strequ(cmd, "~/") != 1) && (ft_strchr(cmd, 36) == NULL))
-		return (4);
 	while ((i >= 0 && cmd[i] != ' '))
 		i--;
 	if (cmd[i + 1] == '$')
@@ -80,7 +85,7 @@ int		ft_context(char *cmd, t_termcaps *t)
 		return (2);
 	while (cmd[i] == ' ')
 		i--;
-	if (!ft_isalnum(cmd[i]) || i == -1)
+	if ((!ft_isalnum(cmd[i]) || i == -1) && ft_strchr(cmd, 47) == NULL)
 		return (3);
 	return (4);
 }

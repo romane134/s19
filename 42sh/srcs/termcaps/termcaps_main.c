@@ -20,6 +20,7 @@
 ** while (i < (height - y)) On remonte les lignes jusqu'a celle de la position
 ** while (i < x) on se replace sur la ligne en x
 */
+// commande qui fait buger le truc ; C^e, C^c C^x C^c C^E (puis n'importe quoi genre 1)
 
 int			debug(void)
 {
@@ -145,6 +146,7 @@ char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 	while (1)
 	{
 		read(0, buffer, 3);
+dprintf(debug(), "ccc\n");
 		if (g_shell->stop == 1)
 			reset_stdin();
 		tgetent(termcaps->bp, getenv("TERM"));
