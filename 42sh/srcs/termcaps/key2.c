@@ -90,6 +90,7 @@ void	alt_maj(t_termcaps *termcaps, char **cmd, char *buffer)
 {
 	if (buffer[0] == CTRL_MAJ_E_1 && buffer[1] == CTRL_MAJ_E_2)
 	{
+		termcaps->cc_start = 0;
 		termcaps->cc_start = termcaps->pos;
 		termcaps->edit_mode = !termcaps->edit_mode;
 		show_new(*cmd, termcaps, 1);

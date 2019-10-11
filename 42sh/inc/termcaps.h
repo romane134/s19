@@ -206,7 +206,7 @@ void					down_one_line(t_termcaps *t);
 /*
 ** termcaps_main
 */
-void					which_key(char **buffer, char **cmd, t_termcaps *t);
+void					which_key(char **buffer, char **cmd, t_termcaps **t);
 char					*termcaps_main(t_termcaps *termcaps, int opt_display);
 void					term_reset(t_termcaps *termcaps);
 
