@@ -46,10 +46,10 @@ void	print_highlight(t_termcaps *termcaps, char *cmd)
 	display_name();
 	ft_strdel(&termcaps->tmp_select);
 	if (termcaps->cc_start == termcaps->pos)
-		termcaps->tmp_select = ft_strnew(1);
+		termcaps->tmp_select = ft_strnew(2);
 	else
-		termcaps->tmp_select = ft_strnew(val_abs((int)termcaps->pos -
-								(int)termcaps->cc_start));
+		termcaps->tmp_select = ft_strnew(val_abs(termcaps->pos -
+								termcaps->cc_start));
 	while (i < termcaps->cc_start && i < termcaps->pos)
 		ft_putchar(cmd[i++]);
 	highlight(termcaps);

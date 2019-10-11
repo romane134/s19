@@ -39,9 +39,6 @@ int		display_name(void)
 	if (!(dir = get_dirpath()))
 		exit_shell_code("malloc error", MALLOC_FAILURE);
 	len_dir = ft_strlen(dir);
-	//if (ft_strlen(g_shell->pwd->pwd) != 1 && g_shell->pwd->pwd
-	//  [ft_strlen(g_shell->pwd->pwd) - 1] == '/')
-	//	g_shell->pwd->pwd[ft_strlen(g_shell->pwd->pwd) - 1] = '\0';
 	ft_putstr("\033[93m");
 	ft_putstr(dir);
 	ft_putstr(" > ");
@@ -83,21 +80,6 @@ void	choose_display(t_termcaps *termcaps)
 		termcaps->path = ft_reasearch_prompt();
 }
 
-// char	*result_reasearch(char *old_cmd)
-// {
-// 	// ft_strdel(&old_cmd);
-// 	// old_cmd = ft_strdup("coucou");
-// 	return (old_cmd);
-// 	// return (ft_strdup("coucou"));
-// }
-//
-// /*
-// ** show_new()
-// ** y = hauteur ou l'on se trouve
-// ** height = hauteur de la cmd dans le shell
-// ** while(y > 0) on remonte en haut pour effacer les lignes en dessous
-// */
-
 void	show_new(char *cmd, t_termcaps *termcaps, int opt_save)
 {
 	int		y;
@@ -108,12 +90,10 @@ void	show_new(char *cmd, t_termcaps *termcaps, int opt_save)
 
 	if (termcaps->research_mode)
 	{
-		// cmd_look = result_reasearch(ft_strdup(cmd), termcaps);
-		nbre_len1 = ((termcaps->prev_cmd + display_name_len()-1) /
+		nbre_len1 = ((termcaps->prev_cmd + display_name_len() - 1) /
 		(termcaps->size));
 		nbre_len2 = ((14 + termcaps->prev_pos) / termcaps->size);
 		height = nbre_len1 + nbre_len2 + 1;
-
 		while (height-- > 0)
 			tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
 		tputs(tgoto(termcaps->gostart, 0, 0), 1, (void *)ft_putchar);
@@ -148,6 +128,4 @@ void	show_new(char *cmd, t_termcaps *termcaps, int opt_save)
 	if (opt_save != 0)
 		term_reset(termcaps);
 	termcaps->prev_pos = termcaps->pos;
-	// termcaps->prev_cmd = termcaps->cmd_len;
-	// ft_printf("%d | %d", nbre_len1, nbre_len2);
 }

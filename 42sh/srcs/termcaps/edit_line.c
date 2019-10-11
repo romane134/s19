@@ -33,7 +33,7 @@ char	*remove_previous_char(char *str, t_termcaps *termcaps)
 	i = 0;
 	if (termcaps->cmd_len == 0 || termcaps->pos == 0)
 		return (str);
-	new = ft_strnew(termcaps->cmd_len * sizeof(char*));
+	new = ft_strnew(termcaps->cmd_len);
 	while (i < termcaps->pos - 1)
 	{
 		new[i++] = *str;
@@ -66,7 +66,7 @@ char	*remove_next_char(char *str, t_termcaps *termcaps)
 	i = 0;
 	if (termcaps->cmd_len == 0)
 		return (str);
-	new = ft_strnew(termcaps->pos * sizeof(char*));
+	new = ft_strnew(termcaps->pos);
 	while (i < termcaps->pos)
 	{
 		new[i++] = *str;

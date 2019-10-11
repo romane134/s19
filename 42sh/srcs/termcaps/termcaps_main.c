@@ -113,7 +113,7 @@ void			which_key(char **buffer, char **cmd, t_termcaps **t)
 char		*ctrl_c_heredoc(t_termcaps *termcaps, char **cmd)
 {
 	ft_strdel(cmd);
-	*cmd = ft_strnew(sizeof(char));
+	*cmd = ft_strnew(0);
 	termcaps->pos = 0;
 	tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
 	tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
@@ -126,7 +126,7 @@ char		*ctrl_c_heredoc(t_termcaps *termcaps, char **cmd)
 void		ctrl_c(t_termcaps *termcaps, char **cmd)
 {
 	ft_strdel(cmd);
-	*cmd = ft_strnew(sizeof(char));
+	*cmd = ft_strnew(0);
 	termcaps->pos = 0;
 	tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
 	termcaps->cmd_len = 0;
@@ -141,8 +141,8 @@ char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 	char	*tmp;
 
 	init_new_cmd(termcaps, opt_display);
-	cmd = ft_strnew(sizeof(char));
-	buffer = ft_strnew(3 * sizeof(char *));
+	cmd = ft_strnew(2);
+	buffer = ft_strnew(3);
 	while (1)
 	{
 		read(0, buffer, 3);

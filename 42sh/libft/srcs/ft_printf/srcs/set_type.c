@@ -56,7 +56,7 @@ void	set_unsigned_int(t_data *data, va_list ap)
 
 void	set_char(t_data *data, va_list ap)
 {
-	data->value = ft_strnew(sizeof(char));
+	data->value = ft_strnew(sizeof(0));
 	data->value[0] = (char)va_arg(ap, int);
 }
 
