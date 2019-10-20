@@ -63,6 +63,7 @@ char	*result_reasearch(char *old_cmd, t_termcaps *t)
 	if (i[1] > 0)
 		t->r_hist = i[1] + 1;
 	close(fd);
+	//ft_strdel(&old_cmd); // TEST
 	return (result);
 }
 

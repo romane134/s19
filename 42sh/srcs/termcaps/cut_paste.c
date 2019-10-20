@@ -28,7 +28,7 @@ void	cut(t_termcaps *termcaps, char **cmd)
 	if (termcaps->edit_mode)
 	{
 		cut_in_cmd(termcaps, cmd);
-		termcaps->copy = termcaps->tmp_select;
+		ft_strcpy(termcaps->copy, termcaps->tmp_select);
 		termcaps->edit_mode = FALSE;
 		if (termcaps->cc_start < termcaps->pos)
 			termcaps->pos -= ft_strlen(termcaps->copy);
@@ -47,14 +47,13 @@ void	cut(t_termcaps *termcaps, char **cmd)
 
 void	paste(t_termcaps *termcaps, char **cmd)
 {
-	size_t i;
-
-	i = 0;
-	if (termcaps->copy)
+	if (termcaps->copy[0])
 	{
-		add_char(cmd, termcaps->copy);
+		dprintf(debug(), "cpy : |%s|\n", termcaps->copy);
+		add_char(cmd, termcaps->copy, termcaps);
 		termcaps->pos += ft_strlen(termcaps->copy);
 		termcaps->cmd_len += ft_strlen(termcaps->copy);
 		show_new(*cmd, termcaps, 1);
+		termcaps->edit_mode = FALSE;
 	}
 }

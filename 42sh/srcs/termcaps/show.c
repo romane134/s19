@@ -119,7 +119,8 @@ void	show_new(char *cmd, t_termcaps *termcaps, int opt_save)
 	}
 	choose_display(termcaps);
 	if (termcaps->edit_mode == 1)
-		print_highlight(termcaps, cmd);
+		print_highlight(termcaps, cmd)
+		;
 	else
 		ft_putstr(cmd);
 	termcaps->height = height;

@@ -30,7 +30,7 @@ void	left_key(t_termcaps *t, char **cmd)
 
 void	right_key(t_termcaps *t, char **cmd)
 {
-	if ((t->pos + t->path) % t->size >= t->size - 1)
+	if (((t->pos + t->path) % t->size) >= t->size - 1)
 	{
 		t->pos++;
 		tputs(tgoto(t->godown, 0, 0), 1, (void *)ft_putchar);

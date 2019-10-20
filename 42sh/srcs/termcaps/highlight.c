@@ -14,13 +14,13 @@
 
 void	highlight(t_termcaps *termcaps)
 {
-	tputs(tparm(termcaps->highlight_color, COLOR_WHITE), 1, (void *)ft_putchar);
-	tputs(tparm(termcaps->text_color, COLOR_BLACK), 1, (void *)ft_putchar);
+	ft_putstr(tparm(termcaps->highlight_color, COLOR_WHITE));
+	ft_putstr(tparm(termcaps->text_color, COLOR_BLACK));
 }
 
 void	reset_highlight(t_termcaps *termcaps)
 {
-	tputs(termcaps->reset, 1, (void *)ft_putchar);
+	ft_putstr(termcaps->reset);
 }
 
 /*
@@ -34,6 +34,7 @@ void	reset_highlight(t_termcaps *termcaps)
 ** On reset_highlight()
 ** On affiche la suite de la commande
 */
+//changer la fonction car si plusieurs lignes part en couille
 
 void	print_highlight(t_termcaps *termcaps, char *cmd)
 {
@@ -44,22 +45,21 @@ void	print_highlight(t_termcaps *termcaps, char *cmd)
 	y = 0;
 	del_line(termcaps);
 	display_name();
-	ft_strdel(&termcaps->tmp_select);
-	if (termcaps->cc_start == termcaps->pos)
-		termcaps->tmp_select = ft_strnew(2);
-	else
-		termcaps->tmp_select = ft_strnew(val_abs(termcaps->pos -
-								termcaps->cc_start));
+	ft_bzero(termcaps->tmp_select, NAME_MAX);
 	while (i < termcaps->cc_start && i < termcaps->pos)
-		ft_putchar(cmd[i++]);
+	{
+		ft_putchar(cmd[i]);
+		i++;
+	}
 	highlight(termcaps);
 	while (i <= bigger(termcaps->cc_start, termcaps->pos))
 	{
 		termcaps->tmp_select[y++] = cmd[i];
-		ft_putchar(cmd[i++]);
+		ft_putchar(cmd[i]);
+		i++;
 	}
 	reset_highlight(termcaps);
-	ft_putstr(&cmd[i]);
+	ft_putstr(cmd + i);
 }
 
 /*
@@ -80,7 +80,9 @@ void		cut_in_cmd(t_termcaps *t, char **cmd)
 	int		i;
 	int		y;
 	char	*new_cmd;
+	char	*tmp;
 
+	tmp = *cmd;
 	i = 0;
 	y = 0;
 	new_cmd = ft_strnew(t->cmd_len - val_abs(t->pos - t->cc_start));
@@ -100,7 +102,7 @@ void		cut_in_cmd(t_termcaps *t, char **cmd)
 	}
 	while ((*cmd)[i])
 		new_cmd[y++] = (*cmd)[i++];
-	ft_strdel(cmd);
+	ft_strdel(&tmp);
 	*cmd = ft_strdup(new_cmd);
 	ft_strdel(&new_cmd);
 }

@@ -92,8 +92,11 @@ void	set_hash(int construct)
 		delete_array(split);
 		i++;
 	}
-	path = ft_strsplit(split[1], ':');
-	delete_array(split);
-	fill_hash_arrayle(path);
-	delete_array(path);
+	if (g_shell->env[i] && split[1])
+	{
+		path = ft_strsplit(split[1], ':');
+		delete_array(split);
+		fill_hash_arrayle(path);
+		delete_array(path);
+	}
 }

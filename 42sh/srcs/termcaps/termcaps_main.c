@@ -20,11 +20,10 @@
 ** while (i < (height - y)) On remonte les lignes jusqu'a celle de la position
 ** while (i < x) on se replace sur la ligne en x
 */
-// commande qui fait buger le truc ; C^e, C^c C^x C^c C^E (puis n'importe quoi genre 1)
 
 int			debug(void)
 {
-	return (open("/Users/rlucas-d/Documents/42sh/debug_1", O_RDWR | O_CREAT |
+	return (open("debug", O_RDWR | O_CREAT |
 	O_APPEND, 0755));
 }
 
@@ -103,7 +102,8 @@ void			which_key(char **buffer, char **cmd, t_termcaps **t)
 	else if (isprintable(*buffer) || (*buffer)[0] == '\n')
 	{
 		(*t)->edit_mode = FALSE;
-		add_char(cmd, *buffer);
+		((*t)->pos == (int)ft_strlen(*cmd)) ?
+		add_char_end(cmd, *buffer) : add_char(cmd, *buffer, *t);
 		(*t)->pos += ft_strlen(*buffer);
 		(*t)->cmd_len += ft_strlen(*buffer);
 		show_new(*cmd, *t, 1);
@@ -148,7 +148,7 @@ char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 		read(0, buffer, 3);
 		if (g_shell->stop == 1)
 			reset_stdin();
-		tgetent(termcaps->bp, getenv("TERM"));
+		//tgetent(termcaps->bp, getenv("TERM"));
 		termcaps->size = tgetnum("co");
 		if (g_shell->i == 1)
 			ctrl_c(termcaps, &cmd);
@@ -175,5 +175,4 @@ char		*termcaps_main(t_termcaps *termcaps, int opt_display)
 		ft_bzero(buffer, 3);
 	}
 	ft_strdel(&cmd);
-	ft_strdel(&termcaps->copy);
 }

@@ -78,19 +78,38 @@ char	*remove_next_char(char *str, t_termcaps *termcaps)
 	return (new);
 }
 
-/*
-** add_char()
-** Cette fonction permet de joint le buffer qui vient d'etre read aux
-** caracteres lus precedemment pour creer un char* qui contiendra
-** la commande complet
-*/
-
-void		add_char(char **str, char *buff)
+void		add_char_end(char **str, char *buff)
 {
 	char	*new;
 
 	new = ft_strjoin(*str, buff);
 	ft_strdel(str);
+	*str = ft_strdup(new);
+	ft_strdel(&new);
+}
+
+void		add_char(char **str, char *buff, t_termcaps *termcaps)
+{
+	int		i;
+	int		j;
+	char	*temp;
+	char	*new;
+	char	*tmp2;
+
+	i = 0;
+	j = -1;
+	tmp2 = *str;
+	temp = ft_strnew((ft_strlen(*str) + ft_strlen(buff)));
+	while (i < termcaps->pos)
+	{
+		temp[i++] = **str;
+		(*str)++;
+	}
+	while (buff[++j])
+		temp[i++] = buff[j];
+	new = ft_strjoin(temp, *str);
+	ft_strdel(&temp);
+	ft_strdel(&tmp2);
 	*str = ft_strdup(new);
 	ft_strdel(&new);
 }

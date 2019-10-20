@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bjovanov <bjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 23:30:45 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/10/17 06:49:11 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/10/07 13:27:12 by bjovanov          #+#    #+#             */
+/*   Updated: 2019/06/29 21:15:57 by sstinglh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,30 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
-	size_t	len;
-	size_t	a;
-	size_t	b;
+	char	*dest;
+	size_t	i;
+	size_t	j;
 
-	b = 0;
-	if (!s1 || !s2)
+	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2);
-	if (!(str = ft_strnew(len)))
+	dest = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (dest == NULL)
 		return (NULL);
-	ft_strcpy(str, s1);
-	a = ft_strlen(str);
-	while (s2[b] != '\0')
+	i = 0;
+	j = 0;
+	while (s1[j])
 	{
-		str[a + b] = s2[b];
-		b++;
+		dest[i] = s1[j];
+		i++;
+		j++;
 	}
-	str[a + b] = '\0';
-	return (str);
+	j = 0;
+	while (s2[j])
+	{
+		dest[i] = s2[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

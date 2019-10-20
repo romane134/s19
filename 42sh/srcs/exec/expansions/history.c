@@ -59,6 +59,25 @@ int		get_history_len(void)
  ** ensuite on remplace dans cmd avec ft_streplace_first. Il faut recreer le mot
  ** a enlever avec le "!" d'ou le join
  */
+ // FINIR !!!!!!!
+ int		numeric_histo_util(char **cmd, int i, int num, int history_len)
+ {
+ 	if ((*cmd + i)[0] == '-')
+ 	{
+ 		dprintf(2, "\n -: event not found");
+ 		ft_strdel(cmd);
+ 		*cmd = ft_strdup("");
+ 		return (-1);
+ 	}
+ 	if ((num > 0 && num > history_len) || (num < 0 && -num > history_len))
+ 	{
+ 		dprintf(2, "\n %d: event not found", num);
+ 		ft_strdel(cmd);
+ 		*cmd = ft_strdup("");
+ 		return (-1);
+ 	}
+ 	return (0);
+ }
 
 void	numeric_histo(char **cmd, int i)
 {
@@ -70,12 +89,8 @@ void	numeric_histo(char **cmd, int i)
 
 	history_len = get_history_len();
 	num = ft_atoi(&(*cmd)[i]);
-	if ((num > 0 && num > history_len) || (num < 0 && -num > history_len))
-	{
-		ft_printf("\n42sh: !%d: event not found", num);
-		ft_strdel(cmd);
+	if (numeric_histo_util(cmd, i, num, history_len) == -1)
 		return ;
-	}
 	num = (num < 0) ? history_len + num : num;
 	if ((remplacement = read_last_line(num)) == NULL)
 		return ;
@@ -177,6 +192,17 @@ void	word_histo(char **cmd, int i, int len)
  ** rentre pas dans la condition
  */
 
+ /*
+  ** Petit point sur cette condition.
+  ** Un quote echappe un dquote tandis qu'un dquote echappe un quote.
+  ** D'ou l'interet de cette condition car si il y a deja un quote/dquote qui est active
+  ** alors c'est impossible de pouvoir activer un nouveau quote tant qu'on a pas ferme le dernier
+  ** Exemple: "'ls'", ici malgre que c'est le quote qui a la possibilite d'echapper le plus, le fait qu'il soit entre dquote fait qu'il n'a aucun pouvoir, il ne fait rien
+  ** C'est donc pour ca ici qu'on verifie simplement que l'historique est vide
+  ** car du fait qu'on ne verifie que les quotes et dquote, on ne peut que avoir
+  ** un seul quote active a la fois, donc un seul element a la fois dans l'historique
+  */
+
 int		expansion_history(char **cmd)
 {
 	t_history	*history;
@@ -193,16 +219,6 @@ int		expansion_history(char **cmd)
 				remove_last_history(&history); // Si le quote actuel peut effectivement fermer le quote ouvrant active, dans ce cas, on enleve le quote ouvrant de l'historique et on continue
 				continue ;
 			}
-			/*
-			 ** Petit point sur cette condition.
-			 ** Un quote echappe un dquote tandis qu'un dquote echappe un quote.
-			 ** D'ou l'interet de cette condition car si il y a deja un quote/dquote qui est active
-			 ** alors c'est impossible de pouvoir activer un nouveau quote tant qu'on a pas ferme le dernier
-			 ** Exemple: "'ls'", ici malgre que c'est le quote qui a la possibilite d'echapper le plus, le fait qu'il soit entre dquote fait qu'il n'a aucun pouvoir, il ne fait rien
-			 ** C'est donc pour ca ici qu'on verifie simplement que l'historique est vide
-			 ** car du fait qu'on ne verifie que les quotes et dquote, on ne peut que avoir
-			 ** un seul quote active a la fois, donc un seul element a la fois dans l'historique
-			 */
 			if (get_last_history_closing(history) == NULL) // Sinon, on verifie que l'historique est vide avant d'aller rajouter un quote a l'historique.
 				add_history(&history, (*cmd)[i] == '"' ? "\"" : "'",
 						(*cmd)[i] == '"' ? "\"" : "'");

@@ -85,8 +85,8 @@ typedef struct			s_termcaps
 	char				*last_cmd;
 	int					cmd_len;
 	int					cc_start;
-	char				*tmp_select;
-	char				*copy;
+	char				tmp_select[NAME_MAX];
+	char				copy[NAME_MAX];
 	int					edit_mode;
 	char				*reset;
 	char				*highlight_color;
@@ -97,7 +97,7 @@ typedef struct			s_termcaps
 	char				*text_color;
 	int					pos_line;
 	int					path;
-	char				bp[NAME_MAX];
+//	char				bp[NAME_MAX];
 	int					prev_pos;
 	int					prev_cmd;
 	int					research_mode;
@@ -149,9 +149,10 @@ void					paste(t_termcaps *termcaps, char **cmd);
 /*
  ** edit_line
 */
+void					add_char_end(char **str, char *buff);
 char					*remove_previous_char(char *str, t_termcaps *termcaps);
 char					*remove_next_char(char *str, t_termcaps *termcaps);
-void					add_char(char **str, char *buff);
+void					add_char(char **str, char *buff, t_termcaps *termcaps);
 void					del_line(t_termcaps *termcaps);
 
 /*

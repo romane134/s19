@@ -32,18 +32,20 @@ void	del_key(char **cmd, t_termcaps *termcaps)
 		termcaps->cmd_len--;
 	}
 }
+
 /*
 ** au moment ou on appuie sur enter
 **
 */
+
 char	*entre_key(t_termcaps *t, char *cmd, char **buffer)
 {
 	t->edit_mode = FALSE;
 	ft_strdel(buffer);
 	if (expansion_history(&cmd))
 		add_in_history(t, cmd);
-	tputs(tgoto(t->godown, 0, 0), 1, (void *)ft_putchar); //descendre d'ue ligne
-	tputs(tgoto(t->gostart, 0, 0), 1, (void *)ft_putchar); // ?
+	tputs(tgoto(t->godown, 0, 0), 1, (void *)ft_putchar);
+	tputs(tgoto(t->gostart, 0, 0), 1, (void *)ft_putchar);
 	if (tcsetattr(0, TCSADRAIN, &t->term_restore) == -1)
 		exit(-1);
 	return (cmd);
@@ -90,6 +92,8 @@ void	alt_maj(t_termcaps *termcaps, char **cmd, char *buffer)
 {
 	if (buffer[0] == CTRL_MAJ_E_1 && buffer[1] == CTRL_MAJ_E_2)
 	{
+		ft_bzero(termcaps->tmp_select, NAME_MAX);
+		ft_bzero(termcaps->copy, NAME_MAX);
 		termcaps->cc_start = 0;
 		termcaps->cc_start = termcaps->pos;
 		termcaps->edit_mode = !termcaps->edit_mode;
@@ -98,7 +102,12 @@ void	alt_maj(t_termcaps *termcaps, char **cmd, char *buffer)
 	else if (buffer[0] == CTRL_MAJ_C_1 && buffer[1] == CTRL_MAJ_C_2)
 	{
 		if (termcaps->edit_mode)
-			termcaps->copy = ft_strdup(termcaps->tmp_select);
+		{
+			ft_bzero(termcaps->copy, NAME_MAX);
+			ft_strcpy(termcaps->copy, termcaps->tmp_select);
+			termcaps->edit_mode = !termcaps->edit_mode;
+			show_new(*cmd, termcaps, 1);
+		}
 	}
 	else if (buffer[0] == CTRL_MAJ_X_1 && buffer[1] == CTRL_MAJ_X_2)
 		cut(termcaps, cmd);

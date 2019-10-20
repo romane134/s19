@@ -19,7 +19,7 @@
 
 void		print_shell_usage(t_termcaps *termcaps)
 {
-	tputs(tparm(termcaps->text_color, COLOR_MAGENTA), 1, (void *)ft_putchar);
+	ft_putstr(tparm(termcaps->text_color, COLOR_MAGENTA));
 	ft_printf("------Welcome on %s !------\n\n", SHELL_NAME);
 	ft_printf("ALT + MAJ + E : Edit mode\n");
 	ft_printf("ALT + MAJ + C : Copy\n");
@@ -50,7 +50,6 @@ int			term_init(t_termcaps *termcaps)
 	get_termcaps(termcaps);
 	if (open_history_file(termcaps) == -1)
 		exit(-1);
-	termcaps->tmp_select = ft_strnew(0);
 	print_shell_usage(termcaps);
 	return (0);
 }
@@ -66,6 +65,7 @@ void		init_new_cmd(t_termcaps *termcaps, int opt_display)
 	termcaps->prev_pos = 0;
 	termcaps->research_mode = 0;
 	termcaps->r_hist = termcaps->history_len;
+	ft_bzero(termcaps->copy, NAME_MAX);
 	if (tcsetattr(0, TCSADRAIN, &termcaps->term) == -1)
 		exit(-1);
 	termcaps->display_option = opt_display;
