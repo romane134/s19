@@ -62,19 +62,18 @@ char		*remove_next_char(char *str, t_termcaps *termcaps)
 	char	*tmp;
 	int		i;
 
-	tmp = str;
 	i = 0;
 	if (termcaps->cmd_len == 0)
 		return (str);
-	new = ft_strnew(termcaps->pos);
+	tmp = ft_strnew(termcaps->pos);
 	while (i < termcaps->pos)
 	{
-		new[i++] = *str;
+		tmp[i++] = *str;
 		str++;
 	}
 	str++;
-	new = ft_strjoin_free(&new, &str, 0);
-	ft_strdel(&tmp);
+	new = ft_strjoin(tmp, str);
+	ft_strdel(&str);
 	return (new);
 }
 

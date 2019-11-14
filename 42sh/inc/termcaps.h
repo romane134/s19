@@ -113,39 +113,64 @@ typedef struct			s_filename
 	struct s_filename	*next;
 }						t_filename;
 
-int debug();
-void	job(int nb);
+int						debug();
+void					job(int nb);
 /*
  ** TERMCAPS HEADERS
 */
 int						isprintable(char *str);
 
 /*
- ** autocomplete
+ ** autocompletion.c
 */
 char					*autocomplete(char *cmd, t_termcaps *termcaps);
-void					save_formated_file(struct dirent *dent, char *buf,
-		char *cmd, t_filename **fname);
-int						ft_last_word(char *str);
-int						ft_last_slash(char *cmd);
-char					*path_to_open(char *cmd);
-char					*ft_show_or_complete(t_filename *fname,
-		char *cmd, char *path);
-int						ft_strcmpstart(char *str, char *find);
-t_filename				*ft_add_list(t_filename *li, char *data);
-int						ft_list_lenght(t_filename *li);
-char					*ft_last_ch(char *str);
-void					ft_del_list(t_filename *li);
-char					*autocomplete_command(char *cmd, int *i);
-char					*autocomplete_path(char *cmd);
+char					*ft_put_back_word(char *cmd, t_termcaps *t,
+	char **word);
+void					ft_what_word(char *cmd, t_termcaps *t, char **word);
+char					*autocomplete_main(char *cmd, int context);
+
+/*
+ ** autocomplete_var.c
+*/
 char					*autocompletion_var_home(char *cmd);
 char					*autocompletion_dynamique(char *cmd);
+char					*autocompletion_closest_var(char *cmd);
+int						autocompletion_find_closest_var(t_filename **fname,
+						char *name);
+int						add_list_autocompletion_env(t_filename **fname,
+						char *name);
+
+/*
+** autocomplete_fonction.c
+*/
+void					ft_del_list(t_filename *li);
+int						ft_list_lenght(t_filename *li);
+t_filename				*ft_add_list(t_filename *li, char *data);
+int						ft_strcmpstart(char *str, char *find);
+char					*ft_last_ch(char *str);
+
+/*
+** autocomplete_file.c
+*/
+char					*autocomplete_path(char *cmd);
+char					*ft_show_or_complete(t_filename *fname, char *cmd,
+						char *path);
+int						ft_last_slash(char *cmd);
+void					save_formated_file(struct dirent *dent, char *buf,
+						char *cmd, t_filename **fname);
+char					*path_to_open(char *cmd);
+
+/*
+** autocomplete_command.c
+*/
+char					*autocomplete_command(char *cmd, int *i);
 
 /*
  ** cut_paste
 */
 void					cut(t_termcaps *termcaps, char **cmd);
 void					paste(t_termcaps *termcaps, char **cmd);
+
 /*
  ** edit_line
 */
@@ -175,7 +200,7 @@ void					termcaps_histo(t_termcaps *termcaps, char **cmd, int i);
 void					win_change_handler(int sig);
 int						term_init(t_termcaps *termcaps);
 void					init_new_cmd(t_termcaps *termcaps, int opt_display,
-	char **cmd);
+						char **cmd);
 void					get_termcaps(t_termcaps *termcaps);
 /*
  ** keys.c
@@ -220,9 +245,8 @@ void					just_char(t_termcaps **t, char **cmd, char **buffer);
 void					print_new(char *cmd, t_termcaps *termcaps, int i);
 char					*get_dirpath(void);
 void					print_research_mode(t_termcaps *termcaps, char **cmd,
-	int *height);
+						int *height);
 void					print_no_r(int *height, t_termcaps *termcaps);
-
 
 /*
 ** recherche
@@ -230,6 +254,7 @@ void					print_no_r(int *height, t_termcaps *termcaps);
 char					*result_reasearch(char *old_cmd, t_termcaps *t);
 char					*result_reasearch_without_termcaps(char *old_cmd);
 void					reasearch_key(char **cmd, t_termcaps *termcaps);
+
 /*
 ** display
 */

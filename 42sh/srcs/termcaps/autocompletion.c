@@ -12,7 +12,7 @@
 
 #include "sh42.h"
 
-char	*autocomplete_main(char *cmd, int context)
+char			*autocomplete_main(char *cmd, int context)
 {
 	int		i;
 	char	*tmp;
@@ -33,7 +33,7 @@ char	*autocomplete_main(char *cmd, int context)
 		return (autocomplete_path(cmd));
 }
 
-void	ft_what_word(char *cmd, t_termcaps *t, char **word)
+void			ft_what_word(char *cmd, t_termcaps *t, char **word)
 {
 	char *tmp;
 
@@ -58,7 +58,7 @@ void	ft_what_word(char *cmd, t_termcaps *t, char **word)
 	ft_strdel(&tmp);
 }
 
-char	*ft_put_back_word(char *cmd, t_termcaps *t, char **word)
+char			*ft_put_back_word(char *cmd, t_termcaps *t, char **word)
 {
 	char *tmp;
 	char *tmpo;
@@ -70,9 +70,10 @@ char	*ft_put_back_word(char *cmd, t_termcaps *t, char **word)
 	return (tmp);
 }
 
-int		ft_context(char *cmd)
+static int		ft_context(char *cmd)
 {
 	int i;
+	int j;
 
 	i = ft_strlen(cmd);
 	if (cmd[i] && (cmd[i] == ' ' && (i >= 1 && (cmd[i] == '\0'))))
@@ -80,23 +81,22 @@ int		ft_context(char *cmd)
 	while (cmd[i] && ((i >= 0 && cmd[i] != ' ')))
 		i--;
 	i--;
+	j = i;
 	if (ft_strchr(cmd, '$') != NULL)
-		while (i > 0 && (cmd[i] != ' '))
+		while (j >= 0 && (cmd[j] != ' '))
 		{
-			if (cmd[i] == '$')
+			if (cmd[j] == '$' && cmd[j + 1] != '{')
 				return (1);
-			i--;
+			j--;
 		}
 	else if (cmd && ft_strnequ(cmd + i - 1, "~/", 2) != 0)
 		return (2);
-	while (cmd[i] && (cmd[i] == ' '))
-		i--;
-	if (isprintable(cmd) == 1)
+	if ((isprintable(cmd) == 1 && cmd[i] != ' ') || is_only_space(cmd))
 		return (3);
 	return (4);
 }
 
-char	*autocomplete(char *cmd, t_termcaps *termcaps)
+char			*autocomplete(char *cmd, t_termcaps *termcaps)
 {
 	char	*word;
 	char	*tmp;
