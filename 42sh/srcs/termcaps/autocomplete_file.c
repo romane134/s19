@@ -12,12 +12,6 @@
 
 #include "sh42.h"
 
-int			ft_is_only_dot(char *name)
-{
-	if ((ft_strequ(name, ".") == 1) || (ft_strequ(name, "..")))
-		return(1);
-	return (0);
-}
 void		save_formated_file(struct dirent *dent, char *buf, char *cmd,
 		t_filename **fname)
 {

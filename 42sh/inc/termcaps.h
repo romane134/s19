@@ -29,6 +29,7 @@
 # include <grp.h>
 # include <sys/xattr.h>
 # include <sys/acl.h>
+# include <sys/ioctl.h>
 # include <fcntl.h>
 
 enum					e_key_press
@@ -97,7 +98,6 @@ typedef struct			s_termcaps
 	char				*text_color;
 	int					pos_line;
 	int					path;
-//	char				bp[NAME_MAX];
 	int					prev_pos;
 	int					prev_cmd;
 	int					research_mode;
@@ -118,7 +118,7 @@ void	job(int nb);
 /*
  ** TERMCAPS HEADERS
 */
-int		isprintable(char *str);
+int						isprintable(char *str);
 
 /*
  ** autocomplete
@@ -172,8 +172,10 @@ void					termcaps_histo(t_termcaps *termcaps, char **cmd, int i);
 /*
  ** init
 */
+void					win_change_handler(int sig);
 int						term_init(t_termcaps *termcaps);
-void					init_new_cmd(t_termcaps *termcaps, int opt_display);
+void					init_new_cmd(t_termcaps *termcaps, int opt_display,
+	char **cmd);
 void					get_termcaps(t_termcaps *termcaps);
 /*
  ** keys.c
@@ -210,19 +212,37 @@ void					down_one_line(t_termcaps *t);
 void					which_key(char **buffer, char **cmd, t_termcaps **t);
 char					*termcaps_main(t_termcaps *termcaps, int opt_display);
 void					term_reset(t_termcaps *termcaps);
+void					just_char(t_termcaps **t, char **cmd, char **buffer);
 
 /*
  ** show
 */
-void					show_new(char *cmd, t_termcaps *termcaps, int i);
-int						display_name(void);
-int						only_arrow(void);
-void					choose_display(t_termcaps *termcaps);
+void					print_new(char *cmd, t_termcaps *termcaps, int i);
+char					*get_dirpath(void);
+void					print_research_mode(t_termcaps *termcaps, char **cmd,
+	int *height);
+void					print_no_r(int *height, t_termcaps *termcaps);
+
 
 /*
 ** recherche
 */
 char					*result_reasearch(char *old_cmd, t_termcaps *t);
 char					*result_reasearch_without_termcaps(char *old_cmd);
+void					reasearch_key(char **cmd, t_termcaps *termcaps);
+/*
+** display
+*/
+int						display_name(void);
+void					choose_display(t_termcaps *termcaps);
+int						display_name_len(void);
+int						only_arrow(void);
+int						ft_reasearch_prompt(void);
+
+/*
+** control_c
+*/
+void					ctrl_c(t_termcaps *termcaps, char **cmd);
+char					*ctrl_c_heredoc(t_termcaps *termcaps, char **cmd);
 
 #endif

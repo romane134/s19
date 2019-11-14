@@ -12,13 +12,13 @@
 
 #include "sh42.h"
 
-void	highlight(t_termcaps *termcaps)
+void		highlight(t_termcaps *termcaps)
 {
 	ft_putstr(tparm(termcaps->highlight_color, COLOR_WHITE));
 	ft_putstr(tparm(termcaps->text_color, COLOR_BLACK));
 }
 
-void	reset_highlight(t_termcaps *termcaps)
+void		reset_highlight(t_termcaps *termcaps)
 {
 	ft_putstr(termcaps->reset);
 }
@@ -34,9 +34,8 @@ void	reset_highlight(t_termcaps *termcaps)
 ** On reset_highlight()
 ** On affiche la suite de la commande
 */
-//changer la fonction car si plusieurs lignes part en couille
 
-void	print_highlight(t_termcaps *termcaps, char *cmd)
+void		print_highlight(t_termcaps *termcaps, char *cmd)
 {
 	int i;
 	int y;
@@ -47,12 +46,15 @@ void	print_highlight(t_termcaps *termcaps, char *cmd)
 	display_name();
 	ft_bzero(termcaps->tmp_select, NAME_MAX);
 	while (i < termcaps->cc_start && i < termcaps->pos)
-	{
-		ft_putchar(cmd[i]);
-		i++;
-	}
+		ft_putchar(cmd[i++]);
 	highlight(termcaps);
-	while (i <= bigger(termcaps->cc_start, termcaps->pos))
+	if (termcaps->cc_start == termcaps->pos)
+	{
+		reset_highlight(termcaps);
+		ft_putstr(cmd + i);
+		return ;
+	}
+	while (i < bigger(termcaps->cc_start, termcaps->pos))
 	{
 		termcaps->tmp_select[y++] = cmd[i];
 		ft_putchar(cmd[i]);
@@ -64,45 +66,31 @@ void	print_highlight(t_termcaps *termcaps, char *cmd)
 
 /*
 ** cut_in_cmd()
-**
-** On va enlever de cmd la partie qui se trouve entre "pos" et "cc_start"
-** En fonction du sens de selection pos peut etre avant ou apres start.
-**		Cela est gere par la condition
-** On va malloc la taille totale moins celle de la string selectionnee
-** On copie dans new_cmd jusqu'a arriver au curseur
-** On continue dans la string sans copier jusqu'a la fin du curseur
-** Ensuite on continue a copier
-** On free la commande qu'on a remplace
+** couper la commande selectionnee avec le edit-edit_mode
+** on coupe la partie qui se trouve |e| t->pos et t->cc_start
+** on copie la string de la pos 0 jusqu'a le debut de la partie selectionnee
+** puis de la fin de la partie selectionnee a la fin de la string
 */
 
 void		cut_in_cmd(t_termcaps *t, char **cmd)
 {
+	char	*tmp;
+	char	*new;
 	int		i;
 	int		y;
-	char	*new_cmd;
-	char	*tmp;
 
-	tmp = *cmd;
 	i = 0;
 	y = 0;
-	new_cmd = ft_strnew(t->cmd_len - val_abs(t->pos - t->cc_start));
-	if (t->pos > t->cc_start)
-	{
-		while (i < t->cc_start)
-			new_cmd[y++] = (*cmd)[i++];
-		while (i <= t->pos)
-			i++;
-	}
-	else
-	{
-		while (i < t->pos)
-			new_cmd[y++] = (*cmd)[i++];
-		while (i <= t->cc_start)
-			i++;
-	}
-	while ((*cmd)[i])
-		new_cmd[y++] = (*cmd)[i++];
-	ft_strdel(&tmp);
-	*cmd = ft_strdup(new_cmd);
-	ft_strdel(&new_cmd);
+	tmp = *cmd;
+	new = ft_strnew(ft_strlen(*cmd) - val_abs(t->cc_start -
+		t->pos));
+	while ((tmp[y]) && (i < smaller(t->cc_start, t->pos)) && i <
+		(int)ft_strlen(*cmd))
+		new[i++] = tmp[y++];
+	y = bigger(t->cc_start, t->pos);
+	while (tmp[y])
+		new[i++] = tmp[y++];
+	ft_strdel(cmd);
+	*cmd = ft_strdup(new);
+	ft_strdel(&new);
 }

@@ -21,13 +21,7 @@
 ** while (i < x) on se replace sur la ligne en x
 */
 
-int			debug(void)
-{
-	return (open("debug", O_RDWR | O_CREAT |
-	O_APPEND, 0755));
-}
-
-void		term_reset(t_termcaps *termcaps)
+void			term_reset(t_termcaps *termcaps)
 {
 	int x;
 	int y;
@@ -52,26 +46,14 @@ void		term_reset(t_termcaps *termcaps)
 	}
 }
 
-void			remove_backn(char **buffer)
+void			just_char(t_termcaps **t, char **cmd, char **buffer)
 {
-	int			i;
-	int			len;
-	char		*tmp;
-
-	i = 0;
-	len = 0;
-	while ((*buffer)[i] && (*buffer)[i] == '\n')
-		i++;
-	tmp = ft_strnew(ft_strlen(*buffer));
-	while ((*buffer)[i])
-	{
-		tmp[len] = (*buffer)[i];
-		i++;
-		len++;
-	}
-	ft_strdel(buffer);
-	*buffer = ft_strdup(tmp);
-	ft_strdel(&tmp);
+	(*t)->edit_mode = FALSE;
+	((*t)->pos == (int)ft_strlen(*cmd)) ?
+	add_char_end(cmd, *buffer) : add_char(cmd, *buffer, *t);
+	(*t)->pos += ft_strlen(*buffer);
+	(*t)->cmd_len += ft_strlen(*buffer);
+	print_new(*cmd, *t, 1);
 }
 
 void			which_key(char **buffer, char **cmd, t_termcaps **t)
@@ -88,7 +70,7 @@ void			which_key(char **buffer, char **cmd, t_termcaps **t)
 		(*t)->research_mode = 1;
 		if ((*t)->r_hist > 0)
 			(*t)->r_hist--;
-		show_new(*cmd, *t, 1);
+		print_new(*cmd, *t, 1);
 	}
 	else if ((*buffer)[0] == TAB && (*buffer)[1] == 0)
 		key_tab(cmd, *t);
@@ -100,79 +82,41 @@ void			which_key(char **buffer, char **cmd, t_termcaps **t)
 	|| (*buffer)[0] == -30)
 		alt_maj(*t, cmd, *buffer);
 	else if (isprintable(*buffer) || (*buffer)[0] == '\n')
-	{
-		(*t)->edit_mode = FALSE;
-		((*t)->pos == (int)ft_strlen(*cmd)) ?
-		add_char_end(cmd, *buffer) : add_char(cmd, *buffer, *t);
-		(*t)->pos += ft_strlen(*buffer);
-		(*t)->cmd_len += ft_strlen(*buffer);
-		show_new(*cmd, *t, 1);
-	}
+		just_char(t, cmd, buffer);
 }
 
-char		*ctrl_c_heredoc(t_termcaps *termcaps, char **cmd)
+static void		term_sig(char **cmd, t_termcaps *termcaps)
 {
-	ft_strdel(cmd);
-	*cmd = ft_strnew(0);
-	termcaps->pos = 0;
-	tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
-	tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
-	termcaps->cmd_len = 0;
-	g_shell->stop = 1;
-	ft_printf("\n");
-	return (NULL);
+	if (g_shell->stop == 1)
+		reset_stdin();
+	win_change_handler(SIGWINCH);
+	if (g_shell->i == 1)
+		ctrl_c(termcaps, cmd);
 }
 
-void		ctrl_c(t_termcaps *termcaps, char **cmd)
-{
-	ft_strdel(cmd);
-	*cmd = ft_strnew(0);
-	termcaps->pos = 0;
-	tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
-	termcaps->cmd_len = 0;
-	g_shell->i = 0;
-	ft_printf("\n");
-}
-
-char		*termcaps_main(t_termcaps *termcaps, int opt_display)
+char			*termcaps_main(t_termcaps *termcaps, int opt_display)
 {
 	char	*buffer;
 	char	*cmd;
-	char	*tmp;
 
-	init_new_cmd(termcaps, opt_display);
-	cmd = ft_strnew(2);
+	init_new_cmd(termcaps, opt_display, &cmd);
 	buffer = ft_strnew(3);
 	while (1)
 	{
+		if (cmd == NULL)
+			cmd = ft_strnew(0);
 		read(0, buffer, 3);
-		if (g_shell->stop == 1)
-			reset_stdin();
-		//tgetent(termcaps->bp, getenv("TERM"));
-		termcaps->size = tgetnum("co");
-		if (g_shell->i == 1)
-			ctrl_c(termcaps, &cmd);
-		if (g_shell->stop == 1)
-			return (ctrl_c_heredoc(termcaps, &cmd));
+		term_sig(&cmd, termcaps);
 		if (buffer[0] == ENTER && ((buffer[1] == '\n' ||
 		!buffer[1]) && (buffer[2] == '\n' || !buffer[2])))
 		{
 			if (termcaps->research_mode == FALSE)
 				return (entre_key(termcaps, cmd, &buffer));
-			termcaps->research_mode = !termcaps->research_mode;
-			termcaps->pos = 0;
-			tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
-			termcaps->cmd_len = 0;
-			g_shell->i = 0;
-			tmp = cmd;
-			cmd = result_reasearch(tmp, termcaps);
-			ft_strdel(&tmp);
-			show_new(cmd, termcaps, 1);
+			reasearch_key(&cmd, termcaps);
 		}
 		else
 			which_key(&buffer, &cmd, &termcaps);
 		termcaps->prev_pos = termcaps->pos;
 		ft_bzero(buffer, 3);
 	}
-	ft_strdel(&cmd);
 }

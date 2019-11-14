@@ -14,7 +14,7 @@
 
 char	*autocomplete_main(char *cmd, int context)
 {
-	int i;
+	int		i;
 	char	*tmp;
 
 	i = 0;
@@ -33,9 +33,9 @@ char	*autocomplete_main(char *cmd, int context)
 		return (autocomplete_path(cmd));
 }
 
-char	*ft_what_word(char *cmd, t_termcaps *t)
+void	ft_what_word(char *cmd, t_termcaps *t, char **word)
 {
-	char *word;
+	char *tmp;
 
 	t->auto_end = t->pos;
 	t->auto_start = t->pos;
@@ -53,8 +53,9 @@ char	*ft_what_word(char *cmd, t_termcaps *t)
 	{
 		t->auto_start++;
 	}
-	word = ft_strsub(cmd, t->auto_start, t->auto_end - t->auto_start);
-	return (word);
+	tmp = ft_strsub(cmd, t->auto_start, t->auto_end - t->auto_start);
+	(*word) = ft_strdup(tmp);
+	ft_strdel(&tmp);
 }
 
 char	*ft_put_back_word(char *cmd, t_termcaps *t, char **word)
@@ -69,23 +70,28 @@ char	*ft_put_back_word(char *cmd, t_termcaps *t, char **word)
 	return (tmp);
 }
 
-int		ft_context(char *cmd, t_termcaps *t)
+int		ft_context(char *cmd)
 {
 	int i;
 
 	i = ft_strlen(cmd);
-	if (cmd[i] == ' ' && (i >= 1 && (cmd[i] == '\0')))
+	if (cmd[i] && (cmd[i] == ' ' && (i >= 1 && (cmd[i] == '\0'))))
 		i--;
-	while ((i >= 0 && cmd[i] != ' '))
+	while (cmd[i] && ((i >= 0 && cmd[i] != ' ')))
 		i--;
-	if (cmd[i + 1] == '$')
-		return (1);
-	else if (cmd[i + 1] == '~' && (cmd[i + 2] == '/' ||
-				cmd[i + 2] == ' ' || i + 2 == t->cmd_len))
+	i--;
+	if (ft_strchr(cmd, '$') != NULL)
+		while (i > 0 && (cmd[i] != ' '))
+		{
+			if (cmd[i] == '$')
+				return (1);
+			i--;
+		}
+	else if (cmd && ft_strnequ(cmd + i - 1, "~/", 2) != 0)
 		return (2);
-	while (cmd[i] == ' ')
+	while (cmd[i] && (cmd[i] == ' '))
 		i--;
-	if ((!ft_isalnum(cmd[i]) || i == -1) && ft_strchr(cmd, 47) == NULL)
+	if (isprintable(cmd) == 1)
 		return (3);
 	return (4);
 }
@@ -96,8 +102,8 @@ char	*autocomplete(char *cmd, t_termcaps *termcaps)
 	char	*tmp;
 	int		context;
 
-	word = ft_what_word(cmd, termcaps);
-	context = ft_context(cmd, termcaps);
+	ft_what_word(cmd, termcaps, &word);
+	context = ft_context(cmd);
 	tmp = autocomplete_main(word, context);
 	ft_strdel(&word);
 	cmd = ft_put_back_word(cmd, termcaps, &tmp);

@@ -354,6 +354,7 @@ void						exec_child_dless_token(int fd[2], char *value);
 */
 int							val_abs(int nbr);
 int							bigger(size_t a, size_t b);
+int							smaller(size_t a, size_t b);
 
 /*
 **builtin_hash

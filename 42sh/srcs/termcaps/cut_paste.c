@@ -33,7 +33,7 @@ void	cut(t_termcaps *termcaps, char **cmd)
 		if (termcaps->cc_start < termcaps->pos)
 			termcaps->pos -= ft_strlen(termcaps->copy);
 		termcaps->cmd_len -= ft_strlen(termcaps->tmp_select);
-		show_new(*cmd, termcaps, 1);
+		print_new(*cmd, termcaps, 1);
 	}
 }
 
@@ -49,11 +49,10 @@ void	paste(t_termcaps *termcaps, char **cmd)
 {
 	if (termcaps->copy[0])
 	{
-		dprintf(debug(), "cpy : |%s|\n", termcaps->copy);
 		add_char(cmd, termcaps->copy, termcaps);
 		termcaps->pos += ft_strlen(termcaps->copy);
 		termcaps->cmd_len += ft_strlen(termcaps->copy);
-		show_new(*cmd, termcaps, 1);
+		print_new(*cmd, termcaps, 1);
 		termcaps->edit_mode = FALSE;
 	}
 }

@@ -26,7 +26,7 @@ void	go_left(t_termcaps *termcaps, char **cmd)
 {
 	termcaps->pos--;
 	if (termcaps->edit_mode)
-		show_new(*cmd, termcaps, 1);
+		print_new(*cmd, termcaps, 1);
 	else
 		tputs(tgoto(termcaps->goleft, 0, 0), 1, (void *)ft_putchar);
 }
@@ -45,7 +45,7 @@ void	go_right(t_termcaps *termcaps, char **cmd)
 {
 	termcaps->pos++;
 	if (termcaps->edit_mode)
-		show_new(*cmd, termcaps, 1);
+		print_new(*cmd, termcaps, 1);
 	else
 		tputs(tgoto(termcaps->goright, 0, 0), 1, (void *)ft_putchar);
 }

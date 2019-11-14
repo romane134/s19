@@ -42,28 +42,25 @@ char	*result_reasearch(char *old_cmd, t_termcaps *t)
 	size_t	i[2];
 	int		fd;
 
-	i[0] = 0;
+	i[0] = -1;
 	i[1] = 0;
 	if ((fd = prepare_read_history_line_by_line()) == -1)
 		return (NULL);
 	line = NULL;
 	result = ft_strnew(0);
-	while (i[0] < t->r_hist)
+	while (++i[0] <= t->r_hist)
 	{
-		get_next_line(fd, &line, 0);
-		if (ft_strlen(old_cmd) != 0 && ft_strstr(line, old_cmd) != NULL)
-		{
-			ft_strdel(&result);
-			result = ft_strdup(line);
-			i[1] = i[0];
-		}
+		if (get_next_line(fd, &line, 0) != 0)
+			if (ft_strlen(old_cmd) != 0 && ft_strstr(line, old_cmd) != NULL)
+			{
+				ft_strdel(&result);
+				result = ft_strdup(line);
+				i[1] = i[0];
+			}
 		ft_strdel(&line);
-		i[0]++;
 	}
-	if (i[1] > 0)
-		t->r_hist = i[1] + 1;
+	t->r_hist = i[1] > 0 ? i[1] + 1 : t->r_hist;
 	close(fd);
-	//ft_strdel(&old_cmd); // TEST
 	return (result);
 }
 
@@ -91,4 +88,21 @@ char	*result_reasearch_without_termcaps(char *old_cmd)
 	}
 	close(fd);
 	return (result);
+}
+
+void	reasearch_key(char **cmd, t_termcaps *termcaps)
+{
+	char *tmp;
+
+	termcaps->research_mode = !termcaps->research_mode;
+	termcaps->display_option = 1;
+	termcaps->pos = 0;
+	tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
+	tputs(tgoto(termcaps->gostart, 0, 0), 1, (void *)ft_putchar);
+	termcaps->cmd_len = 0;
+	g_shell->i = 0;
+	tmp = (*cmd);
+	(*cmd) = result_reasearch(tmp, termcaps);
+	ft_strdel(&tmp);
+	print_new(*cmd, termcaps, 1);
 }

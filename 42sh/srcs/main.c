@@ -17,9 +17,7 @@ void		start_process(char *line)
 	t_token		*token_list;
 
 	token_list = NULL;
-	if (line == NULL)
-		return ;
-	if (is_only_space(line))
+	if (line == NULL || is_only_space(line))
 	{
 		ft_strdel(&line);
 		return ;
@@ -56,7 +54,6 @@ int			main(int argc, char **argv, char **env)
 	if (tcgetattr(0, &termcaps.term_restore) == -1)
 		exit(-1);
 	bootstrap(env);
-	//init_job();
 	term_init(&termcaps);
 	g_shell->termcaps = &termcaps;
 	line = NULL;
@@ -69,7 +66,7 @@ int			main(int argc, char **argv, char **env)
 		signal(SIGINT, sig);
 		signal(SIGTSTP, SIG_IGN);
 		line = termcaps_main(&termcaps, 1);
-		start_process(line);//Traitement de la commande une fois la touche enter appuyee
+		start_process(line);
 	}
 	return (argc && argv && env && 0);
 }

@@ -28,14 +28,13 @@ void	del_key(char **cmd, t_termcaps *termcaps)
 	if (termcaps->pos < termcaps->cmd_len)
 	{
 		*cmd = remove_next_char(*cmd, termcaps);
-		show_new(*cmd, termcaps, 1);
+		print_new(*cmd, termcaps, 1);
 		termcaps->cmd_len--;
 	}
 }
 
 /*
 ** au moment ou on appuie sur enter
-**
 */
 
 char	*entre_key(t_termcaps *t, char *cmd, char **buffer)
@@ -93,11 +92,10 @@ void	alt_maj(t_termcaps *termcaps, char **cmd, char *buffer)
 	if (buffer[0] == CTRL_MAJ_E_1 && buffer[1] == CTRL_MAJ_E_2)
 	{
 		ft_bzero(termcaps->tmp_select, NAME_MAX);
-		ft_bzero(termcaps->copy, NAME_MAX);
 		termcaps->cc_start = 0;
 		termcaps->cc_start = termcaps->pos;
 		termcaps->edit_mode = !termcaps->edit_mode;
-		show_new(*cmd, termcaps, 1);
+		print_new(*cmd, termcaps, 1);
 	}
 	else if (buffer[0] == CTRL_MAJ_C_1 && buffer[1] == CTRL_MAJ_C_2)
 	{
@@ -106,7 +104,7 @@ void	alt_maj(t_termcaps *termcaps, char **cmd, char *buffer)
 			ft_bzero(termcaps->copy, NAME_MAX);
 			ft_strcpy(termcaps->copy, termcaps->tmp_select);
 			termcaps->edit_mode = !termcaps->edit_mode;
-			show_new(*cmd, termcaps, 1);
+			print_new(*cmd, termcaps, 1);
 		}
 	}
 	else if (buffer[0] == CTRL_MAJ_X_1 && buffer[1] == CTRL_MAJ_X_2)

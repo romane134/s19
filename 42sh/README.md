@@ -1,11 +1,10 @@
 # 42sh
 
 # Members
-* Stanislas Mondesir | smondesir
+* Romane Lucas de Couville | rlucas-d
 * Boris Jovanovic | bjovanov
 * Cedric Bodenhorst | bcedric
 * Viktor Jovanovic | vjovanov
-* Sacha Stinglhamber | sstinglh
 
 # Getting started
 
@@ -76,7 +75,7 @@ allowed_token
 ```
 
 # Code rules
-  
+
   * Travailler a la norme constamment
     * Respecter le nombre de ligne de fonction
     * Respecter le nombre de caractere par ligne
@@ -84,7 +83,7 @@ allowed_token
     * Automatiquement liberer la memoire qui n'est plus utilise
   * Bien commenter son code
     * (utiliser des IDE pour generer des commentaires)
-    
+
 # Documentation
 
 Le [Google Doc](https://docs.google.com/spreadsheets/d/1VeSZZHzlY1hvRROrgqOc264Me7e8fUUSqnzcKAhDDDc/edit#gid=0)

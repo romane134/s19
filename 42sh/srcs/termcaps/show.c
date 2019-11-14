@@ -12,7 +12,7 @@
 
 #include "sh42.h"
 
-char	*get_dirpath(void)
+char		*get_dirpath(void)
 {
 	char *path;
 	char *dir;
@@ -31,96 +31,72 @@ char	*get_dirpath(void)
 	return (dir);
 }
 
-int		display_name(void)
+void		print_research_result(char *cmd, t_termcaps *termcaps)
 {
-	char	*dir;
-	int		len_dir;
+	int len_cmd;
 
-	if (!(dir = get_dirpath()))
-		exit_shell_code("malloc error", MALLOC_FAILURE);
-	len_dir = ft_strlen(dir);
-	ft_putstr("\033[93m");
-	ft_putstr(dir);
-	ft_putstr(" > ");
-	ft_putstr("\033[0m");
-	ft_strdel(&dir);
-	return (len_dir + 3);
+	if ((int)ft_strlen(cmd) > termcaps->size)
+	{
+		len_cmd = (int)ft_strlen(cmd);
+		while (len_cmd > termcaps->size)
+		{
+			tputs(tgoto(termcaps->godown, 0, 0), 1, (void *)ft_putchar);
+			tputs(termcaps->del_allline, 1, (void *)ft_putchar);
+			len_cmd -= termcaps->size;
+		}
+	}
+	ft_printf("%s\n", cmd);
 }
 
-int		display_name_len(void)
+void		print_research_mode(t_termcaps *termcaps, char **cmd, int *height)
 {
-	if (g_shell->pwd->pwd[ft_strlen(g_shell->pwd->pwd) - 1] == '/')
-		g_shell->pwd->pwd[ft_strlen(g_shell->pwd->pwd) - 1] = '\0';
-	return (ft_strlen(g_shell->pwd->pwd) + 3);
-}
-
-int		only_arrow(void)
-{
-	ft_putstr("\033[93m");
-	ft_putstr(" > ");
-	ft_putstr("\033[0m");
-	return (3);
-}
-
-int		ft_reasearch_prompt(void)
-{
-	ft_putstr("\033[93m");
-	ft_putstr("reasearch_MTF ");
-	ft_putstr("\033[0m");
-	return (14);
-}
-
-void	choose_display(t_termcaps *termcaps)
-{
-	if (termcaps->display_option == 1)
-		termcaps->path = display_name();
-	else if (termcaps->display_option == 2)
-		termcaps->path = only_arrow();
-	else
-		termcaps->path = ft_reasearch_prompt();
-}
-
-void	show_new(char *cmd, t_termcaps *termcaps, int opt_save)
-{
-	int		y;
-	int		height;
-	char	*cmd_look;
 	int		nbre_len1;
 	int		nbre_len2;
+	char	*cmd_look;
 
-	if (termcaps->research_mode)
+	nbre_len1 = ((termcaps->prev_cmd + display_name_len() - 1) /
+	(termcaps->size));
+	nbre_len2 = ((14 + termcaps->prev_pos) / termcaps->size);
+	*height = nbre_len1 + nbre_len2 + 1;
+	while ((*height) > 0)
 	{
-		nbre_len1 = ((termcaps->prev_cmd + display_name_len() - 1) /
-		(termcaps->size));
-		nbre_len2 = ((14 + termcaps->prev_pos) / termcaps->size);
-		height = nbre_len1 + nbre_len2 + 1;
-		while (height-- > 0)
-			tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
-		tputs(tgoto(termcaps->gostart, 0, 0), 1, (void *)ft_putchar);
-		tputs(termcaps->del_allline, 1, (void *)ft_putchar);
-		cmd_look = result_reasearch(ft_strdup(cmd), termcaps);
-		display_name();
-		if (cmd_look)
-			ft_printf("%s\n", cmd_look);
-		else
-			ft_putchar('\n');
-		ft_strdel(&cmd_look);
-		termcaps->prev_cmd = ft_strlen(cmd);
-		termcaps->display_option = 123;
+		tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
+		(*height)--;
 	}
+	tputs(tgoto(termcaps->gostart, 0, 0), 1, (void *)ft_putchar);
+	tputs(termcaps->del_allline, 1, (void *)ft_putchar);
+	cmd_look = result_reasearch(*cmd, termcaps);
+	display_name();
+	if (cmd_look)
+		print_research_result(cmd_look, termcaps);
 	else
-	{
-		y = ((termcaps->prev_pos + termcaps->path) / termcaps->size);
-		height = ((termcaps->cmd_len + termcaps->path) / termcaps->size);
-		while (y-- > 0)
-			tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
-		tputs(tgoto(termcaps->gostart, 0, 0), 1, (void *)ft_putchar);
-		tputs(termcaps->del_allline, 1, (void *)ft_putchar);
-	}
+		ft_putchar('\n');
+	ft_strdel(&cmd_look);
+	termcaps->prev_cmd = ft_strlen(*cmd);
+	termcaps->display_option = 123;
+}
+
+void		print_no_r(int *height, t_termcaps *termcaps)
+{
+	int		y;
+
+	y = ((termcaps->prev_pos + termcaps->path) / termcaps->size);
+	*height = ((termcaps->cmd_len + termcaps->path) / termcaps->size);
+	while (y-- > 0)
+		tputs(tgoto(termcaps->goup, 0, 0), 1, (void *)ft_putchar);
+	tputs(tgoto(termcaps->gostart, 0, 0), 1, (void *)ft_putchar);
+	tputs(termcaps->del_allline, 1, (void *)ft_putchar);
+}
+
+void		print_new(char *cmd, t_termcaps *termcaps, int opt_save)
+{
+	int		height;
+
+	termcaps->research_mode ? print_research_mode(termcaps, &cmd, &height)
+	: print_no_r(&height, termcaps);
 	choose_display(termcaps);
 	if (termcaps->edit_mode == 1)
-		print_highlight(termcaps, cmd)
-		;
+		print_highlight(termcaps, cmd);
 	else
 		ft_putstr(cmd);
 	termcaps->height = height;

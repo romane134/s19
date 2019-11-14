@@ -70,7 +70,7 @@ void	key_tab(char **cmd, t_termcaps *termcaps)
 	termcaps->cmd_len = ft_strlen(*cmd);
 	termcaps->pos += ft_strlen(*cmd) - old_cmd_len;
 	ft_strdel(&tmp);
-	show_new(*cmd, termcaps, 1);
+	print_new(*cmd, termcaps, 1);
 }
 
 void	backspace_key(char **cmd, t_termcaps *termcaps)
@@ -81,6 +81,6 @@ void	backspace_key(char **cmd, t_termcaps *termcaps)
 		*cmd = remove_previous_char(*cmd, termcaps);
 		termcaps->pos--;
 		termcaps->cmd_len--;
-		show_new(*cmd, termcaps, 2);
+		print_new(*cmd, termcaps, 2);
 	}
 }

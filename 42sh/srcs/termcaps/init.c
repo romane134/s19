@@ -12,6 +12,19 @@
 
 #include "sh42.h"
 
+void		win_change_handler(int sig)
+{
+	struct winsize *w;
+
+	if (sig != SIGWINCH)
+		return ;
+	if (!(w = malloc(sizeof(struct winsize *))))
+		return ;
+	ioctl(0, TIOCGWINSZ, w);
+	g_shell->termcaps->size = w->ws_col;
+	free(w);
+}
+
 /*
 ** Met le terminal en mode canonique
 ** 	les touches tapees ne s'inscriront plus dans le terminal
@@ -54,8 +67,9 @@ int			term_init(t_termcaps *termcaps)
 	return (0);
 }
 
-void		init_new_cmd(t_termcaps *termcaps, int opt_display)
+void		init_new_cmd(t_termcaps *termcaps, int opt_display, char **cmd)
 {
+	*cmd = ft_strnew(2);
 	termcaps->pos = 0;
 	termcaps->pos_line = 0;
 	termcaps->history_pos = 0;

@@ -27,3 +27,11 @@ int		bigger(size_t a, size_t b)
 	else
 		return (a);
 }
+
+int		smaller(size_t a, size_t b)
+{
+	if (a < b)
+		return (a);
+	else
+		return (b);
+}

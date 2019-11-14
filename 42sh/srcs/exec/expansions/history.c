@@ -62,7 +62,7 @@ int		get_history_len(void)
  // FINIR !!!!!!!
  int		numeric_histo_util(char **cmd, int i, int num, int history_len)
  {
- 	if ((*cmd + i)[0] == '-')
+ 	if ((*cmd + i)[0] == '-') // verifier que le carractere d'apres soit un didgit
  	{
  		dprintf(2, "\n -: event not found");
  		ft_strdel(cmd);

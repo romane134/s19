@@ -89,6 +89,9 @@ char				*ft_streplace_first(char *str, char *to_replace,
 char				**ft_strstrsplit(const char *haystack, const char *needle);
 int					ft_array_length(void **array1);
 int					ft_sqrt(int nb);
+int					ft_is_only_dot(char *name);
+int					isprintable(char *str);
+void				remove_backn(char **buffer);
 
 typedef struct		s_list
 {

@@ -141,22 +141,22 @@ void	termcaps_histo(t_termcaps *termcaps, char **cmd, int i)
 		termcaps->history_pos++;
 		ft_strdel(cmd);
 		*cmd = read_last_line(termcaps->history_len - termcaps->history_pos);
-		show_new(*cmd, termcaps, 0);
+		print_new(*cmd, termcaps, 0);
 	}
 	else if (termcaps->history_pos > 1 && i == 66)
 	{
 		termcaps->history_pos--;
 		ft_strdel(cmd);
 		*cmd = read_last_line(termcaps->history_len - termcaps->history_pos);
-		show_new(*cmd, termcaps, 0);
+		print_new(*cmd, termcaps, 0);
 	}
 	else if (termcaps->history_pos == 1 && i == 66)
 	{
 		termcaps->history_pos--;
 		ft_strdel(cmd);
 		*cmd = ft_strdup("");
-		show_new(*cmd, termcaps, 0);
+		print_new(*cmd, termcaps, 0);
 	}
-	termcaps->cmd_len = ft_strlen(*cmd);
-	termcaps->pos = ft_strlen(*cmd);
+	termcaps->cmd_len = (*cmd == NULL ? 0 : ft_strlen(*cmd));
+	termcaps->pos = (*cmd == NULL ? 0 : ft_strlen(*cmd));
 }

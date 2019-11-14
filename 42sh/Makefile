@@ -42,7 +42,8 @@ TERMCAPS_DIR = termcaps
 TERMCAPS_FILES = termcaps_main.c autocompletion.c history.c highlight.c init.c\
 					keys.c cut_paste.c edit_line.c move.c autocomplete_file.c\
 					autocomplete_fonction.c key2.c key3.c show.c recherche.c\
-					autocomplete_command.c autocomplete_var.c
+					autocomplete_command.c autocomplete_var.c control_c.c \
+					display.c
 
 HASH_TABLE_DIR = hash_table
 HASH_TABLE_FILE = add_hash.c del_hash.c find_hash.c hash_fonction.c
@@ -70,7 +71,7 @@ SRC_FILES += $(addprefix $(BUILTIN_DIR)/, $(BUILTIN_FILES))
 SRC  = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ  = $(addprefix $(OBJ_DIR)/, $(subst .c,.o, $(SRC_FILES)))
 
-CC = gcc #-fsanitize=address
+CC = gcc -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
 
 LIB = -L libft/ -lft

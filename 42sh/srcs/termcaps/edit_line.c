@@ -23,7 +23,7 @@
 ** On free la commande de base et retourne la nouvelle
 */
 
-char	*remove_previous_char(char *str, t_termcaps *termcaps)
+char		*remove_previous_char(char *str, t_termcaps *termcaps)
 {
 	char	*new;
 	char	*tmp;
@@ -56,7 +56,7 @@ char	*remove_previous_char(char *str, t_termcaps *termcaps)
 ** On free la commande de base et retourne la nouvelle
 */
 
-char	*remove_next_char(char *str, t_termcaps *termcaps)
+char		*remove_next_char(char *str, t_termcaps *termcaps)
 {
 	char	*new;
 	char	*tmp;
@@ -107,31 +107,17 @@ void		add_char(char **str, char *buff, t_termcaps *termcaps)
 	}
 	while (buff[++j])
 		temp[i++] = buff[j];
-	new = ft_strjoin(temp, *str);
+	if (!(new = ft_strjoin(temp, *str)))
+		exit_shell_code("malloc error", MALLOC_FAILURE);
 	ft_strdel(&temp);
 	ft_strdel(&tmp2);
 	*str = ft_strdup(new);
 	ft_strdel(&new);
 }
 
-void	del_line(t_termcaps *termcaps)
+void		del_line(t_termcaps *termcaps)
 {
 	tputs(termcaps->curs_save, 1, (void *)ft_putchar);
 	tputs(tgoto(termcaps->gostart, 0, 0), 1, (void *)ft_putchar);
 	tputs(termcaps->del_line, 1, (void *)ft_putchar);
-}
-
-/*
-** commande qui verifie que chaque caractere du buffer est imprimable
-*/
-
-int		isprintable(char *str)
-{
-	int i;
-
-	i = -1;
-	while (str[++i])
-		if (!ft_isprint(str[i]))
-			return (0);
-	return (1);
 }

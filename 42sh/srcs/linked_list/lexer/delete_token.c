@@ -31,7 +31,8 @@ void			delete_token(t_token **tokens, t_token **begin)
 			next->prev = prev;
 	}
 	ft_strdel(&(tmp->value));
-	free(tmp);
+	if (tmp)
+		free(tmp);
 }
 
 void			delete_token_list(t_token **tokens)
